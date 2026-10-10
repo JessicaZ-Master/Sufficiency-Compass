@@ -8,10 +8,10 @@ Those functions are executed by a separate private decision engine.
 
 ## Configuration
 
-After the private engine has been deployed, edit `config.js`:
+The validation frontend is connected to the private decision engine via `config.js`:
 
 ```js
-window.SUFFICIENCY_COMPASS_API = "https://YOUR-ENGINE-URL";
+window.SUFFICIENCY_COMPASS_API = "https://sufficiency-compass-engine.onrender.com";
 ```
 
 ## Research status
