@@ -1,1 +1,1 @@
-window.SUFFICIENCY_COMPASS_API = "https://REPLACE-WITH-ENGINE-URL";
+window.SUFFICIENCY_COMPASS_API = "https://sufficiency-compass-engine.onrender.com";
