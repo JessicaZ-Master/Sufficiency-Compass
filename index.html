@@ -1,0 +1,557 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="robots" content="noindex,nofollow"/>
+<title>Sufficiency Compass</title>
+<style>
+:root{
+  --petrol:#0F766E;
+  --petrol-dark:#115E59;
+  --petrol-soft:#E6F4F2;
+  --ink:#1F2937;
+  --muted:#667085;
+  --line:#D8E1E5;
+  --paper:#FFFFFF;
+  --bg:#F5F8F8;
+  --soft:#F8FAFA;
+  --warn:#8A5A00;
+  --warn-bg:#FFF7E6;
+  --danger:#8B3434;
+  --danger-bg:#FDF0F0;
+  --o1:#4F6D7A;
+  --o2:#4F7D78;
+  --o3:#A06A2C;
+  --o4:#6B67A8;
+  --o5:#28715B;
+  --o6:#7B667C;
+  --shadow:0 8px 30px rgba(31,41,55,.06);
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink)}
+button,input{font:inherit}
+.app-shell{min-height:100vh}
+.topbar{height:68px;background:rgba(255,255,255,.96);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 28px;position:sticky;top:0;z-index:20}
+.brand{font-weight:750;letter-spacing:-.02em;font-size:20px}
+.lang{display:flex;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+.lang button{border:0;background:white;padding:7px 10px;color:var(--muted);cursor:pointer}
+.lang button.active{background:var(--petrol);color:white}
+main{max-width:980px;margin:0 auto;padding:48px 24px 72px}
+.hero{padding:70px 0 40px}
+.eyebrow{font-size:13px;font-weight:700;color:var(--petrol);text-transform:uppercase;letter-spacing:.08em}
+h1{font-size:48px;line-height:1.07;margin:12px 0 18px;letter-spacing:-.04em}
+.hero p{font-size:19px;line-height:1.65;color:var(--muted);max-width:760px}
+.value-box{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:32px 0}
+.mini-card{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+.mini-card strong{display:block;margin-bottom:6px}
+.mini-card span{color:var(--muted);line-height:1.5;font-size:14px}
+.primary{border:0;background:var(--petrol);color:white;padding:13px 20px;border-radius:10px;font-weight:700;cursor:pointer}
+.primary:hover{background:var(--petrol-dark)}
+.secondary{border:1px solid var(--line);background:white;color:var(--ink);padding:12px 18px;border-radius:10px;font-weight:650;cursor:pointer}
+.secondary:hover{border-color:#A9BEC2}
+.secondary:disabled,.primary:disabled{opacity:.45;cursor:not-allowed}
+.hidden{display:none!important}
+.module-header{margin-bottom:22px}
+.module-meta{display:flex;justify-content:space-between;align-items:flex-end;gap:16px}
+.module-meta small{color:var(--muted)}
+.module-title{font-size:29px;margin:4px 0 6px;letter-spacing:-.025em}
+.module-purpose{color:var(--muted);font-size:16px}
+.progress{height:7px;background:#DDE8E7;border-radius:99px;overflow:hidden;margin:20px 0 30px}
+.progress > div{height:100%;background:var(--petrol);transition:width .2s ease}
+.stage-label{font-weight:750;color:var(--petrol);font-size:13px;text-transform:uppercase;letter-spacing:.07em;margin:28px 0 12px}
+.q-card{background:var(--paper);border:1px solid var(--line);border-radius:15px;padding:22px;margin:14px 0;box-shadow:0 2px 10px rgba(31,41,55,.025)}
+.q-head{display:flex;gap:9px;align-items:flex-start}
+.q-id{font-size:12px;color:var(--muted);font-weight:750;min-width:38px;padding-top:3px}
+.q-text{font-size:17px;line-height:1.5;font-weight:650;flex:1}
+.help{position:relative;flex:0 0 auto}
+.help-btn{width:25px;height:25px;border-radius:50%;border:1px solid #B8C7CB;background:white;color:var(--petrol);font-weight:800;cursor:pointer;line-height:22px}
+.tooltip{display:none;position:absolute;right:0;top:32px;width:min(440px,75vw);background:#163B3A;color:white;border-radius:10px;padding:13px 15px;font-size:13px;line-height:1.5;font-weight:400;z-index:8;box-shadow:var(--shadow)}
+.help:hover .tooltip,.help.open .tooltip{display:block}
+.options{display:grid;gap:8px;margin-top:18px}
+.option{display:flex;align-items:flex-start;gap:10px;padding:11px 13px;border:1px solid var(--line);border-radius:10px;cursor:pointer;background:#fff}
+.option:hover{border-color:#98B6B3;background:#FBFEFD}
+.option.selected{border-color:var(--petrol);background:var(--petrol-soft)}
+.option input{margin-top:3px;accent-color:var(--petrol)}
+.examples-toggle{border:0;background:transparent;color:var(--petrol);font-size:13px;font-weight:700;padding:10px 0 0;cursor:pointer}
+.examples{margin-top:9px;padding:12px 14px;background:var(--soft);border-radius:9px;color:var(--muted);font-size:13px;line-height:1.55}
+.api-error{background:#FDECEC;border:1px solid #E9B9B9;color:#7A2929;padding:13px 15px;border-radius:10px;margin:0 0 18px;line-height:1.5;font-size:13px}
+.notice{margin-top:14px;padding:12px 14px;border-radius:10px;background:var(--warn-bg);color:#704A08;font-size:13px;line-height:1.5}
+.nav{display:flex;justify-content:space-between;gap:12px;margin-top:28px;padding-top:20px;border-top:1px solid var(--line)}
+.stepper{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.step-pill{font-size:12px;border:1px solid var(--line);border-radius:99px;padding:6px 10px;color:var(--muted);background:white}
+.step-pill.active{background:var(--petrol-soft);color:var(--petrol-dark);border-color:#9FC7C3;font-weight:750}
+.step-pill.done{color:var(--ink);border-color:#BBC9CC}
+.result-card{background:white;border:1px solid var(--line);border-radius:18px;padding:28px;box-shadow:var(--shadow);border-top:6px solid var(--outcome)}
+.result-kicker{font-size:13px;text-transform:uppercase;letter-spacing:.08em;font-weight:800;color:var(--muted)}
+.result-title{font-size:34px;letter-spacing:-.03em;margin:8px 0 10px}
+.result-desc{font-size:17px;line-height:1.6;color:var(--muted)}
+.result-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:18px;margin-top:22px}
+.result-section{background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:18px}
+.result-section h3{margin:0 0 10px;font-size:16px}
+.result-section ul{margin:0;padding-left:19px;color:var(--muted);line-height:1.7}
+.action-list{display:grid;gap:12px}
+.action-card{background:white;border:1px solid var(--line);border-left:4px solid var(--outcome);border-radius:11px;padding:15px 16px}
+.action-card-title{font-size:14px;font-weight:780;margin-bottom:5px;color:var(--ink)}
+.action-card-text{font-size:13.5px;line-height:1.55;color:var(--muted)}
+.action-card-meta{display:inline-block;margin-top:8px;font-size:11px;font-weight:750;letter-spacing:.03em;text-transform:uppercase;color:var(--petrol-dark);background:var(--petrol-soft);border-radius:5px;padding:4px 7px}
+.result-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.privacy{margin-top:26px;color:var(--muted);font-size:12px}
+@media(max-width:720px){
+  .topbar{padding:0 16px}
+  main{padding:28px 16px 54px}
+  .hero{padding:42px 0 20px}
+  h1{font-size:38px}
+  .value-box,.result-grid{grid-template-columns:1fr}
+  .module-meta{display:block}
+  .q-card{padding:18px}
+  .result-title{font-size:28px}
+}
+@media print{
+  .topbar,.result-actions,.privacy{display:none!important}
+  body{background:#fff}
+  main{max-width:none;padding:0}
+  #resultScreen{display:block!important}
+  .result-card{box-shadow:none;border:1px solid #bbb}
+}
+</style>
+</head>
+<body>
+<div class="app-shell">
+  <header class="topbar">
+    <div class="brand">Sufficiency Compass</div>
+    <div class="lang"><button id="langEN" class="active">EN</button><button id="langDE">DE</button></div>
+  </header>
+  <main>
+    <section id="startScreen">
+      <div class="hero">
+        <div class="eyebrow" data-i18n="eyebrow"></div>
+        <h1>Sufficiency Compass</h1>
+        <p data-i18n="tagline"></p>
+        <p data-i18n="intro"></p>
+        <div class="value-box">
+          <div class="mini-card"><strong data-i18n="whatGetTitle"></strong><span data-i18n="whatGetText"></span></div>
+          <div class="mini-card"><strong data-i18n="howWorksTitle"></strong><span data-i18n="howWorksText"></span></div>
+        </div>
+        <button class="primary" id="startBtn" data-i18n="start"></button>
+        <div class="privacy" data-i18n="privacy"></div>
+      </div>
+    </section>
+
+    <section id="assessmentScreen" class="hidden"><div id="apiErrorAssessment" class="api-error hidden"></div>
+      <div class="stepper" id="stepper"></div>
+      <div class="module-header">
+        <div class="module-meta">
+          <div>
+            <small id="moduleCount"></small>
+            <h2 class="module-title" id="moduleTitle"></h2>
+            <div class="module-purpose" id="modulePurpose"></div>
+          </div>
+        </div>
+        <div class="progress"><div id="progressFill"></div></div>
+      </div>
+      <div id="questions"></div>
+      <div class="nav">
+        <button class="secondary" id="backBtn" data-i18n="back"></button>
+        <button class="primary" id="continueBtn" data-i18n="continue"></button>
+      </div>
+    </section>
+
+    <section id="resultScreen" class="hidden"><div id="apiErrorResult" class="api-error hidden"></div>
+      <div class="result-card" id="resultCard">
+        <div class="result-kicker" data-i18n="yourRecommendation"></div>
+        <h2 class="result-title" id="resultTitle"></h2>
+        <div class="result-desc" id="resultDesc"></div>
+        <div class="result-grid">
+          <div class="result-section">
+            <h3 data-i18n="why"></h3>
+            <ul id="whyList"></ul>
+          </div>
+          <div class="result-section">
+            <h3 data-i18n="next"></h3>
+            <div id="nextText" style="color:var(--muted);line-height:1.6"></div>
+          </div>
+        </div>
+        <div class="result-section" style="margin-top:18px">
+          <h3 data-i18n="attention"></h3>
+          <div class="action-list" id="actionList"></div>
+        </div>
+        <div class="result-actions">
+          <button class="primary" id="pdfBtn" data-i18n="savePdf"></button>
+          <button class="secondary" id="editBtn" data-i18n="edit"></button>
+          <button class="secondary" id="restartBtn" data-i18n="restart"></button>
+        </div>
+      </div>
+      <div class="privacy" data-i18n="resultNote"></div>
+    </section>
+  </main>
+</div>
+
+<script src="config.js"></script>
+<script>
+const T={
+en:{
+eyebrow:"Decision toolkit for AI-supported financial planning",
+tagline:"Find the appropriate level of AI and complexity for your financial-planning use case.",
+intro:"Assess whether further technological advancement is justified, which prerequisites must be addressed first, and where a decision-oriented pilot is needed to generate evidence.",
+whatGetTitle:"What you will get",whatGetText:"A context-specific management recommendation and a concise explanation of the factors driving it.",
+howWorksTitle:"How it works",howWorksText:"Six modules, progressive disclosure and no aggregate score. You only see questions relevant to your decision path.",
+start:"Start assessment",privacy:"No login required. The prototype processes responses only in your browser and does not send them anywhere.",
+back:"Back",continue:"Continue",moduleOf:"Module {n} of 6",examples:"Examples / guidance",hideExamples:"Hide guidance",
+cannotTitle:"Further clarification may be required",cannotText:"This condition cannot currently be assessed reliably. Obtain the indicated input before closing the decision. 'Cannot assess' is not treated as a negative score.",
+yourRecommendation:"Your recommendation",why:"Why this recommendation?",next:"What to do next",attention:"What needs attention before the next step?",savePdf:"Save result as PDF",edit:"Review answers",restart:"Start new assessment",
+resultNote:"The recommendation is generated from the frozen Toolkit V1 decision logic. Outcomes are non-hierarchical and do not represent maturity levels.",
+noIssues:"No unresolved prerequisite or clarification area identified."
+},
+de:{
+eyebrow:"Entscheidungstool für KI-gestützte Finanzplanung",
+tagline:"Finden Sie das passende Maß an KI und Komplexität für Ihren Financial-Planning-Anwendungsfall.",
+intro:"Prüfen Sie, ob eine weitere technologische Weiterentwicklung gerechtfertigt ist, welche Voraussetzungen zuerst geschaffen werden müssen und wann ein entscheidungsorientierter Pilot zusätzliche Evidenz liefern sollte.",
+whatGetTitle:"Ihr Ergebnis",whatGetText:"Eine kontextspezifische Management-Empfehlung mit einer verständlichen Begründung der entscheidungsrelevanten Faktoren.",
+howWorksTitle:"So funktioniert es",howWorksText:"Sechs Module, Progressive Disclosure und kein Gesamtscore. Sie sehen nur Fragen, die für Ihren Entscheidungspfad relevant sind.",
+start:"Assessment starten",privacy:"Keine Anmeldung erforderlich. Der Prototyp verarbeitet Antworten ausschließlich in Ihrem Browser und übermittelt sie nicht.",
+back:"Zurück",continue:"Weiter",moduleOf:"Modul {n} von 6",examples:"Beispiele / Hinweise",hideExamples:"Hinweise ausblenden",
+cannotTitle:"Weitere Klärung kann erforderlich sein",cannotText:"Diese Bedingung kann derzeit nicht verlässlich beurteilt werden. Holen Sie die angegebene Information ein, bevor Sie die Entscheidung abschließen. „Kann ich nicht beurteilen“ wird nicht als negativer Score gewertet.",
+yourRecommendation:"Ihre Empfehlung",why:"Warum diese Empfehlung?",next:"Was ist als Nächstes zu tun?",attention:"Was ist vor dem nächsten Schritt konkret zu tun?",savePdf:"Ergebnis als PDF speichern",edit:"Antworten prüfen",restart:"Neues Assessment starten",
+resultNote:"Die Empfehlung wird aus der Entscheidungslogik des eingefrorenen Toolkit V1 erzeugt. Die Outcomes sind nicht hierarchisch und stellen keine Reifegrade dar.",
+noIssues:"Keine offenen Voraussetzungen oder Klärungspunkte identifiziert."
+}}
+const modules=[
+{id:1,title:{en:"Business Need & Minimum Requirements",de:"Business Need & Mindestanforderungen"},purpose:{en:"Define the use case and acceptance conditions.",de:"Anwendungsfall und Akzeptanzbedingungen definieren."}},
+{id:2,title:{en:"Current Solution & Baseline Assessment",de:"Aktuelle Lösung & Baseline"},purpose:{en:"Establish the reference and lower-complexity alternatives.",de:"Referenz und mögliche weniger komplexe Verbesserungswege bestimmen."}},
+{id:3,title:{en:"Incremental Value of Advancement",de:"Inkrementeller Nutzen der Weiterentwicklung"},purpose:{en:"Assess additional business value and apply the advancement gate.",de:"Zusätzlichen Business Value bewerten und das Advancement Gate prüfen."}},
+{id:4,title:{en:"Additional Resource & Capability Requirements",de:"Zusätzliche Ressourcen- & Fähigkeitsanforderungen"},purpose:{en:"Define the advancement scenario, requirements and commitments.",de:"Weiterentwicklungsszenario, Anforderungen und Bindungen definieren."}},
+{id:5,title:{en:"Organizational Readiness & Feasibility",de:"Organisatorische Readiness & Machbarkeit"},purpose:{en:"Assess organizational readiness and prerequisites.",de:"Organisatorische Voraussetzungen und Readiness beurteilen."}},
+{id:6,title:{en:"Socio-Technical Feasibility & Use Validation",de:"Sozio-technische Machbarkeit & Nutzungsvalidierung"},purpose:{en:"Assess pre-use conditions and actual-use evidence.",de:"Bedingungen vor der Nutzung und Evidenz aus Pilot bzw. realer Nutzung beurteilen."}}
+]
+const q=(id,module,stage,en,de,opts,helpEn,helpDe,examplesEn=[],examplesDe=[],show=()=>true,multi=false)=>({id,module,stage,en,de,opts,helpEn,helpDe,examplesEn,examplesDe,show,multi})
+const O={
+yn:[["yes","Yes","Ja"],["no","No","Nein"],["cannot","Cannot assess","Kann ich nicht beurteilen"]],
+}
+const questions=[
+q("M1.1",1,"", "Is the business use case clearly defined, including the decision or process to be supported, its scope, and the intended business objective?",
+"Ist der Business-Anwendungsfall klar definiert – einschließlich der zu unterstützenden Entscheidung bzw. des Prozesses, des Umfangs und des angestrebten Business-Ziels?",O.yn,
+"Use one clearly delimited planning or decision use case. The intended business objective should state the effect the solution is expected to support, not a technical feature.",
+"Verwenden Sie einen klar abgegrenzten Planungs- oder Entscheidungsanwendungsfall. Das Business-Ziel sollte den angestrebten Effekt beschreiben, nicht ein technisches Merkmal.",
+["Decision / process","Scope","Intended business effect"],["Entscheidung / Prozess","Umfang","Angestrebter Business-Effekt"]),
+q("M1.2",1,"", "Are the minimum requirements for an acceptable solution clearly defined and assessable?",
+"Sind die Mindestanforderungen an eine akzeptable Lösung klar definiert und überprüfbar?",O.yn,
+"Minimum requirements are non-negotiable acceptance conditions for this use case. They may be quantitative or qualitative, but the organization must be able to determine whether they are met.",
+"Mindestanforderungen sind nicht verhandelbare Akzeptanzbedingungen für diesen Anwendungsfall. Sie können quantitativ oder qualitativ sein, müssen aber überprüfbar sein.",
+["Decision relevance","Output quality / reliability","Timeliness","Usability","Process integration","Other use-case-specific acceptance conditions"],
+["Entscheidungsrelevanz","Outputqualität / Zuverlässigkeit","Rechtzeitigkeit","Nutzbarkeit","Prozessintegration","Weitere anwendungsfallspezifische Akzeptanzbedingungen"],()=>true),
+
+q("M2.1",2,"","Is there a current solution, process, or reference approach that covers the full use case?",
+"Gibt es eine aktuelle Lösung, einen Prozess oder einen Referenzansatz, der den vollständigen Anwendungsfall abdeckt?",O.yn,
+"The reference may be manual, judgement-based, spreadsheet-based, statistical, software-supported, or AI-supported. It must cover the same use-case scope.",
+"Die Referenz kann manuell, urteilsbasiert, tabellenbasiert, statistisch, software- oder KI-gestützt sein. Sie muss denselben Anwendungsumfang abdecken.",
+["Manual / judgement-based process","Spreadsheet","Statistical model","Software solution","Analytical / AI-supported approach"],
+["Manueller / urteilsbasierter Prozess","Spreadsheet","Statistisches Modell","Softwarelösung","Analytischer / KI-gestützter Ansatz"],()=>true),
+q("M2.2",2,"","How does the current solution perform against the minimum requirements and its recurring resource burden?",
+"Wie schneidet die aktuelle Lösung im Hinblick auf die Mindestanforderungen und ihre wiederkehrende Ressourcenbelastung ab?",
+[["meets_no_burden","Meets all minimum requirements; no decision-relevant recurring burden","Erfüllt alle Mindestanforderungen; keine entscheidungsrelevante wiederkehrende Belastung"],
+["meets_burden","Meets all minimum requirements; decision-relevant recurring burden exists","Erfüllt alle Mindestanforderungen; entscheidungsrelevante wiederkehrende Belastung besteht"],
+["not_meet","Does not meet all minimum requirements","Erfüllt nicht alle Mindestanforderungen"],
+["cannot","Cannot assess","Kann ich nicht beurteilen"]],
+"Treat a recurring burden as decision-relevant only when it affects the decision whether to retain, improve, or replace the current solution.",
+"Eine wiederkehrende Belastung ist nur dann entscheidungsrelevant, wenn sie die Entscheidung beeinflusst, die aktuelle Lösung beizubehalten, zu verbessern oder zu ersetzen.",
+["Requirement fulfilment","Manual workload","Cycle time","Recurring operating cost","Coordination effort","Recurring external support"],
+["Erfüllung der Anforderungen","Manueller Aufwand","Durchlaufzeit","Wiederkehrende Betriebskosten","Koordinationsaufwand","Wiederkehrende externe Unterstützung"],()=>true),
+q("M2.3",2,"","Does the current process rely on business-relevant human judgement or contextual knowledge that is not represented in the available data or system?",
+"Ist der aktuelle Prozess auf geschäftsrelevantes menschliches Urteil oder Kontextwissen angewiesen, das in den verfügbaren Daten bzw. Systemen nicht abgebildet ist?",O.yn,
+"Business-relevant human contribution can include contextual information or judgement that a future solution must deliberately retain, integrate, or replace.",
+"Geschäftsrelevante menschliche Beiträge können Kontextwissen oder Urteile umfassen, die eine künftige Lösung bewusst erhalten, integrieren oder ersetzen muss.",
+["Customer / market knowledge","Planned events","Exception handling","Management judgement","Plausibility checks"],
+["Kunden- / Marktwissen","Geplante Ereignisse","Ausnahmebehandlung","Managementurteil","Plausibilitätsprüfungen"],()=>true),
+q("M2.4",2,"","To what extent can the identified gaps or burdens be feasibly addressed without changing the core solution architecture or sourcing model?",
+"In welchem Umfang lassen sich die identifizierten Lücken oder Belastungen beheben, ohne die Kernarchitektur der Lösung oder das Sourcing-Modell zu verändern?",
+[["fully","Fully","Vollständig"],["partly","Partly","Teilweise"],["not_at_all","Not at all","Gar nicht"],["cannot","Cannot assess","Kann ich nicht beurteilen"]],
+"A lower-complexity path keeps the current core solution architecture and sourcing model unchanged. If the change creates a materially different requirement profile, treat it as an advancement scenario later.",
+"Ein weniger komplexer Verbesserungsweg lässt die Kernarchitektur und das Sourcing-Modell unverändert. Führt die Änderung zu einem wesentlich anderen Anforderungsprofil, ist sie später als Advancement-Szenario zu behandeln.",
+["Process improvement","Better data preparation","Targeted configuration","Selective automation","Other improvement within current architecture / sourcing model"],
+["Prozessverbesserung","Bessere Datenaufbereitung","Gezielte Konfiguration","Selektive Automatisierung","Weitere Verbesserung innerhalb der aktuellen Architektur / des Sourcing-Modells"],
+()=>true),
+
+q("M3.1",3,"","Which additional business-value dimensions are expected from the advancement scenario compared with the relevant reference?",
+"Welche zusätzlichen Business-Value-Dimensionen werden vom Weiterentwicklungsszenario gegenüber der relevanten Referenz erwartet?",
+[["decision","Decision quality / relevance","Entscheidungsqualität / -relevanz"],["quality","Forecast / output quality","Forecast- / Outputqualität"],["speed","Processing / decision speed","Verarbeitungs- / Entscheidungsgeschwindigkeit"],["workload","Manual workload","Manueller Aufwand"],["timeliness","Frequency / timeliness","Frequenz / Rechtzeitigkeit"],["granularity","Granularity","Granularität"],["reliability","Consistency / reliability","Konsistenz / Zuverlässigkeit"],["scalability","Scalability","Skalierbarkeit"],["transparency","Transparency / traceability","Transparenz / Nachvollziehbarkeit"],["risk","Risk reduction","Risikoreduktion"],["cost","Avoided cost / opportunity loss","Vermiedene Kosten / Opportunitätsverluste"],["other","Other / not represented","Sonstiges / nicht abgebildet"],["no_value","No additional value","Kein zusätzlicher Nutzen"],["cannot","Cannot assess","Kann ich nicht beurteilen"]],
+"Use the relevant reference from Module 2. Select a dimension only where the expected improvement has a decision-relevant business consequence.",
+"Verwenden Sie die relevante Referenz aus Modul 2. Wählen Sie eine Dimension nur dann aus, wenn die erwartete Verbesserung eine entscheidungsrelevante geschäftliche Wirkung hat.",
+[],[],()=>true,true),
+q("M3.2",3,"","What is the strongest evidence basis currently available for the expected additional business value?",
+"Welche stärkste Evidenzbasis liegt derzeit für den erwarteten zusätzlichen Business Value vor?",
+[["observed","Observed use-case evidence","Beobachtete Evidenz aus dem Anwendungsfall"],["supporting","Supporting evidence or testable assumption","Unterstützende Evidenz oder testbare Annahme"],["none","No evidence or testable assumption","Keine Evidenz oder testbare Annahme"],["cannot","Cannot assess","Kann ich nicht beurteilen"]],
+"A testable assumption is sufficient to continue to a later evidence-generation step, but an untestable value claim is not.",
+"Eine testbare Annahme reicht aus, um zu einem späteren Evidenzschritt weiterzugehen; eine nicht testbare Nutzenbehauptung reicht nicht aus.",
+[],[],()=>true),
+q("M3.3",3,"","Considering the expected additional value, rough additional effort or cost, and known additional burdens, is further assessment of the advancement scenario justified?",
+"Ist eine weitere Prüfung des Weiterentwicklungsszenarios unter Berücksichtigung des erwarteten Zusatznutzens, des groben Zusatzaufwands bzw. der Kosten und bekannter zusätzlicher Belastungen gerechtfertigt?",O.yn,
+"This is the early advancement gate. Use a rough-order view of cost/effort and known value-eroding burdens; detailed commitments are assessed in Module 4.",
+"Dies ist das frühe Advancement Gate. Verwenden Sie eine grobe Einschätzung von Kosten/Aufwand und bekannten nutzenmindernden Belastungen; detaillierte Bindungen werden in Modul 4 geprüft.",
+["Rough economic plausibility","Interpretation / validation burden","Transparency loss","Coordination / maintenance / user effort"],
+["Grobe wirtschaftliche Plausibilität","Interpretations- / Validierungsaufwand","Verlust an Transparenz","Koordinations- / Wartungs- / Nutzeraufwand"],
+()=>true),
+
+q("M4.0",4,"","Which primary implementation route best describes the next-step solution to be assessed?",
+"Welcher primäre Umsetzungsweg beschreibt die als nächsten Schritt zu prüfende Lösung am besten?",
+[["existing","Activate or extend existing licensed / internal platform","Bestehende lizenzierte / interne Plattform aktivieren oder erweitern"],["standard","External standard solution","Externe Standardlösung"],["custom","Configured / customized external solution","Konfigurierte / angepasste externe Lösung"],["inhouse","In-house development","Eigenentwicklung"],["hybrid","Hybrid approach","Hybrider Ansatz"],["unknown","Not yet identified","Noch nicht identifiziert"]],
+"Open-source components, APIs, and cloud/provider choices are characteristics of the selected route rather than separate route categories.",
+"Open-Source-Komponenten, APIs sowie Cloud-/Provider-Entscheidungen sind Merkmale des gewählten Umsetzungswegs und keine eigenen Kategorien.",
+[],[],()=>true),
+q("M4.1",4,"","What is the current evidence status of the selected advancement scenario against the minimum requirements defined in Module 1?",
+"Wie ist der aktuelle Evidenzstatus des gewählten Weiterentwicklungsszenarios im Hinblick auf die in Modul 1 definierten Mindestanforderungen?",
+[["met","All minimum requirements met based on available evidence","Alle Mindestanforderungen sind auf Basis verfügbarer Evidenz erfüllt"],["expected","Expected to meet all minimum requirements; at least one requires pilot / use evidence","Voraussichtlich werden alle Mindestanforderungen erfüllt; mindestens eine erfordert Pilot- / Nutzungsevidenz"],["not_met","At least one minimum requirement is not met","Mindestens eine Mindestanforderung wird nicht erfüllt"],["cannot","Cannot assess","Kann ich nicht beurteilen"]],
+"Apply the same minimum requirements defined in Module 1 to the selected advancement scenario. Additional value cannot compensate for a failed mandatory requirement.",
+"Wenden Sie dieselben in Modul 1 definierten Mindestanforderungen auf das ausgewählte Szenario an. Zusätzlicher Nutzen kann das Verfehlen einer verpflichtenden Mindestanforderung nicht kompensieren.",
+[],[],()=>true),
+q("M4.2",4,"","Which additional requirement or dependency areas does the selected scenario create compared with the relevant reference?",
+"Welche zusätzlichen Anforderungs- oder Abhängigkeitsbereiche erzeugt das ausgewählte Szenario gegenüber der relevanten Referenz?",
+[["data","Data","Daten"],["technical","Technical / integration","Technik / Integration"],["capabilities","Capabilities","Fähigkeiten"],["responsibilities","Retained internal responsibilities","Intern verbleibende Verantwortlichkeiten"],["external","External provision / dependence","Externe Bereitstellung / Abhängigkeit"],["none","None","Keine"],["cannot","Cannot assess","Kann ich nicht beurteilen"]],
+"Select only additional areas created by the advancement scenario relative to the relevant reference.",
+"Wählen Sie nur zusätzliche Bereiche aus, die durch das Weiterentwicklungsszenario gegenüber der relevanten Referenz entstehen.",
+[],[],()=>true,true),
+q("M4.3",4,"","Which additional implementation, operating, financial, or internal-capacity commitments does the selected scenario create?",
+"Welche zusätzlichen Implementierungs-, Betriebs-, Finanz- oder internen Kapazitätsbindungen erzeugt das ausgewählte Szenario?",
+[["impl","One-time implementation activities","Einmalige Implementierungsaktivitäten"],["lifecycle","Recurring operating / lifecycle activities","Wiederkehrende Betriebs- / Lifecycle-Aktivitäten"],["external_one","One-time external expenditure","Einmalige externe Ausgaben"],["internal_one","One-time internal transition capacity","Einmalige interne Übergangskapazität"],["external_rec","Recurring fixed external expenditure","Wiederkehrende fixe externe Ausgaben"],["internal_rec","Recurring internal operating capacity","Wiederkehrende interne Betriebskapazität"],["ai_cost","AI consumption / usage-based costs","KI-Verbrauchs- / nutzungsabhängige Kosten"],["none","None","Keine"],["cannot","Cannot assess","Kann ich nicht beurteilen"]],
+"Keep one-time and recurring commitments distinct because they affect economic interpretation and readiness differently. Include token-, inference/API- and compute-based charges where relevant.",
+"Unterscheiden Sie einmalige und wiederkehrende Bindungen, da sie Wirtschaftlichkeit und Readiness unterschiedlich beeinflussen. Berücksichtigen Sie bei Bedarf Token-, Inference-/API- und Compute-Kosten.",
+[],[],()=>true,true),
+q("M4.4",4,"","Considering the detailed commitments identified, does the advancement case remain supported?",
+"Bleibt das Weiterentwicklungsszenario unter Berücksichtigung der identifizierten detaillierten Bindungen weiterhin gerechtfertigt?",O.yn,
+"Reassess the value case after the more detailed commitment profile is known. This is separate from whether the organization is ready to fund or implement it.",
+"Bewerten Sie den Business Case erneut, nachdem das detailliertere Bindungsprofil bekannt ist. Dies ist getrennt von der Frage, ob die Organisation zur Finanzierung oder Umsetzung bereit ist.",
+["Net incremental value after detailed cost / capacity profile"],["Netto-Zusatznutzen nach detailliertem Kosten- / Kapazitätsprofil"],
+()=>true),
+
+q("M5.1",5,"","What is the readiness status of the additional requirement and dependency areas identified in Module 4?",
+"Wie ist der Readiness-Status der in Modul 4 identifizierten zusätzlichen Anforderungs- und Abhängigkeitsbereiche?",
+[["now","All available now","Alles ist bereits verfügbar"],["before","Can all be ready before pilot / go-live","Alles kann vor Pilot / Go-live bereitgestellt werden"],["not_in_time","At least one cannot be ready before pilot / go-live","Mindestens ein Bereich kann nicht rechtzeitig vor Pilot / Go-live bereitgestellt werden"],["cannot","Cannot assess","Kann ich nicht beurteilen"]],
+"This is an aggregate readiness state across the selected requirement areas. The detailed areas remain visible in the result.",
+"Dies ist ein aggregierter Readiness-Status über die ausgewählten Anforderungsbereiche. Die einzelnen Bereiche bleiben im Ergebnis sichtbar.",
+[],[],()=>true),
+q("M5.2",5,"","Can the additional financial commitments identified in Module 4 be approved before they are required?",
+"Können die in Modul 4 identifizierten zusätzlichen finanziellen Bindungen genehmigt werden, bevor sie benötigt werden?",
+[["approved","Approved","Genehmigt"],["before","Can be approved before required","Kann rechtzeitig genehmigt werden"],["not_in_time","Cannot be approved in time","Kann nicht rechtzeitig genehmigt werden"],["cannot","Cannot assess","Kann ich nicht beurteilen"]],
+"Assess budget, investment and operating-expenditure approval, including recurring AI consumption costs where applicable.",
+"Prüfen Sie Budget-, Investitions- und Betriebskostengenehmigungen einschließlich wiederkehrender KI-Verbrauchskosten, sofern relevant.",
+["Budget","Investment approval","Operating expenditure approval","Procurement commitment"],
+["Budget","Investitionsfreigabe","Betriebskostenfreigabe","Beschaffungsverpflichtung"],
+()=>true),
+q("M5.3",5,"","Is the required management commitment in place for the selected scenario?",
+"Ist das erforderliche Management-Commitment für das ausgewählte Szenario vorhanden?",O.yn,
+"Use observable commitment such as prioritization, decision ownership, resource authorization and cross-functional backing.",
+"Bewerten Sie beobachtbares Commitment wie Priorisierung, klare Entscheidungsverantwortung, Ressourcenfreigabe und bereichsübergreifende Unterstützung.",
+["Named sponsor where needed","Priority decision","Decision owner","Resource authorization","Cross-functional backing"],
+["Benannter Sponsor, falls erforderlich","Priorisierungsentscheidung","Entscheidungsverantwortung","Ressourcenfreigabe","Bereichsübergreifende Unterstützung"],()=>true),
+q("M5.4",5,"","Are all relevant responsibilities and decision rights clearly assigned for the applicable areas: data, solution, business decisions, and IT / platform use?",
+"Sind alle relevanten Verantwortlichkeiten und Entscheidungsrechte für die anwendbaren Bereiche Daten, Lösung, Business-Entscheidungen und IT-/Plattformnutzung klar zugeordnet?",O.yn,
+"The four governance domains remain distinct even though they are collected in one management-facing question.",
+"Die vier Governance-Domänen bleiben analytisch getrennt, auch wenn sie in einer Managementfrage zusammengeführt werden.",
+["Data responsibilities","Solution responsibilities","Business-decision authority / accountability","IT / platform responsibilities"],
+["Datenverantwortung","Lösungsverantwortung","Business-Entscheidungsbefugnis / Accountability","IT- / Plattformverantwortung"],()=>true),
+q("M5.5",5,"","Can the organization implement and sustain the required process and role changes within the planned timeline and available capacity?",
+"Kann die Organisation die erforderlichen Prozess- und Rollenänderungen innerhalb des geplanten Zeitrahmens und der verfügbaren Kapazität umsetzen und dauerhaft tragen?",
+[["now","Ready now","Jetzt bereit"],["measures","Feasible after defined measures","Nach definierten Maßnahmen machbar"],["not_horizon","Not feasible in planned horizon","Im geplanten Zeithorizont nicht machbar"],["cannot","Cannot assess","Kann ich nicht beurteilen"]],
+"Assess both implementation before pilot/go-live and whether the resulting process can be sustained during operation.",
+"Bewerten Sie sowohl die Umsetzung vor Pilot/Go-live als auch die dauerhafte Tragfähigkeit im Betrieb.",
+["Project / change capacity","Competing initiatives","Training / adoption","Process / role change","Approval lead times","Ongoing operating capacity"],
+["Projekt- / Change-Kapazität","Konkurrierende Initiativen","Training / Adoption","Prozess- / Rollenänderung","Freigabezeiten","Laufende Betriebskapazität"],()=>true),
+
+q("M6.1",6,"A","Before use, are the intended use, output meaning and limitations, and conditions for human review, intervention, and escalation clear?",
+"Sind vor der Nutzung der vorgesehene Einsatz, Bedeutung und Grenzen des Outputs sowie die Bedingungen für menschliche Prüfung, Intervention und Eskalation klar?",O.yn,
+"Governance defines who has authority and accountability; this question addresses how the solution is actually used, reviewed and challenged.",
+"Governance definiert, wer Befugnis und Verantwortung trägt; diese Frage betrifft, wie die Lösung tatsächlich genutzt, geprüft und hinterfragt wird.",
+["Intended use","Output interpretation","Limitations","Review triggers","Intervention / correction","Escalation"],
+["Vorgesehene Nutzung","Outputinterpretation","Grenzen","Prüfauslöser","Intervention / Korrektur","Eskalation"],()=>true),
+q("M6.2",6,"A","Is the planned workflow clear, including roles, handovers, exceptions, and—where relevant—how business-relevant human judgement will be retained, integrated, or replaced?",
+"Ist der geplante Workflow klar – einschließlich Rollen, Übergaben, Ausnahmen und gegebenenfalls der Frage, wie geschäftsrelevantes menschliches Urteil erhalten, integriert oder ersetzt wird?",O.yn,
+"If Module 2 identified relevant human contribution, a 'Yes' requires deliberate treatment of that contribution.",
+"Wenn Modul 2 einen relevanten menschlichen Beitrag identifiziert hat, setzt „Ja“ voraus, dass dieser Beitrag bewusst behandelt wird.",
+["Inputs / outputs","Handovers","Exceptions","Roles","Parallel activities","Human contribution from M2.3"],
+["Inputs / Outputs","Übergaben","Ausnahmen","Rollen","Parallele Aktivitäten","Menschlicher Beitrag aus M2.3"],()=>true),
+q("M6.3",6,"A","Have the relevant user groups had an opportunity to review or test the intended use and provide feedback before go-live?",
+"Hatten die relevanten Nutzergruppen vor dem Go-live die Möglichkeit, die vorgesehene Nutzung zu prüfen oder zu testen und Feedback zu geben?",O.yn,
+"User involvement means an opportunity to review/test and provide feedback. It is not treated as equivalent to trust or acceptance.",
+"Nutzerbeteiligung bedeutet die Möglichkeit zur Prüfung bzw. zum Test und zur Rückmeldung. Sie wird nicht mit Vertrauen oder Akzeptanz gleichgesetzt.",
+["Review intended use","Test / evaluate solution","Feedback","Raise concerns"],
+["Vorgesehene Nutzung prüfen","Lösung testen / bewerten","Feedback","Bedenken äußern"],()=>true),
+q("M6.4",6,"A","Where user roles differ, are relevant differences in training, access, review, or support addressed in the planned use?",
+"Werden bei unterschiedlichen Nutzerrollen relevante Unterschiede bei Training, Zugriff, Prüfung oder Unterstützung in der geplanten Nutzung berücksichtigt?",
+[["yes","Yes","Ja"],["no","No","Nein"],["na","Not applicable","Nicht anwendbar"],["cannot","Cannot assess","Kann ich nicht beurteilen"]],
+"Use 'Not applicable' only when no relevant user-role differences exist.",
+"Verwenden Sie „Nicht anwendbar“ nur, wenn keine relevanten Unterschiede zwischen Nutzerrollen bestehen.",
+["Training","Access","Review intensity","Support","Role-specific workflow"],
+["Training","Zugriff","Prüfintensität","Support","Rollenspezifischer Workflow"],()=>true),
+q("M6.5",6,"B","Is pilot or actual-use evidence available for the selected scenario?",
+"Liegt für das ausgewählte Szenario Evidenz aus einem Pilot oder aus tatsächlicher Nutzung vor?",
+[["yes","Yes","Ja"],["no","No","Nein"],["cannot","Cannot assess","Kann ich nicht beurteilen"]],
+"If no pilot/use evidence exists, the remaining Stage-B questions are not asked; the appropriate next step is bounded evidence generation.",
+"Wenn keine Pilot-/Nutzungsevidenz vorliegt, werden die übrigen Stage-B-Fragen nicht gestellt; der passende nächste Schritt ist eine begrenzte Evidenzgenerierung.",
+["Evidence from pilot, controlled use, or actual operation"],["Evidenz aus Pilot, kontrollierter Nutzung oder realem Betrieb"],()=>true),
+q("M6.6",6,"B","During pilot or actual use, do interpretation / validation workload and workflow friction remain within acceptable limits?",
+"Bleiben während Pilot oder tatsächlicher Nutzung Interpretations-/Validierungsaufwand und Workflow-Reibung innerhalb akzeptabler Grenzen?",
+[["none","No relevant issue","Kein relevantes Problem"],["remedy","Issue – remedy defined","Problem – Abhilfe definiert"],["no_remedy","Issue – no remedy","Problem – keine Abhilfe"],["not_covered","Not covered by evidence","Nicht durch Evidenz abgedeckt"],["cannot","Cannot assess","Kann ich nicht beurteilen"]],
+"Evaluate actual interpretation/validation workload and workflow friction together because both test whether the solution can operate within the planned process.",
+"Bewerten Sie tatsächlichen Interpretations-/Validierungsaufwand und Workflow-Reibung gemeinsam, da beide zeigen, ob die Lösung im geplanten Prozess tragfähig ist.",
+["Interpretation / validation workload","Duplicate work","Additional handovers","Waiting time","Workarounds","Exception effort"],
+["Interpretations- / Validierungsaufwand","Doppelarbeit","Zusätzliche Übergaben","Wartezeiten","Workarounds","Ausnahmeaufwand"],()=>true),
+q("M6.7",6,"B","During pilot or actual use, are review / intervention mechanisms workable and are relevant differences between user roles adequately handled?",
+"Sind während Pilot oder tatsächlicher Nutzung Prüf-/Interventionsmechanismen praktikabel und werden relevante Unterschiede zwischen Nutzerrollen angemessen berücksichtigt?",
+[["none","No relevant issue","Kein relevantes Problem"],["remedy","Issue – remedy defined","Problem – Abhilfe definiert"],["no_remedy","Issue – no remedy","Problem – keine Abhilfe"],["not_covered","Not covered by evidence","Nicht durch Evidenz abgedeckt"],["cannot","Cannot assess","Kann ich nicht beurteilen"]],
+"Evaluate practical review/intervention usability and role-dependent use together because both concern whether human use works as intended in practice.",
+"Bewerten Sie die praktische Nutzbarkeit von Prüf-/Interventionsmechanismen und rollenspezifischer Nutzung gemeinsam, da beide zeigen, ob die menschliche Nutzung in der Praxis wie vorgesehen funktioniert.",
+["Review / correction / override usability","Escalation","Required information / access","Role-specific use patterns","Training / support differences"],
+["Nutzbarkeit von Prüfung / Korrektur / Override","Eskalation","Erforderliche Informationen / Zugriffe","Rollenspezifische Nutzungsmuster","Training- / Supportunterschiede"],()=>true)
+]
+
+
+let lang="en", current=1, A={}, result=null, visibleIds=[], moduleCompleteState=false;
+
+T.en.privacy="No login required. Assessment responses are sent to the decision engine for calculation and are not stored by this prototype.";
+T.de.privacy="Keine Anmeldung erforderlich. Die Assessment-Antworten werden zur Berechnung an die Decision Engine übertragen und in diesem Prototyp nicht gespeichert.";
+T.en.resultNote="The recommendation is generated by the private decision engine implementing frozen Toolkit V1. Outcomes are non-hierarchical and do not represent maturity levels.";
+T.de.resultNote="Die Empfehlung wird durch die private Decision Engine auf Basis des eingefrorenen Toolkit V1 erzeugt. Die Outcomes sind nicht hierarchisch und stellen keine Reifegrade dar.";
+
+function apiBase(){return (window.SUFFICIENCY_COMPASS_API||"").replace(/\/+$/,"");}
+function setApiError(msg){
+ ["apiErrorAssessment","apiErrorResult"].forEach(id=>{
+   const el=document.getElementById(id); if(!el)return;
+   if(msg){el.textContent=msg;el.classList.remove("hidden")}else{el.textContent="";el.classList.add("hidden")}
+ });
+}
+async function evaluate(intent="state"){
+ const base=apiBase();
+ if(!base || base.includes("REPLACE-WITH-ENGINE-URL")){
+   throw new Error(lang==="en"?
+   "The decision-engine URL has not been configured yet. Set window.SUFFICIENCY_COMPASS_API in config.js after the private engine is deployed.":
+   "Die URL der Decision Engine ist noch nicht konfiguriert. Tragen Sie nach dem Deployment der privaten Engine die URL in config.js ein.");
+ }
+ const res=await fetch(base+"/evaluate",{
+   method:"POST",headers:{"Content-Type":"application/json"},
+   body:JSON.stringify({answers:A,current_module:current,intent,lang})
+ });
+ if(!res.ok){
+   let detail=""; try{detail=(await res.json()).detail||""}catch(e){}
+   throw new Error(detail || `Engine request failed (${res.status})`);
+ }
+ const data=await res.json();
+ A=data.answers||{}; visibleIds=data.visible_question_ids||[]; moduleCompleteState=!!data.module_complete;
+ return data;
+}
+function i18n(){
+ document.documentElement.lang=lang;
+ document.querySelectorAll("[data-i18n]").forEach(el=>el.textContent=T[lang][el.dataset.i18n]||"");
+ document.getElementById("langEN").classList.toggle("active",lang==="en");
+ document.getElementById("langDE").classList.toggle("active",lang==="de");
+ if(!document.getElementById("assessmentScreen").classList.contains("hidden")) renderModule();
+ if(!document.getElementById("resultScreen").classList.contains("hidden")) renderResult(result);
+}
+function renderStepper(){
+ const e=document.getElementById("stepper");e.innerHTML="";
+ modules.forEach(m=>{const s=document.createElement("span");s.className="step-pill"+(m.id===current?" active":m.id<current?" done":"");s.textContent=`${m.id} ${m.title[lang].replace(/ &.*/,"")}`;e.appendChild(s)})
+}
+function optLabel(o){return lang==="en"?o[1]:o[2]}
+function renderQuestion(x){
+ const card=document.createElement("div");card.className="q-card";
+ const help=lang==="en"?x.helpEn:x.helpDe;
+ card.innerHTML=`<div class="q-head"><div class="q-id">${x.id}</div><div class="q-text">${lang==="en"?x.en:x.de}</div><div class="help"><button class="help-btn" aria-label="Help">?</button><div class="tooltip">${help}</div></div></div>`;
+ const helpWrap=card.querySelector(".help"),helpBtn=card.querySelector(".help-btn");
+ helpBtn.addEventListener("click",e=>{e.stopPropagation();helpWrap.classList.toggle("open")});
+ const opts=document.createElement("div");opts.className="options";
+ x.opts.forEach(o=>{
+   const val=o[0],lab=document.createElement("label"),selected=x.multi?(A[x.id]||[]).includes(val):A[x.id]===val;
+   lab.className="option"+(selected?" selected":"");
+   lab.innerHTML=`<input type="${x.multi?"checkbox":"radio"}" name="${x.id}" value="${val}" ${selected?"checked":""}><span>${optLabel(o)}</span>`;
+   lab.querySelector("input").addEventListener("change",async ev=>{
+     if(x.multi){
+       let arr=Array.isArray(A[x.id])?[...A[x.id]]:[];
+       if(ev.target.checked){
+         if(["cannot","no_value","none"].includes(val))arr=[val];
+         else{arr=arr.filter(z=>!["cannot","no_value","none"].includes(z));if(!arr.includes(val))arr.push(val)}
+       }else arr=arr.filter(z=>z!==val);
+       A[x.id]=arr;
+     }else A[x.id]=val;
+     try{setApiError("");await evaluate("state")}catch(err){setApiError(err.message)}
+     renderModule();
+   });
+   opts.appendChild(lab)
+ });
+ card.appendChild(opts);
+ const ex=lang==="en"?x.examplesEn:x.examplesDe;
+ if(ex&&ex.length){
+   const b=document.createElement("button");b.className="examples-toggle";b.textContent=T[lang].examples+" ▾";
+   const d=document.createElement("div");d.className="examples hidden";d.textContent=ex.join(" · ");
+   b.addEventListener("click",()=>{d.classList.toggle("hidden");b.textContent=(d.classList.contains("hidden")?T[lang].examples:T[lang].hideExamples)+(d.classList.contains("hidden")?" ▾":" ▴")});
+   card.appendChild(b);card.appendChild(d)
+ }
+ const v=A[x.id],isCannot=v==="cannot"||(Array.isArray(v)&&v.includes("cannot"));
+ if(isCannot){const n=document.createElement("div");n.className="notice";n.innerHTML=`<strong>${T[lang].cannotTitle}</strong><br>${T[lang].cannotText}`;card.appendChild(n)}
+ return card
+}
+function renderModule(){
+ renderStepper();
+ const m=modules[current-1];
+ document.getElementById("moduleCount").textContent=T[lang].moduleOf.replace("{n}",current);
+ document.getElementById("moduleTitle").textContent=m.title[lang];
+ document.getElementById("modulePurpose").textContent=m.purpose[lang];
+ document.getElementById("progressFill").style.width=`${(current/6)*100}%`;
+ const box=document.getElementById("questions");box.innerHTML="";
+ const visible=questions.filter(x=>x.module===current && visibleIds.includes(x.id));
+ if(current===6){
+   let lastStage=null;
+   visible.forEach(x=>{
+     if(x.stage&&x.stage!==lastStage){
+       const s=document.createElement("div");s.className="stage-label";
+       s.textContent=x.stage==="A"?(lang==="en"?"Stage A · Before implementation":"Stage A · Vor Implementierung"):(lang==="en"?"Stage B · Pilot / actual use":"Stage B · Pilot / tatsächliche Nutzung");
+       box.appendChild(s);lastStage=x.stage
+     }
+     box.appendChild(renderQuestion(x))
+   })
+ }else visible.forEach(x=>box.appendChild(renderQuestion(x)));
+ document.getElementById("backBtn").disabled=current===1;
+ document.getElementById("continueBtn").disabled=!moduleCompleteState;
+}
+function renderResult(r){
+ if(!r)return;
+ const card=document.getElementById("resultCard");card.style.setProperty("--outcome",r.color||"var(--petrol)");
+ document.getElementById("resultTitle").textContent=r.title;
+ document.getElementById("resultDesc").textContent=r.description;
+ const wl=document.getElementById("whyList");wl.innerHTML="";(r.why||[]).forEach(x=>{const li=document.createElement("li");li.textContent=x;wl.appendChild(li)});
+ document.getElementById("nextText").textContent=r.next_step||"";
+ const al=document.getElementById("actionList");al.innerHTML="";
+ const acts=r.actions||[];
+ if(!acts.length){const d=document.createElement("div");d.className="action-card";d.innerHTML=`<div class="action-card-text">${T[lang].noIssues}</div>`;al.appendChild(d)}
+ else acts.forEach(a=>{const d=document.createElement("div");d.className="action-card";d.innerHTML=`<div class="action-card-title">${a.title}</div><div class="action-card-text">${a.text}</div><span class="action-card-meta">${a.meta}</span>`;al.appendChild(d)})
+}
+function showResult(r){
+ result=r;document.getElementById("assessmentScreen").classList.add("hidden");document.getElementById("startScreen").classList.add("hidden");document.getElementById("resultScreen").classList.remove("hidden");renderResult(r);window.scrollTo({top:0,behavior:"smooth"})
+}
+document.getElementById("startBtn").onclick=async()=>{
+ document.getElementById("startScreen").classList.add("hidden");document.getElementById("assessmentScreen").classList.remove("hidden");current=1;A={};result=null;
+ try{setApiError("");await evaluate("state")}catch(err){setApiError(err.message)}
+ renderModule();window.scrollTo(0,0)
+};
+document.getElementById("continueBtn").onclick=async()=>{
+ if(!moduleCompleteState)return;
+ try{
+   setApiError("");const data=await evaluate("continue");
+   if(data.result){showResult(data.result);return}
+   if(data.next_module){current=data.next_module;await evaluate("state");renderModule();window.scrollTo({top:0,behavior:"smooth"})}
+ }catch(err){setApiError(err.message)}
+};
+document.getElementById("backBtn").onclick=async()=>{
+ if(current<=1)return;current--;
+ try{setApiError("");await evaluate("state")}catch(err){setApiError(err.message)}
+ renderModule();window.scrollTo({top:0,behavior:"smooth"})
+};
+document.getElementById("langEN").onclick=async()=>{lang="en";i18n();if(!document.getElementById("assessmentScreen").classList.contains("hidden")){try{await evaluate("state");renderModule()}catch(e){setApiError(e.message)}}};
+document.getElementById("langDE").onclick=async()=>{lang="de";i18n();if(!document.getElementById("assessmentScreen").classList.contains("hidden")){try{await evaluate("state");renderModule()}catch(e){setApiError(e.message)}}};
+document.getElementById("pdfBtn").onclick=()=>window.print();
+document.getElementById("editBtn").onclick=async()=>{document.getElementById("resultScreen").classList.add("hidden");document.getElementById("assessmentScreen").classList.remove("hidden");try{setApiError("");await evaluate("state")}catch(e){setApiError(e.message)}renderModule();window.scrollTo(0,0)};
+document.getElementById("restartBtn").onclick=()=>{A={};current=1;result=null;visibleIds=[];moduleCompleteState=false;document.getElementById("resultScreen").classList.add("hidden");document.getElementById("startScreen").classList.remove("hidden");i18n();window.scrollTo(0,0)};
+document.addEventListener("click",e=>{if(!e.target.closest(".help"))document.querySelectorAll(".help.open").forEach(x=>x.classList.remove("open"))});
+i18n();
+
+</script>
+</body>
+</html>
