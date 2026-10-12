@@ -65,6 +65,7 @@ h1{font-size:48px;line-height:1.07;margin:12px 0 18px;letter-spacing:-.04em}
 .q-head{display:flex;gap:9px;align-items:flex-start}
 .q-id{font-size:12px;color:var(--muted);font-weight:750;min-width:38px;padding-top:3px}
 .q-text{font-size:17px;line-height:1.5;font-weight:650;flex:1}
+.multi-badge{display:inline-block;margin-left:8px;padding:3px 7px;border-radius:999px;background:var(--petrol-soft);color:var(--petrol-dark);font-size:11px;font-weight:800;line-height:1.25;vertical-align:2px;white-space:nowrap}
 .help{position:relative;flex:0 0 auto}
 .help-btn{width:25px;height:25px;border-radius:50%;border:1px solid #B8C7CB;background:white;color:var(--petrol);font-weight:800;cursor:pointer;line-height:22px}
 .tooltip{display:none;position:absolute;right:0;top:32px;width:min(440px,75vw);background:#163B3A;color:white;border-radius:10px;padding:13px 15px;font-size:13px;line-height:1.5;font-weight:400;z-index:8;box-shadow:var(--shadow)}
@@ -78,6 +79,8 @@ h1{font-size:48px;line-height:1.07;margin:12px 0 18px;letter-spacing:-.04em}
 .examples{margin-top:9px;padding:12px 14px;background:var(--soft);border-radius:9px;color:var(--muted);font-size:13px;line-height:1.55}
 .api-error{background:#FDECEC;border:1px solid #E9B9B9;color:#7A2929;padding:13px 15px;border-radius:10px;margin:0 0 18px;line-height:1.5;font-size:13px}
 .notice{margin-top:14px;padding:12px 14px;border-radius:10px;background:var(--warn-bg);color:#704A08;font-size:13px;line-height:1.5}
+.specialist-checkpoint{margin-top:8px;padding-top:8px;border-top:1px solid rgba(112,74,8,.22)}
+.specialist-checkpoint strong{color:#5B3C06}
 .nav{display:flex;justify-content:space-between;gap:12px;margin-top:28px;padding-top:20px;border-top:1px solid var(--line)}
 .stepper{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
 .step-pill{font-size:12px;border:1px solid var(--line);border-radius:99px;padding:6px 10px;color:var(--muted);background:white}
@@ -220,9 +223,9 @@ tagline:"Find the appropriate level of AI and complexity for your financial-plan
 intro:"Assess whether further technological advancement is justified, which prerequisites must be addressed first, and where a bounded PoC or pilot is needed to generate decision-relevant evidence.",
 whatGetTitle:"What you will get",whatGetText:"A context-specific management recommendation and a concise explanation of the factors driving it.",
 howWorksTitle:"How it works",howWorksText:"Six modules, progressive disclosure and no aggregate score. You only see questions relevant to your decision path.",
-start:"Start assessment",privacy:"No login required. The prototype processes responses only in your browser and does not send them anywhere.",
-back:"Back",continue:"Continue",moduleOf:"Module {n} of 6",examples:"Examples / guidance",hideExamples:"Hide guidance",
-cannotTitle:"Further clarification may be required",cannotText:"This condition cannot currently be assessed reliably. Obtain the indicated input before closing the decision. 'Cannot assess' is not treated as a negative score.",
+start:"Start assessment",privacy:"No login required. Your current responses are sent to the decision engine for calculation and are not persistently stored by the prototype.",
+back:"Back",continue:"Continue",moduleOf:"Module {n} of 6",examples:"Examples / guidance",hideExamples:"Hide guidance",multiSelect:"Multiple selections possible",
+cannotTitle:"Further clarification may be required",cannotText:"This condition cannot currently be assessed reliably. Obtain the indicated input before closing the decision. 'Cannot assess' is not treated as a negative score.",specialistLabel:"Suggested specialist checkpoint",
 yourRecommendation:"Your recommendation",why:"Why this recommendation?",next:"What to do next",attention:"What needs attention before the next step?",savePdf:"Save result as PDF",edit:"Review & edit answers",restart:"Start new assessment",
 resultNote:"The recommendation is generated from the frozen Toolkit V1 decision logic. Outcomes are non-hierarchical and do not represent maturity levels.",
 noIssues:"No unresolved prerequisite or clarification area identified."
@@ -233,9 +236,9 @@ tagline:"Finden Sie das passende Maß an KI und Komplexität für Ihren Financia
 intro:"Prüfen Sie, ob eine weitere technologische Weiterentwicklung gerechtfertigt ist, welche Voraussetzungen zuerst geschaffen werden müssen und wann ein begrenzter PoC oder Pilot entscheidungsrelevante Evidenz liefern sollte.",
 whatGetTitle:"Ihr Ergebnis",whatGetText:"Eine kontextspezifische Management-Empfehlung mit einer verständlichen Begründung der entscheidungsrelevanten Faktoren.",
 howWorksTitle:"So funktioniert es",howWorksText:"Sechs Module, Progressive Disclosure und kein Gesamtscore. Sie sehen nur Fragen, die für Ihren Entscheidungspfad relevant sind.",
-start:"Assessment starten",privacy:"Keine Anmeldung erforderlich. Der Prototyp verarbeitet Antworten ausschließlich in Ihrem Browser und übermittelt sie nicht.",
-back:"Zurück",continue:"Weiter",moduleOf:"Modul {n} von 6",examples:"Beispiele / Hinweise",hideExamples:"Hinweise ausblenden",
-cannotTitle:"Weitere Klärung kann erforderlich sein",cannotText:"Diese Bedingung kann derzeit nicht verlässlich beurteilt werden. Holen Sie die angegebene Information ein, bevor Sie die Entscheidung abschließen. „Kann ich nicht beurteilen“ wird nicht als negativer Score gewertet.",
+start:"Assessment starten",privacy:"Keine Anmeldung erforderlich. Ihre aktuellen Antworten werden zur Berechnung an die Decision Engine übermittelt und vom Prototyp nicht dauerhaft gespeichert.",
+back:"Zurück",continue:"Weiter",moduleOf:"Modul {n} von 6",examples:"Beispiele / Hinweise",hideExamples:"Hinweise ausblenden",multiSelect:"Mehrfachauswahl möglich",
+cannotTitle:"Weitere Klärung kann erforderlich sein",cannotText:"Diese Bedingung kann derzeit nicht verlässlich beurteilt werden. Holen Sie die angegebene Information ein, bevor Sie die Entscheidung abschließen. „Kann ich nicht beurteilen“ wird nicht als negativer Score gewertet.",specialistLabel:"Empfohlener Specialist Checkpoint",
 yourRecommendation:"Ihre Empfehlung",why:"Warum diese Empfehlung?",next:"Was ist als Nächstes zu tun?",attention:"Was ist vor dem nächsten Schritt konkret zu tun?",savePdf:"Ergebnis als PDF speichern",edit:"Antworten prüfen & korrigieren",restart:"Neues Assessment starten",
 resultNote:"Die Empfehlung wird aus der Entscheidungslogik des eingefrorenen Toolkit V1 erzeugt. Die Outcomes sind nicht hierarchisch und stellen keine Reifegrade dar.",
 noIssues:"Keine offenen Voraussetzungen oder Klärungspunkte identifiziert."
@@ -251,6 +254,25 @@ const modules=[
 const q=(id,module,stage,en,de,opts,helpEn,helpDe,examplesEn=[],examplesDe=[],show=()=>true,multi=false)=>({id,module,stage,en,de,opts,helpEn,helpDe,examplesEn,examplesDe,show,multi})
 const O={
 yn:[["yes","Yes","Ja"],["no","No","Nein"],["cannot","Cannot assess","Kann ich nicht beurteilen"]],
+}
+const specialistCheckpoints={
+"M2.4":{en:"Process owner / subject-matter expert; IT or solution owner where feasibility depends on the current architecture.",de:"Prozessverantwortliche / Fachexpertise; IT bzw. Solution Owner, wenn die Machbarkeit von der bestehenden Architektur abhängt."},
+"M3.2":{en:"Finance / Controlling and, where evidence depends on data or model performance, Data / Analytics.",de:"Finance / Controlling und – wenn die Evidenz von Daten- oder Modellperformance abhängt – Data / Analytics."},
+"M4.0":{en:"IT / AI implementation, solution architecture and, where relevant, Procurement / Vendor Management.",de:"IT / AI-Implementierung, Solution Architecture und – sofern relevant – Einkauf / Vendor Management."},
+"M4.1":{en:"Consult the specialist responsible for the minimum requirement concerned, e.g. IT, Data / Analytics, Information Security, Legal / Data Protection, or Human-AI Interaction.",de:"Beziehen Sie die für die betroffene Mindestanforderung zuständige Fachfunktion ein, z. B. IT, Data / Analytics, Information Security, Legal / Datenschutz oder Human-AI Interaction."},
+"M4.2":{en:"Depending on the unclear requirement: Data / Analytics, IT Architecture / Integration, AI / Solution Owner, Procurement / Vendor Management, or the responsible business function.",de:"Je nach unklarer Anforderung: Data / Analytics, IT-Architektur / Integration, AI / Solution Owner, Einkauf / Vendor Management oder die verantwortliche Fachfunktion."},
+"M4.3":{en:"Finance / Controlling, IT / AI implementation, Procurement / Vendor Management, and Project / Change Management as applicable.",de:"Je nach Bindung: Finance / Controlling, IT / AI-Implementierung, Einkauf / Vendor Management sowie Projekt- / Change-Management."},
+"M5.1":{en:"Use the requirement areas identified in Module 4 to involve the corresponding owners: Data / Analytics, IT / Integration, AI / Solution Owner, Vendor Management, or another responsible function.",de:"Nutzen Sie die in Modul 4 identifizierten Anforderungsbereiche und beziehen Sie die jeweiligen Verantwortlichen ein: Data / Analytics, IT / Integration, AI / Solution Owner, Vendor Management oder eine andere zuständige Funktion."},
+"M5.2":{en:"Finance / Controlling and, where approvals or contracts are involved, Procurement / responsible budget owner.",de:"Finance / Controlling und – bei Freigaben oder Verträgen – Einkauf bzw. zuständige Budgetverantwortliche."},
+"M5.4":{en:"Data Governance, IT / Platform or Solution Owner, responsible business decision owner and, where applicable, Information Security and Legal / Data Protection.",de:"Data Governance, IT / Platform- bzw. Solution Owner, verantwortliche Business-Entscheidungsträger sowie – sofern relevant – Information Security und Legal / Datenschutz."},
+"M5.5":{en:"Change / Organizational Development, Project Management and, where relevant, HR / Learning & Development.",de:"Change / Organisationsentwicklung, Projektmanagement und – sofern relevant – HR / Learning & Development."},
+"M6.1":{en:"Process owner together with AI / Human-AI Interaction expertise; involve IT, Information Security or Legal / Data Protection where the use conditions require it.",de:"Prozessverantwortliche gemeinsam mit AI- / Human-AI-Interaction-Expertise; bei entsprechenden Nutzungsbedingungen zusätzlich IT, Information Security oder Legal / Datenschutz."},
+"M6.2":{en:"Process owner, IT / Solution Owner and Change / Organizational Development.",de:"Prozessverantwortliche, IT / Solution Owner sowie Change / Organisationsentwicklung."},
+"M6.3":{en:"Change / Organizational Development, UX / Human-AI Interaction and representatives of the affected user groups.",de:"Change / Organisationsentwicklung, UX / Human-AI Interaction sowie Vertreter:innen der betroffenen Nutzergruppen."},
+"M6.4":{en:"Change / Organizational Development, HR / Learning & Development, UX / Human-AI Interaction and relevant user representatives.",de:"Change / Organisationsentwicklung, HR / Learning & Development, UX / Human-AI Interaction sowie relevante Nutzervertreter:innen."},
+"M6.5":{en:"Pilot / project owner and the responsible IT, Data / Analytics or AI / Solution team.",de:"Pilot- / Projektverantwortliche sowie das zuständige IT-, Data-/Analytics- oder AI-/Solution-Team."},
+"M6.6":{en:"Process owner, Change / Organizational Development and Human-AI Interaction / UX.",de:"Prozessverantwortliche, Change / Organisationsentwicklung sowie Human-AI Interaction / UX."},
+"M6.7":{en:"Human-AI Interaction / UX, Change / Organizational Development, HR and representatives of the relevant user roles.",de:"Human-AI Interaction / UX, Change / Organisationsentwicklung, HR sowie Vertreter:innen der relevanten Nutzerrollen."}
 }
 const questions=[
 q("M1.1",1,"", "Is the business use case clearly defined, including the decision or process to be supported, its scope, and the intended business objective?",
@@ -478,7 +500,7 @@ function optLabel(o){return lang==="en"?o[1]:o[2]}
 function renderQuestion(x){
  const card=document.createElement("div");card.className="q-card";
  const help=lang==="en"?x.helpEn:x.helpDe;
- card.innerHTML=`<div class="q-head"><div class="q-id">${x.id}</div><div class="q-text">${lang==="en"?x.en:x.de}</div><div class="help"><button class="help-btn" aria-label="Help">?</button><div class="tooltip">${help}</div></div></div>`;
+ card.innerHTML=`<div class="q-head"><div class="q-id">${x.id}</div><div class="q-text">${lang==="en"?x.en:x.de}${x.multi?`<span class="multi-badge">${T[lang].multiSelect}</span>`:""}</div><div class="help"><button class="help-btn" aria-label="Help">?</button><div class="tooltip">${help}</div></div></div>`;
  const helpWrap=card.querySelector(".help"),helpBtn=card.querySelector(".help-btn");
  helpBtn.addEventListener("click",e=>{e.stopPropagation();helpWrap.classList.toggle("open")});
  const opts=document.createElement("div");opts.className="options";
@@ -509,7 +531,12 @@ function renderQuestion(x){
    card.appendChild(b);card.appendChild(d)
  }
  const v=A[x.id],isCannot=v==="cannot"||(Array.isArray(v)&&v.includes("cannot"));
- if(isCannot){const n=document.createElement("div");n.className="notice";n.innerHTML=`<strong>${T[lang].cannotTitle}</strong><br>${T[lang].cannotText}`;card.appendChild(n)}
+ if(isCannot){
+   const n=document.createElement("div");n.className="notice";
+   const sp=specialistCheckpoints[x.id];
+   n.innerHTML=`<strong>${T[lang].cannotTitle}</strong><br>${T[lang].cannotText}`+(sp?`<div class="specialist-checkpoint"><strong>${T[lang].specialistLabel}:</strong><br>${sp[lang]}</div>`:"");
+   card.appendChild(n)
+ }
  return card
 }
 function renderModule(){
