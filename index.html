@@ -33,7 +33,7 @@ body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSy
 button,input{font:inherit}
 .app-shell{min-height:100vh}
 .topbar{height:68px;background:rgba(255,255,255,.96);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 28px;position:sticky;top:0;z-index:20}
-.brand{font-weight:750;letter-spacing:-.02em;font-size:20px}
+.brand{display:flex;align-items:center;text-decoration:none;min-width:0}\n.brand img{display:block;width:210px;max-width:42vw;height:auto;max-height:46px;object-fit:contain;object-position:left center}
 .lang{display:flex;border:1px solid var(--line);border-radius:9px;overflow:hidden}
 .lang button{border:0;background:white;padding:7px 10px;color:var(--muted);cursor:pointer}
 .lang button.active{background:var(--petrol);color:white}
@@ -119,7 +119,7 @@ h1{font-size:48px;line-height:1.07;margin:12px 0 18px;letter-spacing:-.04em}
 <body>
 <div class="app-shell">
   <header class="topbar">
-    <div class="brand">Sufficiency Compass</div>
+    <a class="brand" href="./" aria-label="Sufficiency Compass"><img src="assets/sufficiency-compass-logo.svg" alt="Sufficiency Compass"></a>
     <div class="lang"><button id="langEN" class="active">EN</button><button id="langDE">DE</button></div>
   </header>
   <main>
@@ -193,26 +193,26 @@ const T={
 en:{
 eyebrow:"Decision toolkit for AI-supported financial planning",
 tagline:"Find the appropriate level of AI and complexity for your financial-planning use case.",
-intro:"Assess whether further technological advancement is justified, which prerequisites must be addressed first, and where a decision-oriented pilot is needed to generate evidence.",
+intro:"Assess whether further technological advancement is justified, which prerequisites must be addressed first, and where a bounded PoC or pilot is needed to generate decision-relevant evidence.",
 whatGetTitle:"What you will get",whatGetText:"A context-specific management recommendation and a concise explanation of the factors driving it.",
 howWorksTitle:"How it works",howWorksText:"Six modules, progressive disclosure and no aggregate score. You only see questions relevant to your decision path.",
 start:"Start assessment",privacy:"No login required. The prototype processes responses only in your browser and does not send them anywhere.",
 back:"Back",continue:"Continue",moduleOf:"Module {n} of 6",examples:"Examples / guidance",hideExamples:"Hide guidance",
 cannotTitle:"Further clarification may be required",cannotText:"This condition cannot currently be assessed reliably. Obtain the indicated input before closing the decision. 'Cannot assess' is not treated as a negative score.",
-yourRecommendation:"Your recommendation",why:"Why this recommendation?",next:"What to do next",attention:"What needs attention before the next step?",savePdf:"Save result as PDF",edit:"Review answers",restart:"Start new assessment",
+yourRecommendation:"Your recommendation",why:"Why this recommendation?",next:"What to do next",attention:"What needs attention before the next step?",savePdf:"Save result as PDF",edit:"Review & edit answers",restart:"Start new assessment",
 resultNote:"The recommendation is generated from the frozen Toolkit V1 decision logic. Outcomes are non-hierarchical and do not represent maturity levels.",
 noIssues:"No unresolved prerequisite or clarification area identified."
 },
 de:{
 eyebrow:"Entscheidungstool für KI-gestützte Finanzplanung",
 tagline:"Finden Sie das passende Maß an KI und Komplexität für Ihren Financial-Planning-Anwendungsfall.",
-intro:"Prüfen Sie, ob eine weitere technologische Weiterentwicklung gerechtfertigt ist, welche Voraussetzungen zuerst geschaffen werden müssen und wann ein entscheidungsorientierter Pilot zusätzliche Evidenz liefern sollte.",
+intro:"Prüfen Sie, ob eine weitere technologische Weiterentwicklung gerechtfertigt ist, welche Voraussetzungen zuerst geschaffen werden müssen und wann ein begrenzter PoC oder Pilot entscheidungsrelevante Evidenz liefern sollte.",
 whatGetTitle:"Ihr Ergebnis",whatGetText:"Eine kontextspezifische Management-Empfehlung mit einer verständlichen Begründung der entscheidungsrelevanten Faktoren.",
 howWorksTitle:"So funktioniert es",howWorksText:"Sechs Module, Progressive Disclosure und kein Gesamtscore. Sie sehen nur Fragen, die für Ihren Entscheidungspfad relevant sind.",
 start:"Assessment starten",privacy:"Keine Anmeldung erforderlich. Der Prototyp verarbeitet Antworten ausschließlich in Ihrem Browser und übermittelt sie nicht.",
 back:"Zurück",continue:"Weiter",moduleOf:"Modul {n} von 6",examples:"Beispiele / Hinweise",hideExamples:"Hinweise ausblenden",
 cannotTitle:"Weitere Klärung kann erforderlich sein",cannotText:"Diese Bedingung kann derzeit nicht verlässlich beurteilt werden. Holen Sie die angegebene Information ein, bevor Sie die Entscheidung abschließen. „Kann ich nicht beurteilen“ wird nicht als negativer Score gewertet.",
-yourRecommendation:"Ihre Empfehlung",why:"Warum diese Empfehlung?",next:"Was ist als Nächstes zu tun?",attention:"Was ist vor dem nächsten Schritt konkret zu tun?",savePdf:"Ergebnis als PDF speichern",edit:"Antworten prüfen",restart:"Neues Assessment starten",
+yourRecommendation:"Ihre Empfehlung",why:"Warum diese Empfehlung?",next:"Was ist als Nächstes zu tun?",attention:"Was ist vor dem nächsten Schritt konkret zu tun?",savePdf:"Ergebnis als PDF speichern",edit:"Antworten prüfen & korrigieren",restart:"Neues Assessment starten",
 resultNote:"Die Empfehlung wird aus der Entscheidungslogik des eingefrorenen Toolkit V1 erzeugt. Die Outcomes sind nicht hierarchisch und stellen keine Reifegrade dar.",
 noIssues:"Keine offenen Voraussetzungen oder Klärungspunkte identifiziert."
 }}
@@ -300,9 +300,9 @@ q("M4.0",4,"","Which primary implementation route best describes the next-step s
 [],[],()=>true),
 q("M4.1",4,"","What is the current evidence status of the selected advancement scenario against the minimum requirements defined in Module 1?",
 "Wie ist der aktuelle Evidenzstatus des gewählten Weiterentwicklungsszenarios im Hinblick auf die in Modul 1 definierten Mindestanforderungen?",
-[["met","All minimum requirements met based on available evidence","Alle Mindestanforderungen sind auf Basis verfügbarer Evidenz erfüllt"],["expected","Expected to meet all minimum requirements; at least one requires pilot / use evidence","Voraussichtlich werden alle Mindestanforderungen erfüllt; mindestens eine erfordert Pilot- / Nutzungsevidenz"],["not_met","At least one minimum requirement is not met","Mindestens eine Mindestanforderung wird nicht erfüllt"],["cannot","Cannot assess","Kann ich nicht beurteilen"]],
-"Apply the same minimum requirements defined in Module 1 to the selected advancement scenario. Additional value cannot compensate for a failed mandatory requirement.",
-"Wenden Sie dieselben in Modul 1 definierten Mindestanforderungen auf das ausgewählte Szenario an. Zusätzlicher Nutzen kann das Verfehlen einer verpflichtenden Mindestanforderung nicht kompensieren.",
+[["met","All minimum requirements met based on available evidence","Alle Mindestanforderungen sind auf Basis verfügbarer Evidenz erfüllt"],["expected","Expected to meet all minimum requirements; at least one requires PoC / pilot / use evidence","Voraussichtlich werden alle Mindestanforderungen erfüllt; mindestens eine erfordert PoC-, Pilot- oder Nutzungsevidenz"],["not_met","At least one minimum requirement is not met","Mindestens eine Mindestanforderung wird nicht erfüllt"],["cannot","Cannot assess","Kann ich nicht beurteilen"]],
+"Apply the same minimum requirements defined in Module 1 to the selected advancement scenario. Additional value cannot compensate for a failed mandatory requirement. A bounded PoC can be sufficient where the open requirement concerns technical or conceptual feasibility; actual-use, workflow or human-use conditions may require a pilot or realistic use test.",
+"Wenden Sie dieselben in Modul 1 definierten Mindestanforderungen auf das ausgewählte Szenario an. Zusätzlicher Nutzen kann das Verfehlen einer verpflichtenden Mindestanforderung nicht kompensieren. Ein begrenzter PoC kann ausreichen, wenn die offene Anforderung primär technische oder konzeptionelle Machbarkeit betrifft; Bedingungen der tatsächlichen Nutzung, Workflow-Integration oder menschlichen Nutzung können einen Pilot bzw. realitätsnahen Nutzungstest erfordern.",
 [],[],()=>true),
 q("M4.2",4,"","Which additional requirement or dependency areas does the selected scenario create compared with the relevant reference?",
 "Welche zusätzlichen Anforderungs- oder Abhängigkeitsbereiche erzeugt das ausgewählte Szenario gegenüber der relevanten Referenz?",
