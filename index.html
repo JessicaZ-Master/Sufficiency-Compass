@@ -101,6 +101,9 @@ h1{font-size:48px;line-height:1.07;margin:12px 0 18px;letter-spacing:-.04em}
 .action-card-meta{display:inline-block;margin-top:8px;font-size:11px;font-weight:750;letter-spacing:.03em;text-transform:uppercase;color:var(--petrol-dark);background:var(--petrol-soft);border-radius:5px;padding:4px 7px}
 .result-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
 .privacy{margin-top:26px;color:var(--muted);font-size:12px}
+.validation-notice{margin:24px 0;padding:16px 18px;border:1px solid #9FC7C3;border-left:5px solid var(--petrol);border-radius:12px;background:var(--petrol-soft);color:var(--ink);line-height:1.55}
+.validation-notice strong{display:block;margin-bottom:6px;color:var(--petrol-dark);font-size:15px}
+.validation-notice div{font-size:14px}
 @media(max-width:720px){
   .brand-logo{width:168px;max-width:55vw;height:46px}
   .topbar{padding:0 16px}
@@ -113,7 +116,7 @@ h1{font-size:48px;line-height:1.07;margin:12px 0 18px;letter-spacing:-.04em}
   .result-title{font-size:28px}
 }
 @media print{
-  .topbar,.result-actions,.privacy{display:none!important}
+  .topbar,.result-actions,.privacy,.validation-notice{display:none!important}
   body{background:#fff}
   main{max-width:none;padding:0}
   #resultScreen{display:block!important}
@@ -156,6 +159,10 @@ h1{font-size:48px;line-height:1.07;margin:12px 0 18px;letter-spacing:-.04em}
         <h1>Sufficiency Compass</h1>
         <p data-i18n="tagline"></p>
         <p data-i18n="intro"></p>
+        <div class="validation-notice" role="note">
+          <strong data-i18n="validationStartTitle"></strong>
+          <div data-i18n="validationStartText"></div>
+        </div>
         <div class="value-box">
           <div class="mini-card"><strong data-i18n="whatGetTitle"></strong><span data-i18n="whatGetText"></span></div>
           <div class="mini-card"><strong data-i18n="howWorksTitle"></strong><span data-i18n="howWorksText"></span></div>
@@ -185,6 +192,10 @@ h1{font-size:48px;line-height:1.07;margin:12px 0 18px;letter-spacing:-.04em}
     </section>
 
     <section id="resultScreen" class="hidden"><div id="apiErrorResult" class="api-error hidden"></div>
+      <div class="validation-notice" role="note">
+        <strong data-i18n="validationResultTitle"></strong>
+        <div data-i18n="validationResultText"></div>
+      </div>
       <div class="result-card" id="resultCard">
         <div class="result-kicker" data-i18n="yourRecommendation"></div>
         <h2 class="result-title" id="resultTitle"></h2>
@@ -221,6 +232,10 @@ en:{
 eyebrow:"Decision toolkit for AI-supported financial planning",
 tagline:"Find the appropriate level of AI and complexity for your financial-planning use case.",
 intro:"Assess whether further technological advancement is justified, which prerequisites must be addressed first, and where a bounded PoC or pilot is needed to generate decision-relevant evidence.",
+validationStartTitle:"You are testing a decision tool – this is not a survey.",
+validationStartText:"The questions in the Sufficiency Compass are used only to assess your chosen decision situation and generate a recommendation for that case. Your answers in the tool are not the feedback for the scientific validation. After using the tool, please provide your feedback on the tool itself, especially its understandability, relevance, recommendation logic and practical usefulness.",
+validationResultTitle:"Your tool run is complete – the validation is not.",
+validationResultText:"For the scientific validation, your individual answers and the recommendation you received are not the main focus. What matters is your feedback on the tool itself: What was clear or unclear? Is the recommendation understandable? Would the tool be useful in practice? Please answer the validation questions you received separately. If the Sufficiency Compass reached a recommendation after only a few questions, this can be an intended result of its decision logic and does not mean that the assessment was incomplete.",
 whatGetTitle:"What you will get",whatGetText:"A context-specific management recommendation and a concise explanation of the factors driving it.",
 howWorksTitle:"How it works",howWorksText:"Six modules, progressive disclosure and no aggregate score. You only see questions relevant to your decision path.",
 start:"Start assessment",privacy:"No login required. Your current responses are sent to the decision engine for calculation and are not persistently stored by the prototype.",
@@ -234,6 +249,10 @@ de:{
 eyebrow:"Entscheidungstool für KI-gestützte Finanzplanung",
 tagline:"Finden Sie das passende Maß an KI und Komplexität für Ihren Financial-Planning-Anwendungsfall.",
 intro:"Prüfen Sie, ob eine weitere technologische Weiterentwicklung gerechtfertigt ist, welche Voraussetzungen zuerst geschaffen werden müssen und wann ein begrenzter PoC oder Pilot entscheidungsrelevante Evidenz liefern sollte.",
+validationStartTitle:"Sie testen hier ein Entscheidungswerkzeug – Sie nehmen nicht an einer Umfrage teil.",
+validationStartText:"Die Fragen im Sufficiency Compass dienen ausschließlich dazu, Ihre gewählte Entscheidungssituation zu beurteilen und eine Empfehlung für diesen Fall zu erzeugen. Ihre Antworten im Tool sind nicht das Feedback für die wissenschaftliche Validierung. Bitte geben Sie nach der Nutzung Feedback zum Werkzeug selbst – insbesondere zu Verständlichkeit, Relevanz, Ergebnislogik und praktischer Nutzbarkeit.",
+validationResultTitle:"Ihr Tool-Durchlauf ist abgeschlossen – die Validierung noch nicht.",
+validationResultText:"Für die wissenschaftliche Validierung stehen nicht Ihre einzelnen Antworten oder das erhaltene Ergebnis im Mittelpunkt, sondern Ihr Feedback zum Werkzeug selbst: Was war verständlich oder unklar? Ist die Empfehlung nachvollziehbar? Würde das Tool in der Praxis helfen? Bitte beantworten Sie dazu die Validierungsfragen, die Sie separat erhalten haben. Wenn der Sufficiency Compass bereits nach wenigen Fragen zu einer Empfehlung kommt, kann dies ein beabsichtigtes Ergebnis der Entscheidungslogik sein und bedeutet nicht, dass der Durchlauf unvollständig war.",
 whatGetTitle:"Ihr Ergebnis",whatGetText:"Eine kontextspezifische Management-Empfehlung mit einer verständlichen Begründung der entscheidungsrelevanten Faktoren.",
 howWorksTitle:"So funktioniert es",howWorksText:"Sechs Module, Progressive Disclosure und kein Gesamtscore. Sie sehen nur Fragen, die für Ihren Entscheidungspfad relevant sind.",
 start:"Assessment starten",privacy:"Keine Anmeldung erforderlich. Ihre aktuellen Antworten werden zur Berechnung an die Decision Engine übermittelt und vom Prototyp nicht dauerhaft gespeichert.",
