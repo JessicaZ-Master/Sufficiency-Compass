@@ -104,6 +104,22 @@ h1{font-size:48px;line-height:1.07;margin:12px 0 18px;letter-spacing:-.04em}
 .validation-notice{margin:24px 0;padding:16px 18px;border:1px solid #9FC7C3;border-left:5px solid var(--petrol);border-radius:12px;background:var(--petrol-soft);color:var(--ink);line-height:1.55}
 .validation-notice strong{display:block;margin-bottom:6px;color:var(--petrol-dark);font-size:15px}
 .validation-notice div{font-size:14px}
+.framing-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.field{background:white;border:1px solid var(--line);border-radius:12px;padding:16px}
+.field.full{grid-column:1/-1}
+.field label{display:block;font-weight:750;margin-bottom:7px}
+.field small{display:block;color:var(--muted);line-height:1.45;margin-bottom:8px}
+.field input,.field textarea,.field select{width:100%;border:1px solid var(--line);border-radius:9px;padding:10px 11px;background:#fff;color:var(--ink)}
+.field textarea{min-height:92px;resize:vertical}
+.diagnostic-banner{margin:0 0 18px;padding:14px 16px;border:1px solid #D6B36B;background:var(--warn-bg);border-radius:11px;color:#6F4A08;line-height:1.5}
+.trace-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+.trace-card{background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:16px}
+.trace-card.full{grid-column:1/-1}
+.trace-card h3{margin:0 0 9px;font-size:15px}
+.trace-card p,.trace-card li{color:var(--muted);line-height:1.55}
+.specialist-task{border-left:4px solid var(--petrol);background:#fff;border-radius:9px;padding:12px 14px;margin:9px 0}
+.specialist-task b{display:block;margin-bottom:4px}
+@media(max-width:720px){.framing-grid,.trace-grid{grid-template-columns:1fr}.field.full,.trace-card.full{grid-column:auto}}
 @media(max-width:720px){
   .brand-logo{width:168px;max-width:55vw;height:46px}
   .topbar{padding:0 16px}
@@ -159,10 +175,6 @@ h1{font-size:48px;line-height:1.07;margin:12px 0 18px;letter-spacing:-.04em}
         <h1>Sufficiency Compass</h1>
         <p data-i18n="tagline"></p>
         <p data-i18n="intro"></p>
-        <div class="validation-notice" role="note">
-          <strong data-i18n="validationStartTitle"></strong>
-          <div data-i18n="validationStartText"></div>
-        </div>
         <div class="value-box">
           <div class="mini-card"><strong data-i18n="whatGetTitle"></strong><span data-i18n="whatGetText"></span></div>
           <div class="mini-card"><strong data-i18n="howWorksTitle"></strong><span data-i18n="howWorksText"></span></div>
@@ -172,7 +184,30 @@ h1{font-size:48px;line-height:1.07;margin:12px 0 18px;letter-spacing:-.04em}
       </div>
     </section>
 
-    <section id="assessmentScreen" class="hidden"><div id="apiErrorAssessment" class="api-error hidden"></div>
+
+    <section id="framingScreen" class="hidden">
+      <div class="module-header">
+        <div class="eyebrow" data-i18n="framingEyebrow"></div>
+        <h2 class="module-title" data-i18n="framingTitle"></h2>
+        <div class="module-purpose" data-i18n="framingIntro"></div>
+      </div>
+      <div class="framing-grid">
+        <div class="field full"><label data-i18n="df1Label"></label><small data-i18n="df1Help"></small><textarea data-df="DF.1"></textarea></div>
+        <div class="field"><label data-i18n="df2Label"></label><small data-i18n="df2Help"></small><textarea data-df="DF.2"></textarea></div>
+        <div class="field"><label data-i18n="df3Label"></label><small data-i18n="df3Help"></small><textarea data-df="DF.3"></textarea></div>
+        <div class="field"><label data-i18n="df4Label"></label><small data-i18n="df4Help"></small><input data-df="DF.4" type="text"></div>
+        <div class="field"><label data-i18n="df5Label"></label><small data-i18n="df5Help"></small><input data-df="DF.5" type="text"></div>
+        <div class="field full"><label data-i18n="df6Label"></label><small data-i18n="df6Help"></small>
+          <select data-df="DF.6"><option value=""></option><option value="existing" data-i18n-option="df6Existing"></option><option value="greenfield" data-i18n-option="df6Greenfield"></option></select>
+        </div>
+      </div>
+      <div class="nav">
+        <button class="secondary" id="framingBackBtn" data-i18n="back"></button>
+        <button class="primary" id="framingContinueBtn" data-i18n="continue"></button>
+      </div>
+    </section>
+
+    <section id="assessmentScreen" class="hidden"><div id="apiErrorAssessment" class="api-error hidden"></div><div id="diagnosticBanner" class="diagnostic-banner hidden"></div>
       <div class="stepper" id="stepper"></div>
       <div class="module-header">
         <div class="module-meta">
@@ -192,14 +227,15 @@ h1{font-size:48px;line-height:1.07;margin:12px 0 18px;letter-spacing:-.04em}
     </section>
 
     <section id="resultScreen" class="hidden"><div id="apiErrorResult" class="api-error hidden"></div>
-      <div class="validation-notice" role="note">
-        <strong data-i18n="validationResultTitle"></strong>
-        <div data-i18n="validationResultText"></div>
-      </div>
       <div class="result-card" id="resultCard">
         <div class="result-kicker" data-i18n="yourRecommendation"></div>
         <h2 class="result-title" id="resultTitle"></h2>
         <div class="result-desc" id="resultDesc"></div>
+        <div class="trace-grid">
+          <div class="trace-card full"><h3 data-i18n="decisionContext"></h3><p id="decisionContextText"></p></div>
+          <div class="trace-card"><h3 data-i18n="gateStatus"></h3><div id="gateStatusText"></div></div>
+          <div class="trace-card"><h3 data-i18n="economicSufficiency"></h3><p id="economicText"></p></div>
+        </div>
         <div class="result-grid">
           <div class="result-section">
             <h3 data-i18n="why"></h3>
@@ -210,9 +246,11 @@ h1{font-size:48px;line-height:1.07;margin:12px 0 18px;letter-spacing:-.04em}
             <div id="nextText" style="color:var(--muted);line-height:1.6"></div>
           </div>
         </div>
-        <div class="result-section" style="margin-top:18px">
-          <h3 data-i18n="attention"></h3>
-          <div class="action-list" id="actionList"></div>
+        <div class="result-section" style="margin-top:18px"><h3 data-i18n="unresolved"></h3><ul id="unresolvedList"></ul></div>
+        <div class="result-section" style="margin-top:18px"><h3 data-i18n="specialistTasks"></h3><div id="specialistTaskList"></div></div>
+        <div class="trace-grid">
+          <div class="trace-card"><h3 data-i18n="alternativePaths"></h3><ul id="alternativeList"></ul></div>
+          <div class="trace-card"><h3 data-i18n="conditionsAnotherPath"></h3><div class="action-list" id="actionList"></div></div>
         </div>
         <div class="result-actions">
           <button class="primary" id="pdfBtn" data-i18n="savePdf"></button>
@@ -243,7 +281,16 @@ back:"Back",continue:"Continue",moduleOf:"Module {n} of 6",examples:"Examples / 
 cannotTitle:"Further clarification may be required",cannotText:"This condition cannot currently be assessed reliably. Obtain the indicated input before closing the decision. 'Cannot assess' is not treated as a negative score.",specialistLabel:"Suggested specialist checkpoint",
 yourRecommendation:"Your recommendation",why:"Why this recommendation?",next:"What to do next",attention:"What needs attention before the next step?",savePdf:"Save result as PDF",edit:"Review & edit answers",restart:"Start new assessment",
 resultNote:"The recommendation is generated from the frozen Toolkit V1 decision logic. Outcomes are non-hierarchical and do not represent maturity levels.",
-noIssues:"No unresolved prerequisite or clarification area identified."
+noIssues:"No unresolved prerequisite or clarification area identified.",
+framingEyebrow:"Decision Framing",framingTitle:"Define the decision before assessing the solution",framingIntro:"Frame the management decision and assessment context. A technical solution does not need to be specified at this stage.",
+df1Label:"DF.1 · Problem / opportunity",df1Help:"What problem or opportunity has led to this assessment?",
+df2Label:"DF.2 · Intended business outcome",df2Help:"What business outcome should the solution support?",
+df3Label:"DF.3 · Current decision",df3Help:"What decision is currently being made?",
+df4Label:"DF.4 · Unit of assessment",df4Help:"Select one process, planning activity, decision use case, or capability.",
+df5Label:"DF.5 · Affected users / activities",df5Help:"Which users, functions, or activities are affected and need to be considered?",
+df6Label:"DF.6 · Starting situation",df6Help:"Does the case concern an existing solution/process or a new capability / greenfield case?",df6Existing:"Existing solution / process",df6Greenfield:"New capability / greenfield",
+diagnosticTitle:"Diagnostic continuation",diagnosticText:"A decision-critical condition currently blocks a positive advancement recommendation. You can continue the assessment diagnostically to identify further dependencies, evidence needs, alternatives and specialist questions.",
+decisionContext:"Decision context",gateStatus:"Decision-gate status",economicSufficiency:"Economic sufficiency",unresolved:"Unresolved conditions",specialistTasks:"Specialist-verification tasks",alternativePaths:"Simpler / alternative paths",conditionsAnotherPath:"Conditions / actions for another path"
 },
 de:{
 eyebrow:"Entscheidungstool für KI-gestützte Finanzplanung",
@@ -260,7 +307,16 @@ back:"Zurück",continue:"Weiter",moduleOf:"Modul {n} von 6",examples:"Beispiele 
 cannotTitle:"Weitere Klärung kann erforderlich sein",cannotText:"Diese Bedingung kann derzeit nicht verlässlich beurteilt werden. Holen Sie die angegebene Information ein, bevor Sie die Entscheidung abschließen. „Kann ich nicht beurteilen“ wird nicht als negativer Score gewertet.",specialistLabel:"Empfohlener Specialist Checkpoint",
 yourRecommendation:"Ihre Empfehlung",why:"Warum diese Empfehlung?",next:"Was ist als Nächstes zu tun?",attention:"Was ist vor dem nächsten Schritt konkret zu tun?",savePdf:"Ergebnis als PDF speichern",edit:"Antworten prüfen & korrigieren",restart:"Neues Assessment starten",
 resultNote:"Die Empfehlung wird aus der Entscheidungslogik des eingefrorenen Toolkit V1 erzeugt. Die Outcomes sind nicht hierarchisch und stellen keine Reifegrade dar.",
-noIssues:"Keine offenen Voraussetzungen oder Klärungspunkte identifiziert."
+noIssues:"Keine offenen Voraussetzungen oder Klärungspunkte identifiziert.",
+framingEyebrow:"Decision Framing",framingTitle:"Entscheidung definieren, bevor die Lösung bewertet wird",framingIntro:"Rahmen Sie die Managemententscheidung und den Assessment-Kontext. Eine technische Lösung muss zu diesem Zeitpunkt noch nicht feststehen.",
+df1Label:"DF.1 · Problem / Chance",df1Help:"Welches Problem oder welche Chance hat zu diesem Assessment geführt?",
+df2Label:"DF.2 · Angestrebtes Business-Ergebnis",df2Help:"Welches Business-Ergebnis soll die Lösung unterstützen?",
+df3Label:"DF.3 · Aktuelle Entscheidung",df3Help:"Welche Entscheidung wird aktuell getroffen?",
+df4Label:"DF.4 · Assessment-Einheit",df4Help:"Wählen Sie einen Prozess, eine Planungsaktivität, einen Entscheidungsanwendungsfall oder eine Fähigkeit.",
+df5Label:"DF.5 · Betroffene Nutzer / Aktivitäten",df5Help:"Welche Nutzer, Funktionen oder Aktivitäten sind betroffen und müssen berücksichtigt werden?",
+df6Label:"DF.6 · Ausgangssituation",df6Help:"Geht es um eine bestehende Lösung/einen Prozess oder um eine neue Fähigkeit / Greenfield?",df6Existing:"Bestehende Lösung / bestehender Prozess",df6Greenfield:"Neue Fähigkeit / Greenfield",
+diagnosticTitle:"Diagnostische Fortsetzung",diagnosticText:"Eine entscheidungskritische Bedingung blockiert derzeit eine positive Weiterentwicklungsempfehlung. Sie können das Assessment diagnostisch fortsetzen, um weitere Abhängigkeiten, Evidenzbedarfe, Alternativen und Fachfragen zu identifizieren.",
+decisionContext:"Entscheidungskontext",gateStatus:"Status des Decision Gates",economicSufficiency:"Wirtschaftliche Suffizienz",unresolved:"Offene Bedingungen",specialistTasks:"Specialist-Verification-Tasks",alternativePaths:"Einfachere / alternative Pfade",conditionsAnotherPath:"Bedingungen / Maßnahmen für einen anderen Pfad"
 }}
 const modules=[
 {id:1,title:{en:"Business Need & Minimum Requirements",de:"Business Need & Mindestanforderungen"},purpose:{en:"Define the use case and acceptance conditions.",de:"Anwendungsfall und Akzeptanzbedingungen definieren."}},
@@ -306,12 +362,12 @@ q("M1.2",1,"", "Are the minimum requirements for an acceptable solution clearly 
 ["Decision relevance","Output quality / reliability","Timeliness","Usability","Process integration","Other use-case-specific acceptance conditions"],
 ["Entscheidungsrelevanz","Outputqualität / Zuverlässigkeit","Rechtzeitigkeit","Nutzbarkeit","Prozessintegration","Weitere anwendungsfallspezifische Akzeptanzbedingungen"],()=>true),
 
-q("M2.1",2,"","Is there a current solution, process, or reference approach that covers the full use case?",
-"Gibt es eine aktuelle Lösung, einen Prozess oder einen Referenzansatz, der den vollständigen Anwendungsfall abdeckt?",O.yn,
-"The reference may be manual, judgement-based, spreadsheet-based, statistical, software-supported, or AI-supported. It must cover the same use-case scope.",
-"Die Referenz kann manuell, urteilsbasiert, tabellenbasiert, statistisch, software- oder KI-gestützt sein. Sie muss denselben Anwendungsumfang abdecken.",
-["Manual / judgement-based process","Spreadsheet","Statistical model","Software solution","Analytical / AI-supported approach"],
-["Manueller / urteilsbasierter Prozess","Spreadsheet","Statistisches Modell","Softwarelösung","Analytischer / KI-gestützter Ansatz"],()=>true),
+q("M2.1",2,"","Which reference state should be used to assess the additional value of a more advanced solution?",
+"Welcher Referenzzustand soll verwendet werden, um den zusätzlichen Nutzen einer fortgeschritteneren Lösung zu bewerten?",
+[["existing","Existing solution / process","Bestehende Lösung / bestehender Prozess"],["current_process","Current process or capability without a dedicated technical solution","Aktueller Prozess oder Fähigkeit ohne dedizierte technische Lösung"],["other_resource","Another resource-efficient reference","Andere ressourceneffiziente Referenz"],["not_identified","Not yet identified","Noch nicht identifiziert"],["cannot","Cannot assess","Kann ich nicht beurteilen"]],
+"The reference may be manual, judgement-based, spreadsheet-based, statistical, conventional, software-supported, AI-supported, or another credible resource-efficient alternative. Greenfield cases still require an explicit reference; no universal default baseline is prescribed.",
+"Die Referenz kann manuell, urteilsbasiert, tabellenbasiert, statistisch, konventionell, software- oder KI-gestützt oder eine andere belastbare ressourceneffiziente Alternative sein. Auch Greenfield-Fälle benötigen eine explizite Referenz; es gibt keine universelle Standard-Baseline.",
+["Current process","Current capability level","Resource-efficient alternative"],["Aktueller Prozess","Aktuelles Fähigkeitsniveau","Ressourceneffiziente Alternative"],()=>true),
 q("M2.2",2,"","How does the current solution perform against the minimum requirements and its recurring resource burden?",
 "Wie schneidet die aktuelle Lösung im Hinblick auf die Mindestanforderungen und ihre wiederkehrende Ressourcenbelastung ab?",
 [["meets_no_burden","Meets all minimum requirements; no decision-relevant recurring burden","Erfüllt alle Mindestanforderungen; keine entscheidungsrelevante wiederkehrende Belastung"],
@@ -328,8 +384,8 @@ q("M2.3",2,"","Does the current process rely on business-relevant human judgemen
 "Geschäftsrelevante menschliche Beiträge können Kontextwissen oder Urteile umfassen, die eine künftige Lösung bewusst erhalten, integrieren oder ersetzen muss.",
 ["Customer / market knowledge","Planned events","Exception handling","Management judgement","Plausibility checks"],
 ["Kunden- / Marktwissen","Geplante Ereignisse","Ausnahmebehandlung","Managementurteil","Plausibilitätsprüfungen"],()=>true),
-q("M2.4",2,"","To what extent can the identified gaps or burdens be feasibly addressed without changing the core solution architecture or sourcing model?",
-"In welchem Umfang lassen sich die identifizierten Lücken oder Belastungen beheben, ohne die Kernarchitektur der Lösung oder das Sourcing-Modell zu verändern?",
+q("M2.4",2,"","To what extent can the identified gaps or burdens be feasibly addressed through a lower-complexity improvement or alternative before moving to a more advanced solution?",
+"In welchem Umfang lassen sich die identifizierten Lücken oder Belastungen durch eine weniger komplexe Verbesserung oder Alternative beheben, bevor zu einer fortgeschritteneren Lösung gewechselt wird?",
 [["fully","Fully","Vollständig"],["partly","Partly","Teilweise"],["not_at_all","Not at all","Gar nicht"],["cannot","Cannot assess","Kann ich nicht beurteilen"]],
 "A lower-complexity path keeps the current core solution architecture and sourcing model unchanged. If the change creates a materially different requirement profile, treat it as an advancement scenario later.",
 "Ein weniger komplexer Verbesserungsweg lässt die Kernarchitektur und das Sourcing-Modell unverändert. Führt die Änderung zu einem wesentlich anderen Anforderungsprofil, ist sie später als Advancement-Szenario zu behandeln.",
@@ -443,26 +499,26 @@ q("M6.3",6,"A","Have the relevant user groups had an opportunity to review or te
 q("M6.4",6,"A","Where user roles differ, are relevant differences in training, access, review, or support addressed in the planned use?",
 "Werden bei unterschiedlichen Nutzerrollen relevante Unterschiede bei Training, Zugriff, Prüfung oder Unterstützung in der geplanten Nutzung berücksichtigt?",
 [["yes","Yes","Ja"],["no","No","Nein"],["na","Not applicable","Nicht anwendbar"],["cannot","Cannot assess","Kann ich nicht beurteilen"]],
-"Use 'Not applicable' only when no relevant user-role differences exist.",
-"Verwenden Sie „Nicht anwendbar“ nur, wenn keine relevanten Unterschiede zwischen Nutzerrollen bestehen.",
+"Use 'Not applicable' only when the identified user groups do not differ in training, access, review, support, or workflow requirements.",
+"Verwenden Sie „Nicht anwendbar“ nur, wenn sich die identifizierten Nutzergruppen nicht hinsichtlich Training, Zugriff, Prüfung, Unterstützung oder Workflow-Anforderungen unterscheiden.",
 ["Training","Access","Review intensity","Support","Role-specific workflow"],
 ["Training","Zugriff","Prüfintensität","Support","Rollenspezifischer Workflow"],()=>true),
 q("M6.5",6,"B","Is pilot or actual-use evidence available for the selected scenario?",
 "Liegt für das ausgewählte Szenario Evidenz aus einem Pilot oder aus tatsächlicher Nutzung vor?",
 [["yes","Yes","Ja"],["no","No","Nein"],["cannot","Cannot assess","Kann ich nicht beurteilen"]],
-"If no pilot/use evidence exists, the remaining Stage-B questions are not asked; the appropriate next step is bounded evidence generation.",
-"Wenn keine Pilot-/Nutzungsevidenz vorliegt, werden die übrigen Stage-B-Fragen nicht gestellt; der passende nächste Schritt ist eine begrenzte Evidenzgenerierung.",
+"If no pilot or actual-use evidence exists where such evidence is required, M6.6–M6.7 are not assessed and O4 applies.",
+"Wenn erforderliche Pilot- oder Nutzungsevidenz fehlt, werden M6.6–M6.7 nicht bewertet und O4 greift.",
 ["Evidence from pilot, controlled use, or actual operation"],["Evidenz aus Pilot, kontrollierter Nutzung oder realem Betrieb"],()=>true),
-q("M6.6",6,"B","During pilot or actual use, do interpretation / validation workload and workflow friction remain within acceptable limits?",
-"Bleiben während Pilot oder tatsächlicher Nutzung Interpretations-/Validierungsaufwand und Workflow-Reibung innerhalb akzeptabler Grenzen?",
-[["none","No relevant issue","Kein relevantes Problem"],["remedy","Issue – remedy defined","Problem – Abhilfe definiert"],["no_remedy","Issue – no remedy","Problem – keine Abhilfe"],["not_covered","Not covered by evidence","Nicht durch Evidenz abgedeckt"],["cannot","Cannot assess","Kann ich nicht beurteilen"]],
+q("M6.6",6,"B","During pilot or actual use, has interpretation / validation workload or workflow friction created an issue that affects value, cost, timing, or usability?",
+"Hat während Pilot oder tatsächlicher Nutzung Interpretations-/Validierungsaufwand oder Workflow-Reibung ein Problem verursacht, das Nutzen, Kosten, Timing oder Nutzbarkeit beeinflusst?",
+[["none","No issue identified","Kein Problem identifiziert"],["remedy","Issue – remedy defined","Problem – Abhilfe definiert"],["no_remedy","Issue – no remedy","Problem – keine Abhilfe"],["not_covered","Not covered by evidence","Nicht durch Evidenz abgedeckt"],["cannot","Cannot assess","Kann ich nicht beurteilen"]],
 "Evaluate actual interpretation/validation workload and workflow friction together because both test whether the solution can operate within the planned process.",
 "Bewerten Sie tatsächlichen Interpretations-/Validierungsaufwand und Workflow-Reibung gemeinsam, da beide zeigen, ob die Lösung im geplanten Prozess tragfähig ist.",
 ["Interpretation / validation workload","Duplicate work","Additional handovers","Waiting time","Workarounds","Exception effort"],
 ["Interpretations- / Validierungsaufwand","Doppelarbeit","Zusätzliche Übergaben","Wartezeiten","Workarounds","Ausnahmeaufwand"],()=>true),
 q("M6.7",6,"B","During pilot or actual use, are review / intervention mechanisms workable and are relevant differences between user roles adequately handled?",
 "Sind während Pilot oder tatsächlicher Nutzung Prüf-/Interventionsmechanismen praktikabel und werden relevante Unterschiede zwischen Nutzerrollen angemessen berücksichtigt?",
-[["none","No relevant issue","Kein relevantes Problem"],["remedy","Issue – remedy defined","Problem – Abhilfe definiert"],["no_remedy","Issue – no remedy","Problem – keine Abhilfe"],["not_covered","Not covered by evidence","Nicht durch Evidenz abgedeckt"],["cannot","Cannot assess","Kann ich nicht beurteilen"]],
+[["none","No issue identified","Kein Problem identifiziert"],["remedy","Issue – remedy defined","Problem – Abhilfe definiert"],["no_remedy","Issue – no remedy","Problem – keine Abhilfe"],["not_covered","Not covered by evidence","Nicht durch Evidenz abgedeckt"],["cannot","Cannot assess","Kann ich nicht beurteilen"]],
 "Evaluate practical review/intervention usability and role-dependent use together because both concern whether human use works as intended in practice.",
 "Bewerten Sie die praktische Nutzbarkeit von Prüf-/Interventionsmechanismen und rollenspezifischer Nutzung gemeinsam, da beide zeigen, ob die menschliche Nutzung in der Praxis wie vorgesehen funktioniert.",
 ["Review / correction / override usability","Escalation","Required information / access","Role-specific use patterns","Training / support differences"],
@@ -470,12 +526,12 @@ q("M6.7",6,"B","During pilot or actual use, are review / intervention mechanisms
 ]
 
 
-let lang="en", current=1, A={}, result=null, visibleIds=[], moduleCompleteState=false;
+let lang="en", current=1, A={}, F={}, result=null, visibleIds=[], moduleCompleteState=false, diagnosticMode=false, gateStatus=null;
 
 T.en.privacy="No login required. Assessment responses are sent to the decision engine for calculation and are not stored by this prototype.";
 T.de.privacy="Keine Anmeldung erforderlich. Die Assessment-Antworten werden zur Berechnung an die Decision Engine übertragen und in diesem Prototyp nicht gespeichert.";
-T.en.resultNote="The recommendation is generated by the private decision engine implementing frozen Toolkit V1. Outcomes are non-hierarchical and do not represent maturity levels.";
-T.de.resultNote="Die Empfehlung wird durch die private Decision Engine auf Basis des eingefrorenen Toolkit V1 erzeugt. Die Outcomes sind nicht hierarchisch und stellen keine Reifegrade dar.";
+T.en.resultNote="The recommendation is generated by the private deterministic decision engine implementing Toolkit V2. Outcomes are non-hierarchical and do not represent maturity levels.";
+T.de.resultNote="Die Empfehlung wird durch die private deterministische Decision Engine auf Basis von Toolkit V2 erzeugt. Die Outcomes sind nicht hierarchisch und stellen keine Reifegrade dar.";
 
 function apiBase(){return (window.SUFFICIENCY_COMPASS_API||"").replace(/\/+$/,"");}
 function setApiError(msg){
@@ -493,19 +549,19 @@ async function evaluate(intent="state"){
  }
  const res=await fetch(base+"/evaluate",{
    method:"POST",headers:{"Content-Type":"application/json"},
-   body:JSON.stringify({answers:A,current_module:current,intent,lang})
+   body:JSON.stringify({answers:A,framing:F,current_module:current,intent,lang})
  });
  if(!res.ok){
    let detail=""; try{detail=(await res.json()).detail||""}catch(e){}
    throw new Error(detail || `Engine request failed (${res.status})`);
  }
  const data=await res.json();
- A=data.answers||{}; visibleIds=data.visible_question_ids||[]; moduleCompleteState=!!data.module_complete;
+ A=data.answers||{}; F=data.framing||F; visibleIds=data.visible_question_ids||[]; moduleCompleteState=!!data.module_complete; diagnosticMode=!!data.diagnostic_mode; gateStatus=data.decision_gate_status||null;
  return data;
 }
 function i18n(){
  document.documentElement.lang=lang;
- document.querySelectorAll("[data-i18n]").forEach(el=>el.textContent=T[lang][el.dataset.i18n]||"");
+ document.querySelectorAll("[data-i18n]").forEach(el=>el.textContent=T[lang][el.dataset.i18n]||""); document.querySelectorAll("[data-i18n-option]").forEach(el=>el.textContent=T[lang][el.dataset.i18nOption]||"");
  document.getElementById("langEN").classList.toggle("active",lang==="en");
  document.getElementById("langDE").classList.toggle("active",lang==="de");
  if(!document.getElementById("assessmentScreen").classList.contains("hidden")) renderModule();
@@ -565,39 +621,52 @@ function renderModule(){
  document.getElementById("moduleTitle").textContent=m.title[lang];
  document.getElementById("modulePurpose").textContent=m.purpose[lang];
  document.getElementById("progressFill").style.width=`${(current/6)*100}%`;
+ const db=document.getElementById("diagnosticBanner");
+ if(diagnosticMode){db.innerHTML=`<strong>${T[lang].diagnosticTitle}</strong><br>${T[lang].diagnosticText}`;db.classList.remove("hidden")}else db.classList.add("hidden");
  const box=document.getElementById("questions");box.innerHTML="";
- const visible=questions.filter(x=>x.module===current && visibleIds.includes(x.id));
- if(current===6){
-   let lastStage=null;
-   visible.forEach(x=>{
-     if(x.stage&&x.stage!==lastStage){
-       const s=document.createElement("div");s.className="stage-label";
-       s.textContent=x.stage==="A"?(lang==="en"?"Stage A · Before implementation":"Stage A · Vor Implementierung"):(lang==="en"?"Stage B · Pilot / actual use":"Stage B · Pilot / tatsächliche Nutzung");
-       box.appendChild(s);lastStage=x.stage
-     }
-     box.appendChild(renderQuestion(x))
-   })
- }else visible.forEach(x=>box.appendChild(renderQuestion(x)));
- document.getElementById("backBtn").disabled=current===1;
+ questions.filter(x=>x.module===current && visibleIds.includes(x.id)).forEach(x=>box.appendChild(renderQuestion(x)));
+ document.getElementById("backBtn").disabled=false;
  document.getElementById("continueBtn").disabled=!moduleCompleteState;
+}
+function fillList(id,items,emptyText=""){
+ const el=document.getElementById(id); if(!el)return; el.innerHTML="";
+ (items||[]).forEach(x=>{const li=document.createElement("li");li.textContent=typeof x==="string"?x:(x.text||JSON.stringify(x));el.appendChild(li)});
+ if(!(items||[]).length && emptyText){const li=document.createElement("li");li.textContent=emptyText;el.appendChild(li)}
 }
 function renderResult(r){
  if(!r)return;
  const card=document.getElementById("resultCard");card.style.setProperty("--outcome",r.color||"var(--petrol)");
  document.getElementById("resultTitle").textContent=r.title;
  document.getElementById("resultDesc").textContent=r.description;
+ document.getElementById("decisionContextText").textContent=r.decision_context||"";
+ const gs=r.decision_gate_status||{}; const blockers=(gs.blockers||[]).map(x=>x.text).join(" · ");
+ document.getElementById("gateStatusText").textContent=(gs.status||"").toUpperCase()+(blockers?": "+blockers:"");
+ document.getElementById("economicText").textContent=r.economic_sufficiency||"";
  const wl=document.getElementById("whyList");wl.innerHTML="";(r.why||[]).forEach(x=>{const li=document.createElement("li");li.textContent=x;wl.appendChild(li)});
  document.getElementById("nextText").textContent=r.next_step||"";
+ fillList("unresolvedList",r.unresolved_conditions||[],T[lang].noIssues);
+ const st=document.getElementById("specialistTaskList");st.innerHTML="";
+ (r.specialist_tasks||[]).forEach(a=>{const d=document.createElement("div");d.className="specialist-task";d.innerHTML=`<b>${a.question_id} · ${a.who}</b><div>${a.why}</div><div><strong>Verify:</strong> ${a.verify}</div><div><strong>Evidence:</strong> ${a.evidence_required}</div>`;st.appendChild(d)});
+ if(!(r.specialist_tasks||[]).length)st.textContent=T[lang].noIssues;
+ fillList("alternativeList",r.alternative_paths||[]);
  const al=document.getElementById("actionList");al.innerHTML="";
- const acts=r.actions||[];
+ const acts=r.conditions_for_another_path||r.actions||[];
  if(!acts.length){const d=document.createElement("div");d.className="action-card";d.innerHTML=`<div class="action-card-text">${T[lang].noIssues}</div>`;al.appendChild(d)}
- else acts.forEach(a=>{const d=document.createElement("div");d.className="action-card";d.innerHTML=`<div class="action-card-title">${a.title}</div><div class="action-card-text">${a.text}</div><span class="action-card-meta">${a.meta}</span>`;al.appendChild(d)})
+ else acts.forEach(a=>{const d=document.createElement("div");d.className="action-card"; if(typeof a==="string")d.innerHTML=`<div class="action-card-text">${a}</div>`; else d.innerHTML=`<div class="action-card-title">${a.title||""}</div><div class="action-card-text">${a.text||""}</div><span class="action-card-meta">${a.meta||""}</span>`;al.appendChild(d)})
 }
 function showResult(r){
  result=r;document.getElementById("assessmentScreen").classList.add("hidden");document.getElementById("startScreen").classList.add("hidden");document.getElementById("resultScreen").classList.remove("hidden");renderResult(r);window.scrollTo({top:0,behavior:"smooth"})
 }
-document.getElementById("startBtn").onclick=async()=>{
- document.getElementById("startScreen").classList.add("hidden");document.getElementById("assessmentScreen").classList.remove("hidden");current=1;A={};result=null;
+function syncFramingFromUI(){document.querySelectorAll("[data-df]").forEach(el=>F[el.dataset.df]=el.value.trim())}
+function loadFramingToUI(){document.querySelectorAll("[data-df]").forEach(el=>el.value=F[el.dataset.df]||"")}
+document.getElementById("startBtn").onclick=()=>{
+ document.getElementById("startScreen").classList.add("hidden");document.getElementById("framingScreen").classList.remove("hidden");F={};A={};result=null;loadFramingToUI();window.scrollTo(0,0)
+};
+document.getElementById("framingBackBtn").onclick=()=>{syncFramingFromUI();document.getElementById("framingScreen").classList.add("hidden");document.getElementById("startScreen").classList.remove("hidden");window.scrollTo(0,0)};
+document.getElementById("framingContinueBtn").onclick=async()=>{
+ syncFramingFromUI();
+ if(!F["DF.1"]||!F["DF.2"]||!F["DF.3"]||!F["DF.4"]||!F["DF.5"]||!F["DF.6"]){alert(lang==="en"?"Please complete all Decision Framing fields.":"Bitte füllen Sie alle Felder des Decision Framing aus.");return}
+ document.getElementById("framingScreen").classList.add("hidden");document.getElementById("assessmentScreen").classList.remove("hidden");current=1;
  try{setApiError("");await evaluate("state")}catch(err){setApiError(err.message)}
  renderModule();window.scrollTo(0,0)
 };
@@ -610,7 +679,7 @@ document.getElementById("continueBtn").onclick=async()=>{
  }catch(err){setApiError(err.message)}
 };
 document.getElementById("backBtn").onclick=async()=>{
- if(current<=1)return;current--;
+ if(current<=1){document.getElementById("assessmentScreen").classList.add("hidden");document.getElementById("framingScreen").classList.remove("hidden");loadFramingToUI();window.scrollTo(0,0);return}current--;
  try{setApiError("");await evaluate("state")}catch(err){setApiError(err.message)}
  renderModule();window.scrollTo({top:0,behavior:"smooth"})
 };
@@ -618,7 +687,7 @@ document.getElementById("langEN").onclick=async()=>{lang="en";i18n();if(!documen
 document.getElementById("langDE").onclick=async()=>{lang="de";i18n();if(!document.getElementById("assessmentScreen").classList.contains("hidden")){try{await evaluate("state");renderModule()}catch(e){setApiError(e.message)}}};
 document.getElementById("pdfBtn").onclick=()=>window.print();
 document.getElementById("editBtn").onclick=async()=>{document.getElementById("resultScreen").classList.add("hidden");document.getElementById("assessmentScreen").classList.remove("hidden");try{setApiError("");await evaluate("state")}catch(e){setApiError(e.message)}renderModule();window.scrollTo(0,0)};
-document.getElementById("restartBtn").onclick=()=>{A={};current=1;result=null;visibleIds=[];moduleCompleteState=false;document.getElementById("resultScreen").classList.add("hidden");document.getElementById("startScreen").classList.remove("hidden");i18n();window.scrollTo(0,0)};
+document.getElementById("restartBtn").onclick=()=>{A={};F={};current=1;result=null;visibleIds=[];moduleCompleteState=false;diagnosticMode=false;gateStatus=null;document.getElementById("resultScreen").classList.add("hidden");document.getElementById("startScreen").classList.remove("hidden");i18n();window.scrollTo(0,0)};
 document.addEventListener("click",e=>{if(!e.target.closest(".help"))document.querySelectorAll(".help.open").forEach(x=>x.classList.remove("open"))});
 i18n();
 
