@@ -11,11 +11,11 @@ Those functions are executed by a separate private decision engine.
 The validation frontend is connected to the private decision engine via `config.js`:
 
 ```js
-window.SUFFICIENCY_COMPASS_API = "https://sufficiency-compass-engine.onrender.com";
+window.SUFFICIENCY_COMPASS_API = "https://sufficiency-compass-engine-v2.onrender.com";
 ```
 
 ## Research status
 
-- Research artefact: Frozen Toolkit V1
+- Research artefact: Toolkit V2
 - Web architecture: v0.3
-- Status: validation prototype
+- Status: final V2 implementation
