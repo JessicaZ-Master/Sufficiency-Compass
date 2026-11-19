@@ -85,7 +85,14 @@ h1{font-size:48px;line-height:1.07;margin:12px 0 18px;letter-spacing:-.04em}
 .specialist-checkpoint strong{color:#5B3C06}
 .nav{display:flex;justify-content:space-between;gap:12px;margin-top:28px;padding-top:20px;border-top:1px solid var(--line)}
 .stepper{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
-.step-pill{font-size:12px;border:1px solid var(--line);border-radius:99px;padding:6px 10px;color:var(--muted);background:white}
+.step-pill{font-size:12px;border:1px solid var(--line);border-radius:99px;padding:6px 10px;color:var(--muted);background:white;font:inherit}
+.step-pill.clickable{cursor:pointer}
+.step-pill.clickable:hover{border-color:#7FA9A5;color:var(--petrol-dark)}
+.step-pill.locked{opacity:.48;cursor:not-allowed}
+.question-jump{display:inline-flex;align-items:center;gap:5px;border:1px solid #9FC7C3;background:var(--petrol-soft);color:var(--petrol-dark);border-radius:7px;padding:4px 8px;font-size:12px;font-weight:800;cursor:pointer;margin-right:7px;vertical-align:1px}
+.question-jump:hover{background:#D8EEEB}
+.q-card.jump-target{outline:3px solid rgba(15,118,110,.25);border-color:var(--petrol);animation:jumpPulse 1.6s ease}
+@keyframes jumpPulse{0%{box-shadow:0 0 0 0 rgba(15,118,110,.28)}50%{box-shadow:0 0 0 10px rgba(15,118,110,0)}100%{box-shadow:0 0 0 0 rgba(15,118,110,0)}}
 .step-pill.active{background:var(--petrol-soft);color:var(--petrol-dark);border-color:#9FC7C3;font-weight:750}
 .step-pill.done{color:var(--ink);border-color:#BBC9CC}
 .result-card{background:white;border:1px solid var(--line);border-radius:18px;padding:28px;box-shadow:var(--shadow);border-top:6px solid var(--outcome)}
@@ -244,6 +251,7 @@ h1{font-size:48px;line-height:1.07;margin:12px 0 18px;letter-spacing:-.04em}
     </section>
 
     <section id="resultScreen" class="hidden"><div id="apiErrorResult" class="api-error hidden"></div>
+      <div class="stepper" id="resultStepper"></div>
       <div class="result-card" id="resultCard">
         <div class="result-kicker" data-i18n="yourRecommendation"></div>
         <h2 class="result-title" id="resultTitle"></h2>
@@ -307,12 +315,12 @@ df4Label:"DF.4 · Unit of assessment",df4Help:"Select one process, planning acti
 df5Label:"DF.5 · Affected users / activities",df5Help:"Which users, functions, or activities are affected and need to be considered?",
 df6Label:"DF.6 · Starting situation",df6Help:"Does the case concern an existing solution/process or a new capability / greenfield case?",df6Existing:"Existing solution / process",df6Greenfield:"New capability / greenfield",df6WhyTitle:"Why does this matter?",df6WhyGeneric:"The starting situation helps interpret the comparison reference in Module 2. It does not change the recommendation by itself.",df6WhyExisting:"With an existing solution or process, that current state will often be the most natural comparison reference in Module 2.",df6WhyGreenfield:"A greenfield case does not require an existing technical solution. In Module 2, use the current process, current capability level, or another resource-efficient alternative as the comparison reference. Greenfield does not mean lower maturity.",
 diagnosticTitle:"Further assessment for clarification",diagnosticText:"A decision-critical point is still open and currently prevents a positive advancement recommendation. You can close the assessment with the information available now. If you choose “Continue to clarify”, the assessment continues to make further prerequisites, evidence needs, alternatives and specialist questions visible. Continuing does not remove the open point automatically.",diagnosticReason:"Currently open",
-decisionContext:"Decision context",gateStatus:"Decision-gate status",economicSufficiency:"Economic sufficiency",unresolved:"Unresolved conditions",specialistTasks:"Specialist-verification tasks",alternativePaths:"Simpler / alternative paths",conditionsAnotherPath:"Conditions / actions for another path",assistOpen:"AI assistance",assistNote:"Optional explanation only. The assistance layer does not select answers, change rules, bypass specialist verification, or affect the recommendation. When used, the current question, answer categories, and limited Decision Framing context are sent to the external LLM service; selected answers and the generated recommendation are not sent.",assistExplain:"Explain simply",assistRephrase:"Rephrase",assistExample:"Example",assistOptions:"Explain options",assistAsk:"Clarify",assistPlaceholder:"What is unclear about this question?",assistLoading:"Generating explanation…",assistUnavailable:"Optional AI assistance is currently unavailable.",requiredAnswer:"Please answer this question before continuing."
+decisionContext:"Decision context",gateStatus:"Decision-gate status",economicSufficiency:"Economic sufficiency",unresolved:"Unresolved conditions",specialistTasks:"Specialist-verification tasks",alternativePaths:"Simpler / alternative paths",conditionsAnotherPath:"Conditions / actions for another path",assistOpen:"AI assistance",assistNote:"Optional explanation only. The assistance layer does not select answers, change rules, bypass specialist verification, or affect the recommendation. When used, the current question, answer categories, and limited Decision Framing context are sent to the external LLM service; selected answers and the generated recommendation are not sent.",assistExplain:"Explain simply",assistRephrase:"Rephrase",assistExample:"Example",assistOptions:"Explain options",assistAsk:"Clarify",assistPlaceholder:"What is unclear about this question?",assistLoading:"Generating explanation…",assistUnavailable:"Optional AI assistance is currently unavailable.",requiredAnswer:"Please answer this question before continuing.",goToQuestion:"Go to question",moduleLocked:"Complete earlier modules first."
 },
 de:{
 eyebrow:"Entscheidungstool für KI-gestützte Finanzplanung",
 tagline:"Finden Sie das passende Maß an KI und Komplexität für Ihren Anwendungsfall in der Finanzplanung.",
-intro:"Prüfen Sie, ob eine weitere technologische Weiterentwicklung gerechtfertigt ist, welche Voraussetzungen zuerst geschaffen werden müssen und wann ein begrenzter Machbarkeitsnachweis (PoC) oder Pilot entscheidungsrelevante Evidenz liefern sollte.",
+intro:"Prüfen Sie, ob eine weitere technologische Weiterentwicklung gerechtfertigt ist, welche Voraussetzungen zuerst geschaffen werden müssen und wann ein begrenzter Machbarkeitsnachweis (PoC) oder Pilot entscheidungsrelevante Informationen liefern sollte.",
 validationStartTitle:"Sie testen hier ein Entscheidungswerkzeug – Sie nehmen nicht an einer Umfrage teil.",
 validationStartText:"Die Fragen im Sufficiency Compass dienen ausschließlich dazu, Ihre gewählte Entscheidungssituation zu beurteilen und eine Empfehlung für diesen Fall zu erzeugen. Ihre Antworten im Werkzeug sind nicht die Rückmeldung für die wissenschaftliche Validierung. Bitte geben Sie nach der Nutzung Rückmeldung zum Werkzeug selbst – insbesondere zu Verständlichkeit, Relevanz, Ergebnislogik und praktischer Nutzbarkeit.",
 validationResultTitle:"Ihr Durchlauf ist abgeschlossen – die Validierung noch nicht.",
@@ -333,7 +341,7 @@ df4Label:"DF.4 · Gegenstand der Bewertung",df4Help:"Wählen Sie genau einen Pro
 df5Label:"DF.5 · Betroffene Nutzer / Aktivitäten",df5Help:"Welche Nutzer, Funktionen oder Aktivitäten sind betroffen und müssen berücksichtigt werden?",
 df6Label:"DF.6 · Ausgangssituation",df6Help:"Geht es um eine bestehende Lösung bzw. einen bestehenden Prozess oder um eine neue Fähigkeit ohne bestehende technische Lösung?",df6Existing:"Bestehende Lösung / bestehender Prozess",df6Greenfield:"Neue Fähigkeit / keine bestehende technische Lösung",df6WhyTitle:"Warum ist diese Angabe relevant?",df6WhyGeneric:"Die Ausgangssituation hilft dabei, in Modul 2 die passende Vergleichsreferenz zu wählen. Für sich allein verändert sie die Empfehlung nicht.",df6WhyExisting:"Bei einer bestehenden Lösung oder einem bestehenden Prozess ist dieser aktuelle Zustand häufig die naheliegende Vergleichsreferenz in Modul 2.",df6WhyGreenfield:"Bei einem neuen Vorhaben ohne bestehende technische Lösung brauchen Sie trotzdem eine Vergleichsreferenz. In Modul 2 kann das z. B. der heutige Prozess, das aktuelle Fähigkeitsniveau oder eine andere ressourcenschonende Alternative sein. Ein Greenfield-Fall bedeutet dabei nicht automatisch einen niedrigeren Reifegrad.",
 diagnosticTitle:"Weitere Prüfung zur Klärung",diagnosticText:"Ein entscheidungsrelevanter Punkt ist noch offen und verhindert derzeit eine positive Weiterentwicklungsempfehlung. Sie können die Bewertung mit dem aktuellen Informationsstand abschließen. Wenn Sie „Zur Klärung weiter prüfen“ wählen, wird die Bewertung fortgesetzt, um weitere Voraussetzungen, Informationsbedarfe, Alternativen und erforderliche fachliche Prüfungen sichtbar zu machen. Dadurch wird der offene Punkt nicht automatisch aufgehoben.",diagnosticReason:"Aktuell offen",
-decisionContext:"Entscheidungskontext",gateStatus:"Kritische Entscheidungspunkte",economicSufficiency:"Wirtschaftliche Tragfähigkeit",unresolved:"Offene Klärungspunkte",specialistTasks:"Erforderliche fachliche Prüfungen",alternativePaths:"Einfachere / alternative Lösungswege",conditionsAnotherPath:"Was müsste sich für einen anderen Weg ändern?",assistOpen:"KI-Hilfe",assistNote:"Optionale Erklärungshilfe. Die Assistenz wählt keine Antworten aus, verändert keine Regeln, umgeht keine fachliche Prüfung und beeinflusst die Empfehlung nicht. Bei Nutzung werden die aktuelle Frage, Antwortkategorien und ein begrenzter Teil des Entscheidungsrahmens an den externen Sprachmodell-Dienst übertragen; ausgewählte Antworten und die erzeugte Empfehlung werden nicht übertragen.",assistExplain:"Einfach erklären",assistRephrase:"Umformulieren",assistExample:"Beispiel",assistOptions:"Antwortoptionen erklären",assistAsk:"Klären",assistPlaceholder:"Was ist an dieser Frage unklar?",assistLoading:"Erklärung wird erzeugt…",assistUnavailable:"Die optionale KI-Hilfe ist derzeit nicht verfügbar.",verifyLabel:"Fachlich prüfen",evidenceLabel:"Benötigter Nachweis",requiredAnswer:"Bitte beantworten Sie diese Frage, bevor Sie fortfahren."
+decisionContext:"Entscheidungskontext",gateStatus:"Kritische Entscheidungspunkte",economicSufficiency:"Wirtschaftliche Tragfähigkeit",unresolved:"Offene Klärungspunkte",specialistTasks:"Erforderliche fachliche Prüfungen",alternativePaths:"Einfachere / alternative Lösungswege",conditionsAnotherPath:"Was müsste sich für einen anderen Weg ändern?",assistOpen:"KI-Hilfe",assistNote:"Optionale Erklärungshilfe. Die Assistenz wählt keine Antworten aus, verändert keine Regeln, umgeht keine fachliche Prüfung und beeinflusst die Empfehlung nicht. Bei Nutzung werden die aktuelle Frage, Antwortkategorien und ein begrenzter Teil des Entscheidungsrahmens an den externen Sprachmodell-Dienst übertragen; ausgewählte Antworten und die erzeugte Empfehlung werden nicht übertragen.",assistExplain:"Einfach erklären",assistRephrase:"Umformulieren",assistExample:"Beispiel",assistOptions:"Antwortoptionen erklären",assistAsk:"Klären",assistPlaceholder:"Was ist an dieser Frage unklar?",assistLoading:"Erklärung wird erzeugt…",assistUnavailable:"Die optionale KI-Hilfe ist derzeit nicht verfügbar.",verifyLabel:"Fachlich prüfen",evidenceLabel:"Benötigter Nachweis",requiredAnswer:"Bitte beantworten Sie diese Frage, bevor Sie fortfahren.",goToQuestion:"Zur Frage",moduleLocked:"Bitte bearbeiten Sie zuerst die vorherigen Module."
 }}
 const modules=[
 {id:1,title:{en:"Business Need & Minimum Requirements",de:"Geschäftsbedarf & Mindestanforderungen"},purpose:{en:"Define the use case and acceptance conditions.",de:"Anwendungsfall und Akzeptanzbedingungen definieren."}},
@@ -341,7 +349,7 @@ const modules=[
 {id:3,title:{en:"Incremental Value of Advancement",de:"Zusatznutzen der Weiterentwicklung"},purpose:{en:"Assess additional business value and apply the advancement gate.",de:"Zusätzlichen geschäftlichen Nutzen bewerten und den Entscheidungspunkt zur Weiterentwicklung prüfen."}},
 {id:4,title:{en:"Additional Resource & Capability Requirements",de:"Zusätzliche Ressourcen & Fähigkeiten"},purpose:{en:"Define the advancement scenario, requirements and commitments.",de:"Weiterentwicklungsszenario, Anforderungen und Bindungen definieren."}},
 {id:5,title:{en:"Organizational Readiness & Feasibility",de:"Organisatorische Voraussetzungen & Machbarkeit"},purpose:{en:"Assess organizational readiness and prerequisites.",de:"Organisatorische Voraussetzungen und Umsetzbarkeit beurteilen."}},
-{id:6,title:{en:"Socio-Technical Feasibility & Use Validation",de:"Sozio-technische Machbarkeit & Nutzungserprobung"},purpose:{en:"Assess pre-use conditions and actual-use evidence.",de:"Bedingungen vor der Nutzung und Evidenz aus Pilot bzw. realer Nutzung beurteilen."}}
+{id:6,title:{en:"Socio-Technical Feasibility & Use Validation",de:"Sozio-technische Machbarkeit & Nutzungserprobung"},purpose:{en:"Assess pre-use conditions and actual-use evidence.",de:"Bedingungen vor der Nutzung und Erkenntnisse aus Pilot bzw. realer Nutzung beurteilen."}}
 ]
 const q=(id,module,stage,en,de,opts,helpEn,helpDe,examplesEn=[],examplesDe=[],show=()=>true,multi=false)=>({id,module,stage,en,de,opts,helpEn,helpDe,examplesEn,examplesDe,show,multi})
 const O={
@@ -349,7 +357,7 @@ yn:[["yes","Yes","Ja"],["no","No","Nein"],["cannot","Cannot assess","Kann ich ni
 }
 const specialistCheckpoints={
 "M2.4":{en:"Process owner / subject-matter expert; IT or solution owner where feasibility depends on the current architecture.",de:"Prozessverantwortliche / Fachexpertise; IT bzw. Lösungsverantwortliche, wenn die Machbarkeit von der bestehenden Architektur abhängt."},
-"M3.2":{en:"Finance / Controlling and, where evidence depends on data or model performance, Data / Analytics.",de:"Finanzen / Controlling und – wenn die Evidenz von Daten- oder Modellleistung abhängt – Daten / Analytik."},
+"M3.2":{en:"Finance / Controlling and, where evidence depends on data or model performance, Data / Analytics.",de:"Finanzen / Controlling und – wenn belastbare Nachweise von Daten- oder Modellleistung abhängen – Daten / Analytik."},
 "M4.0":{en:"IT / AI implementation, solution architecture and, where relevant, Procurement / Vendor Management.",de:"IT- / KI-Implementierung, Lösungsarchitektur und – sofern relevant – Einkauf / Lieferantenmanagement."},
 "M4.1":{en:"Consult the specialist responsible for the minimum requirement concerned, e.g. IT, Data / Analytics, Information Security, Legal / Data Protection, or Human-AI Interaction.",de:"Beziehen Sie die für die betroffene Mindestanforderung zuständige Fachfunktion ein, z. B. IT, Daten / Analytik, Informationssicherheit, Recht / Datenschutz oder Mensch-KI-Interaktion."},
 "M4.2":{en:"Depending on the unclear requirement: Data / Analytics, IT Architecture / Integration, AI / Solution Owner, Procurement / Vendor Management, or the responsible business function.",de:"Je nach unklarer Anforderung: Daten / Analytik, IT-Architektur / Integration, KI- / Lösungsverantwortliche, Einkauf / Lieferantenmanagement oder die verantwortliche Fachfunktion."},
@@ -417,10 +425,10 @@ q("M3.1",3,"","Which additional business-value dimensions are expected from the 
 "Verwenden Sie die in Modul 2 festgelegte Vergleichsreferenz. Wenn M2.4 einen machbaren weniger komplexen Verbesserungs- oder Alternativpfad als vollständig oder teilweise verfügbar identifiziert hat, verwenden Sie diesen stärksten machbaren weniger komplexen Pfad als Vergleichsreferenz für Modul 3. Wählen Sie eine Dimension nur dann aus, wenn die erwartete Verbesserung eine entscheidungsrelevante geschäftliche Wirkung hat.",
 [],[],()=>true,true),
 q("M3.2",3,"","What is the strongest evidence basis currently available for the expected additional business value?",
-"Welche stärkste Evidenzbasis liegt derzeit für den erwarteten zusätzlichen geschäftlichen Nutzen vor?",
-[["observed","Observed use-case evidence","Beobachtete Evidenz aus dem Anwendungsfall"],["supporting","Supporting evidence or testable assumption","Unterstützende Evidenz oder testbare Annahme"],["none","No evidence or testable assumption","Keine Evidenz oder testbare Annahme"],["cannot","Cannot assess","Kann ich nicht beurteilen"]],
+"Welche belastbarste Grundlage liegt derzeit für den erwarteten zusätzlichen geschäftlichen Nutzen vor?",
+[["observed","Observed use-case evidence","Beobachtete Ergebnisse aus dem Anwendungsfall"],["supporting","Supporting evidence or testable assumption","Unterstützende Informationen oder testbare Annahme"],["none","No evidence or testable assumption","Keine unterstützenden Informationen oder testbare Annahme"],["cannot","Cannot assess","Kann ich nicht beurteilen"]],
 "A testable assumption is sufficient to continue to a later evidence-generation step, but an untestable value claim is not.",
-"Eine testbare Annahme reicht aus, um zu einem späteren Evidenzschritt weiterzugehen; eine nicht testbare Nutzenbehauptung reicht nicht aus.",
+"Eine testbare Annahme reicht aus, um später gezielt zusätzliche Informationen oder Nachweise zu erzeugen; eine nicht testbare Nutzenbehauptung reicht nicht aus.",
 [],[],()=>true),
 q("M3.3",3,"","Considering the expected additional value, rough additional effort or cost, and known additional burdens, is further assessment of the advancement scenario justified?",
 "Ist eine weitere Prüfung des Weiterentwicklungsszenarios unter Berücksichtigung des erwarteten Zusatznutzens, des groben Zusatzaufwands bzw. der Kosten und bekannter zusätzlicher Belastungen gerechtfertigt?",O.yn,
@@ -437,8 +445,8 @@ q("M4.0",4,"","Which primary implementation route best describes the advancement
 "Open-Source-Komponenten, APIs sowie Cloud-/Anbieterentscheidungen sind Merkmale des gewählten Umsetzungswegs und keine eigenen Kategorien.",
 [],[],()=>true),
 q("M4.1",4,"","What is the current evidence status of the selected advancement scenario against the minimum requirements defined in Module 1?",
-"Wie ist der aktuelle Evidenzstatus des gewählten Weiterentwicklungsszenarios im Hinblick auf die in Modul 1 definierten Mindestanforderungen?",
-[["met","All minimum requirements are evidenced as met","Alle Mindestanforderungen sind nachweislich erfüllt"],["expected","Expected to meet all minimum requirements; at least one requires pilot / use evidence","Voraussichtlich werden alle Mindestanforderungen erfüllt; mindestens eine erfordert Pilot- oder Nutzungsevidenz"],["not_met","At least one minimum requirement is not met","Mindestens eine Mindestanforderung wird nicht erfüllt"],["cannot","Cannot assess","Kann ich nicht beurteilen"]],
+"Wie gut ist aktuell belegt, dass das gewählte Weiterentwicklungsszenario die in Modul 1 definierten Mindestanforderungen erfüllt?",
+[["met","All minimum requirements are evidenced as met","Alle Mindestanforderungen sind nachweislich erfüllt"],["expected","Expected to meet all minimum requirements; at least one requires pilot / use evidence","Voraussichtlich werden alle Mindestanforderungen erfüllt; mindestens eine muss noch durch Pilot oder tatsächliche Nutzung bestätigt werden"],["not_met","At least one minimum requirement is not met","Mindestens eine Mindestanforderung wird nicht erfüllt"],["cannot","Cannot assess","Kann ich nicht beurteilen"]],
 "Apply the same minimum requirements defined in M1.2. Additional value cannot compensate for failure to meet a mandatory minimum requirement.",
 "Wenden Sie dieselben in Modul 1 definierten Mindestanforderungen auf das ausgewählte Szenario an. Zusätzlicher Nutzen kann das Verfehlen einer verpflichtenden Mindestanforderung nicht kompensieren. Ein begrenzter PoC kann ausreichen, wenn die offene Anforderung primär technische oder konzeptionelle Machbarkeit betrifft; Bedingungen der tatsächlichen Nutzung, Integration in den Arbeitsablauf oder menschlichen Nutzung können einen Pilot bzw. realitätsnahen Nutzungstest erfordern.",
 [],[],()=>true),
@@ -521,21 +529,21 @@ q("M6.4",6,"A","Where user roles differ, are differences in training, access, re
 ["Training","Access","Review intensity","Support","Role-specific workflow"],
 ["Schulung","Zugriff","Prüfintensität","Unterstützung","Rollenspezifischer Arbeitsablauf"],()=>true),
 q("M6.5",6,"B","Is pilot or actual-use evidence available for the selected scenario?",
-"Liegt für das ausgewählte Szenario Evidenz aus einem Pilot oder aus tatsächlicher Nutzung vor?",
+"Liegen für das ausgewählte Szenario Erkenntnisse aus einem Pilot oder aus tatsächlicher Nutzung vor?",
 [["yes","Yes","Ja"],["no","No","Nein"],["cannot","Cannot assess","Kann ich nicht beurteilen"]],
 "If no pilot or actual-use evidence exists where such evidence is required, M6.6–M6.7 are not assessed and O4 applies.",
-"Wenn erforderliche Pilot- oder Nutzungsevidenz fehlt, werden M6.6–M6.7 nicht bewertet und O4 greift.",
-["Evidence may come from a bounded pilot, controlled use, or actual operation."],["Evidenz aus Pilot, kontrollierter Nutzung oder realem Betrieb"],()=>true),
+"Wenn erforderliche Erkenntnisse aus Pilot oder tatsächlicher Nutzung fehlen, werden M6.6–M6.7 nicht bewertet und O4 greift.",
+["Evidence may come from a bounded pilot, controlled use, or actual operation."],["Erkenntnisse aus Pilot, kontrollierter Nutzung oder realem Betrieb"],()=>true),
 q("M6.6",6,"B","During pilot or actual use, has interpretation / validation workload or workflow friction created an issue that affects value, cost, timing, or usability?",
 "Hat während Pilot oder tatsächlicher Nutzung Interpretations-/Validierungsaufwand oder Reibungen im Arbeitsablauf ein Problem verursacht, das Nutzen, Kosten, Zeitplan oder Nutzbarkeit beeinflusst?",
-[["none","No issue identified","Kein Problem identifiziert"],["remedy","Issue – remedy defined","Problem – Abhilfe definiert"],["no_remedy","Issue – no remedy","Problem – keine Abhilfe"],["not_covered","Not covered by evidence","Nicht durch Evidenz abgedeckt"],["cannot","Cannot assess","Kann ich nicht beurteilen"]],
+[["none","No issue identified","Kein Problem identifiziert"],["remedy","Issue – remedy defined","Problem – Abhilfe definiert"],["no_remedy","Issue – no remedy","Problem – keine Abhilfe"],["not_covered","Not covered by evidence","Durch vorhandene Informationen nicht abgedeckt"],["cannot","Cannot assess","Kann ich nicht beurteilen"]],
 "Consider interpretation / validation workload, duplicate work, additional handovers, waiting time, workarounds, and exception effort.",
 "Bewerten Sie tatsächlichen Interpretations-/Validierungsaufwand und Reibungen im Arbeitsablauf gemeinsam, da beide zeigen, ob die Lösung im geplanten Prozess tragfähig ist.",
 ["Interpretation / validation workload","Duplicate work","Additional handovers","Waiting time","Workarounds","Exception effort"],
 ["Interpretations- / Validierungsaufwand","Doppelarbeit","Zusätzliche Übergaben","Wartezeiten","Umgehungslösungen","Ausnahmeaufwand"],()=>true),
 q("M6.7",6,"B","During pilot or actual use, have problems been identified with review / intervention mechanisms or with differences between user roles?",
 "Wurden während Pilot oder tatsächlicher Nutzung Probleme mit Prüf-/Interventionsmechanismen oder mit Unterschieden zwischen Nutzerrollen identifiziert?",
-[["none","No issue identified","Kein Problem identifiziert"],["remedy","Issue – remedy defined","Problem – Abhilfe definiert"],["no_remedy","Issue – no remedy","Problem – keine Abhilfe"],["not_covered","Not covered by evidence","Nicht durch Evidenz abgedeckt"],["cannot","Cannot assess","Kann ich nicht beurteilen"]],
+[["none","No issue identified","Kein Problem identifiziert"],["remedy","Issue – remedy defined","Problem – Abhilfe definiert"],["no_remedy","Issue – no remedy","Problem – keine Abhilfe"],["not_covered","Not covered by evidence","Durch vorhandene Informationen nicht abgedeckt"],["cannot","Cannot assess","Kann ich nicht beurteilen"]],
 "Consider review / correction / override usability, escalation, required information / access, role-specific use patterns, and training / support differences.",
 "Bewerten Sie die praktische Nutzbarkeit von Prüf-/Interventionsmechanismen und rollenspezifischer Nutzung gemeinsam, da beide zeigen, ob die menschliche Nutzung in der Praxis wie vorgesehen funktioniert.",
 ["Review / correction / override usability","Escalation","Required information / access","Role-specific use patterns","Training / support differences"],
@@ -543,7 +551,7 @@ q("M6.7",6,"B","During pilot or actual use, have problems been identified with r
 ]
 
 
-let lang="en", current=1, A={}, F={}, result=null, visibleIds=[], moduleCompleteState=false, diagnosticMode=false, gateStatus=null, showMissingValidation=false;
+let lang="en", current=1, furthestReached=1, A={}, F={}, result=null, visibleIds=[], moduleCompleteState=false, diagnosticMode=false, gateStatus=null, showMissingValidation=false;
 
 T.en.privacy="No login required. Assessment responses are sent to the decision engine for calculation and are not persistently stored by this implementation.";
 T.de.privacy="Keine Anmeldung erforderlich. Die Antworten werden zur Berechnung an die Entscheidungslogik übertragen und von dieser Implementierung nicht dauerhaft gespeichert.";
@@ -584,9 +592,17 @@ function i18n(){
  if(!document.getElementById("assessmentScreen").classList.contains("hidden")) renderModule();
  if(!document.getElementById("resultScreen").classList.contains("hidden")) renderResult(result);
 }
-function renderStepper(){
- const e=document.getElementById("stepper");e.innerHTML="";
- modules.forEach(m=>{const s=document.createElement("span");s.className="step-pill"+(m.id===current?" active":m.id<current?" done":"");s.textContent=`${m.id} ${m.title[lang].replace(/ &.*/,"")}`;e.appendChild(s)})
+function renderStepper(targetId="stepper"){
+ const e=document.getElementById(targetId);if(!e)return;e.innerHTML="";
+ modules.forEach(m=>{
+   const b=document.createElement("button");b.type="button";
+   const reachable=m.id<=furthestReached;
+   b.className="step-pill"+(m.id===current?" active":m.id<furthestReached?" done":"")+(reachable?" clickable":" locked");
+   b.textContent=`${m.id} ${m.title[lang].replace(/ &.*/,"")}`;
+   b.disabled=!reachable;
+   if(reachable)b.addEventListener("click",()=>goToModule(m.id));
+   e.appendChild(b)
+ })
 }
 function optLabel(o){return lang==="en"?o[1]:o[2]}
 function assistBase(){return (window.SUFFICIENCY_COMPASS_ASSIST_API||"").replace(/\/+$/,"")}
@@ -683,6 +699,46 @@ function renderQuestion(x){
  }
  return card
 }
+async function goToModule(moduleId,questionId=null){
+ if(moduleId<1||moduleId>furthestReached)return;
+ showMissingValidation=false;
+ document.getElementById("resultScreen").classList.add("hidden");
+ document.getElementById("startScreen").classList.add("hidden");
+ document.getElementById("framingScreen").classList.add("hidden");
+ document.getElementById("assessmentScreen").classList.remove("hidden");
+ current=moduleId;
+ try{setApiError("");await evaluate("state")}catch(err){setApiError(err.message)}
+ renderModule();
+ if(questionId){
+   requestAnimationFrame(()=>{
+     const card=document.querySelector(`.q-card[data-question-id="${questionId}"]`);
+     if(card){
+       card.classList.add("jump-target");
+       card.scrollIntoView({behavior:"smooth",block:"center"});
+       setTimeout(()=>card.classList.remove("jump-target"),1800)
+     }else{
+       window.scrollTo({top:0,behavior:"smooth"})
+     }
+   })
+ }else{
+   window.scrollTo({top:0,behavior:"smooth"})
+ }
+}
+function questionIdFromText(text){
+ const m=String(text||"").match(/^(M[1-6]\.(?:0|[1-9]\d*))\s*:/);
+ return m?m[1]:null
+}
+function moduleFromQuestionId(qid){
+ const m=String(qid||"").match(/^M([1-6])\./);
+ return m?Number(m[1]):null
+}
+function createQuestionJump(qid){
+ const moduleId=moduleFromQuestionId(qid);if(!moduleId)return null;
+ const b=document.createElement("button");b.type="button";b.className="question-jump";
+ b.textContent=`${qid} · ${T[lang].goToQuestion}`;
+ b.addEventListener("click",()=>goToModule(moduleId,qid));
+ return b
+}
 function renderModule(){
  renderStepper();
  const m=modules[current-1];
@@ -718,6 +774,7 @@ function fillList(id,items,emptyText=""){
 }
 function renderResult(r){
  if(!r)return;
+ renderStepper("resultStepper");
  const card=document.getElementById("resultCard");card.style.setProperty("--outcome",r.color||"var(--petrol)");
  document.getElementById("resultTitle").textContent=r.title;
  document.getElementById("resultDesc").textContent=r.description;
@@ -731,9 +788,28 @@ function renderResult(r){
  document.getElementById("economicText").textContent=r.economic_sufficiency||"";
  const wl=document.getElementById("whyList");wl.innerHTML="";(r.why||[]).forEach(x=>{const li=document.createElement("li");li.textContent=x;wl.appendChild(li)});
  document.getElementById("nextText").textContent=r.next_step||"";
- fillList("unresolvedList",r.unresolved_conditions||[],T[lang].noIssues);
+ const unresolvedEl=document.getElementById("unresolvedList");unresolvedEl.innerHTML="";
+ const unresolvedItems=r.unresolved_conditions||[];
+ unresolvedItems.forEach(item=>{
+   const li=document.createElement("li");const text=typeof item==="string"?item:(item.text||"");
+   const qid=questionIdFromText(text);
+   if(qid){
+     const jump=createQuestionJump(qid);if(jump)li.appendChild(jump);
+     const span=document.createElement("span");span.textContent=text.replace(/^M[1-6]\.(?:0|[1-9]\d*)\s*:\s*/,"");li.appendChild(span)
+   }else li.textContent=text;
+   unresolvedEl.appendChild(li)
+ });
+ if(!unresolvedItems.length){const li=document.createElement("li");li.textContent=T[lang].noIssues;unresolvedEl.appendChild(li)}
  const st=document.getElementById("specialistTaskList");st.innerHTML="";
- (r.specialist_tasks||[]).forEach(a=>{const d=document.createElement("div");d.className="specialist-task";d.innerHTML=`<b>${a.question_id} · ${a.who}</b><div>${a.why}</div><div><strong>${T[lang].verifyLabel||"Verify"}:</strong> ${a.verify}</div><div><strong>${T[lang].evidenceLabel||"Evidence"}:</strong> ${a.evidence_required}</div>`;st.appendChild(d)});
+ (r.specialist_tasks||[]).forEach(a=>{
+   const d=document.createElement("div");d.className="specialist-task";
+   const head=document.createElement("div");const jump=createQuestionJump(a.question_id);if(jump)head.appendChild(jump);
+   const who=document.createElement("strong");who.textContent=a.who;head.appendChild(who);d.appendChild(head);
+   const why=document.createElement("div");why.textContent=a.why;d.appendChild(why);
+   const verify=document.createElement("div");verify.innerHTML=`<strong>${T[lang].verifyLabel||"Verify"}:</strong> `;verify.append(document.createTextNode(a.verify));d.appendChild(verify);
+   const ev=document.createElement("div");ev.innerHTML=`<strong>${T[lang].evidenceLabel||"Evidence"}:</strong> `;ev.append(document.createTextNode(a.evidence_required));d.appendChild(ev);
+   st.appendChild(d)
+ });
  if(!(r.specialist_tasks||[]).length)st.textContent=T[lang].noIssues;
  fillList("alternativeList",r.alternative_paths||[]);
  const al=document.getElementById("actionList");al.innerHTML="";
@@ -754,7 +830,7 @@ function syncFramingFromUI(){document.querySelectorAll("[data-df]").forEach(el=>
 function loadFramingToUI(){document.querySelectorAll("[data-df]").forEach(el=>el.value=F[el.dataset.df]||"");renderDf6Context()}
 document.getElementById("df6Select").addEventListener("change",renderDf6Context);
 document.getElementById("startBtn").onclick=()=>{
- document.getElementById("startScreen").classList.add("hidden");document.getElementById("framingScreen").classList.remove("hidden");F={};A={};result=null;loadFramingToUI();window.scrollTo(0,0)
+ document.getElementById("startScreen").classList.add("hidden");document.getElementById("framingScreen").classList.remove("hidden");F={};A={};result=null;current=1;furthestReached=1;loadFramingToUI();window.scrollTo(0,0)
 };
 document.getElementById("framingBackBtn").onclick=()=>{syncFramingFromUI();document.getElementById("framingScreen").classList.add("hidden");document.getElementById("startScreen").classList.remove("hidden");window.scrollTo(0,0)};
 document.getElementById("framingContinueBtn").onclick=async()=>{
@@ -781,7 +857,7 @@ document.getElementById("continueBtn").onclick=async()=>{
  try{
    setApiError("");const data=await evaluate("continue");
    if(data.result){showResult(data.result);return}
-   if(data.next_module){current=data.next_module;await evaluate("state");renderModule();window.scrollTo({top:0,behavior:"smooth"})}
+   if(data.next_module){current=data.next_module;furthestReached=Math.max(furthestReached,current);await evaluate("state");renderModule();window.scrollTo({top:0,behavior:"smooth"})}
  }catch(err){setApiError(err.message)}
 };
 document.getElementById("backBtn").onclick=async()=>{
@@ -792,8 +868,8 @@ document.getElementById("backBtn").onclick=async()=>{
 document.getElementById("langEN").onclick=async()=>{lang="en";i18n();renderDf6Context();if(!document.getElementById("assessmentScreen").classList.contains("hidden")){try{await evaluate("state");renderModule()}catch(e){setApiError(e.message)}}};
 document.getElementById("langDE").onclick=async()=>{lang="de";i18n();renderDf6Context();if(!document.getElementById("assessmentScreen").classList.contains("hidden")){try{await evaluate("state");renderModule()}catch(e){setApiError(e.message)}}};
 document.getElementById("pdfBtn").onclick=()=>window.print();
-document.getElementById("editBtn").onclick=async()=>{document.getElementById("resultScreen").classList.add("hidden");document.getElementById("assessmentScreen").classList.remove("hidden");try{setApiError("");await evaluate("state")}catch(e){setApiError(e.message)}renderModule();window.scrollTo(0,0)};
-document.getElementById("restartBtn").onclick=()=>{A={};F={};current=1;result=null;visibleIds=[];moduleCompleteState=false;diagnosticMode=false;gateStatus=null;showMissingValidation=false;document.getElementById("resultScreen").classList.add("hidden");document.getElementById("startScreen").classList.remove("hidden");i18n();window.scrollTo(0,0)};
+document.getElementById("editBtn").onclick=async()=>{document.getElementById("resultScreen").classList.add("hidden");document.getElementById("assessmentScreen").classList.remove("hidden");current=Math.min(current,furthestReached);try{setApiError("");await evaluate("state")}catch(e){setApiError(e.message)}renderModule();window.scrollTo(0,0)};
+document.getElementById("restartBtn").onclick=()=>{A={};F={};current=1;furthestReached=1;result=null;visibleIds=[];moduleCompleteState=false;diagnosticMode=false;gateStatus=null;showMissingValidation=false;document.getElementById("resultScreen").classList.add("hidden");document.getElementById("startScreen").classList.remove("hidden");i18n();window.scrollTo(0,0)};
 document.addEventListener("click",e=>{if(!e.target.closest(".help"))document.querySelectorAll(".help.open").forEach(x=>x.classList.remove("open"))});
 i18n();renderDf6Context();
 
