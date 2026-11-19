@@ -312,7 +312,7 @@ validationStartTitle:"Sie testen hier ein Entscheidungswerkzeug – Sie nehmen n
 validationStartText:"Die Fragen im Sufficiency Compass dienen ausschließlich dazu, Ihre gewählte Entscheidungssituation zu beurteilen und eine Empfehlung für diesen Fall zu erzeugen. Ihre Antworten im Tool sind nicht das Feedback für die wissenschaftliche Validierung. Bitte geben Sie nach der Nutzung Feedback zum Werkzeug selbst – insbesondere zu Verständlichkeit, Relevanz, Ergebnislogik und praktischer Nutzbarkeit.",
 validationResultTitle:"Ihr Tool-Durchlauf ist abgeschlossen – die Validierung noch nicht.",
 validationResultText:"Für die wissenschaftliche Validierung stehen nicht Ihre einzelnen Antworten oder das erhaltene Ergebnis im Mittelpunkt, sondern Ihr Feedback zum Werkzeug selbst: Was war verständlich oder unklar? Ist die Empfehlung nachvollziehbar? Würde das Tool in der Praxis helfen? Bitte beantworten Sie dazu die Validierungsfragen, die Sie separat erhalten haben. Wenn der Sufficiency Compass bereits nach wenigen Fragen zu einer Empfehlung kommt, kann dies ein beabsichtigtes Ergebnis der Entscheidungslogik sein und bedeutet nicht, dass der Durchlauf unvollständig war.",
-whatGetTitle:"Ihr Ergebnis",whatGetText:"Eine kontextspezifische Management-Empfehlung mit einer verständlichen Begründung der entscheidungsrelevanten Faktoren.",
+whatGetTitle:"Ihr Ergebnis",whatGetText:"Eine kontextspezifische Entscheidungsempfehlung mit einer verständlichen Begründung der entscheidungsrelevanten Faktoren.",
 howWorksTitle:"So funktioniert es",howWorksText:"Sechs Module, schrittweise Einblendung und keine Gesamtpunktzahl. Sie sehen nur Fragen, die für Ihren Entscheidungsweg relevant sind.",
 start:"Bewertung starten",privacy:"Keine Anmeldung erforderlich. Ihre aktuellen Antworten werden zur Berechnung an die Entscheidungslogik übermittelt und vom Prototyp nicht dauerhaft gespeichert.",
 back:"Zurück",continue:"Weiter",finishCurrent:"Mit aktuellem Informationsstand abschließen",continueDiagnostic:"Zur Klärung weiter prüfen",moduleOf:"Modul {n} von 6",examples:"Beispiele / Hinweise",hideExamples:"Hinweise ausblenden",multiSelect:"Mehrfachauswahl möglich",
@@ -344,22 +344,22 @@ yn:[["yes","Yes","Ja"],["no","No","Nein"],["cannot","Cannot assess","Kann ich ni
 }
 const specialistCheckpoints={
 "M2.4":{en:"Process owner / subject-matter expert; IT or solution owner where feasibility depends on the current architecture.",de:"Prozessverantwortliche / Fachexpertise; IT bzw. Lösungsverantwortliche, wenn die Machbarkeit von der bestehenden Architektur abhängt."},
-"M3.2":{en:"Finance / Controlling and, where evidence depends on data or model performance, Daten / Analytik.",de:"Finance / Controlling und – wenn die Evidenz von Daten- oder Modellperformance abhängt – Daten / Analytik."},
-"M4.0":{en:"IT / AI implementation, solution architecture and, where relevant, Procurement / Lieferantenmanagement.",de:"IT- / KI-Implementierung, Lösungsarchitektur und – sofern relevant – Einkauf / Lieferantenmanagement."},
-"M4.1":{en:"Consult the specialist responsible for the minimum requirement concerned, e.g. IT, Daten / Analytik, Informationssicherheit, Legal / Data Protection, or Mensch-KI-Interaktion.",de:"Beziehen Sie die für die betroffene Mindestanforderung zuständige Fachfunktion ein, z. B. IT, Daten / Analytik, Informationssicherheit, Legal / Datenschutz oder Mensch-KI-Interaktion."},
-"M4.2":{en:"Depending on the unclear requirement: Daten / Analytik, IT Architecture / Integration, AI / Lösungsverantwortliche, Procurement / Lieferantenmanagement, or the responsible business function.",de:"Je nach unklarer Anforderung: Daten / Analytik, IT-Architektur / Integration, AI / Lösungsverantwortliche, Einkauf / Lieferantenmanagement oder die verantwortliche Fachfunktion."},
-"M4.3":{en:"Finance / Controlling, IT / AI implementation, Procurement / Lieferantenmanagement, and Project / Change Management as applicable.",de:"Je nach Bindung: Finance / Controlling, IT- / KI-Implementierung, Einkauf / Lieferantenmanagement sowie Projekt- / Change-Management."},
-"M5.1":{en:"Use the requirement areas identified in Module 4 to involve the corresponding owners: Daten / Analytik, IT / Integration, AI / Lösungsverantwortliche, Lieferantenmanagement, or another responsible function.",de:"Nutzen Sie die in Modul 4 identifizierten Anforderungsbereiche und beziehen Sie die jeweiligen Verantwortlichen ein: Daten / Analytik, IT / Integration, AI / Lösungsverantwortliche, Lieferantenmanagement oder eine andere zuständige Funktion."},
-"M5.2":{en:"Finance / Controlling and, where approvals or contracts are involved, Procurement / responsible budget owner.",de:"Finance / Controlling und – bei Freigaben oder Verträgen – Einkauf bzw. zuständige Budgetverantwortliche."},
-"M5.4":{en:"Daten-Governance, IT / Platform or Lösungsverantwortliche, responsible business decision owner and, where applicable, Informationssicherheit and Legal / Data Protection.",de:"Daten-Governance, IT / Plattform- bzw. Lösungsverantwortliche, verantwortliche Business-Entscheidungsträger sowie – sofern relevant – Informationssicherheit und Legal / Datenschutz."},
-"M5.5":{en:"Change / Organizational Development, Project Management and, where relevant, Personal / Lernen & Entwicklung.",de:"Veränderungsmanagement / Organisationsentwicklung, Projektmanagement und – sofern relevant – Personal / Lernen & Entwicklung."},
-"M6.1":{en:"Process owner together with AI / Mensch-KI-Interaktion expertise; involve IT, Informationssicherheit or Legal / Data Protection where the use conditions require it.",de:"Prozessverantwortliche gemeinsam mit AI- / Human-AI-Interaction-Expertise; bei entsprechenden Nutzungsbedingungen zusätzlich IT, Informationssicherheit oder Legal / Datenschutz."},
-"M6.2":{en:"Process owner, IT / Lösungsverantwortliche and Change / Organizational Development.",de:"Prozessverantwortliche, IT / Lösungsverantwortliche sowie Veränderungsmanagement / Organisationsentwicklung."},
-"M6.3":{en:"Change / Organizational Development, Nutzererfahrung / Mensch-KI-Interaktion and representatives of the affected user groups.",de:"Veränderungsmanagement / Organisationsentwicklung, Nutzererfahrung / Mensch-KI-Interaktion sowie Vertreter:innen der betroffenen Nutzergruppen."},
-"M6.4":{en:"Change / Organizational Development, Personal / Lernen & Entwicklung, Nutzererfahrung / Mensch-KI-Interaktion and relevant user representatives.",de:"Veränderungsmanagement / Organisationsentwicklung, Personal / Lernen & Entwicklung, Nutzererfahrung / Mensch-KI-Interaktion sowie relevante Nutzervertreter:innen."},
-"M6.5":{en:"Pilot / project owner and the responsible IT, Daten / Analytik or AI / Solution team.",de:"Pilot- / Projektverantwortliche sowie das zuständige IT-, Daten-/Analytik- oder KI-/Lösungs-Team."},
-"M6.6":{en:"Process owner, Change / Organizational Development and Mensch-KI-Interaktion / UX.",de:"Prozessverantwortliche, Veränderungsmanagement / Organisationsentwicklung sowie Mensch-KI-Interaktion / UX."},
-"M6.7":{en:"Mensch-KI-Interaktion / UX, Change / Organizational Development, HR and representatives of the relevant user roles.",de:"Mensch-KI-Interaktion / UX, Veränderungsmanagement / Organisationsentwicklung, HR sowie Vertreter:innen der relevanten Nutzerrollen."}
+"M3.2":{en:"Finance / Controlling and, where evidence depends on data or model performance, Data / Analytics.",de:"Finanzen / Controlling und – wenn die Evidenz von Daten- oder Modellleistung abhängt – Daten / Analytik."},
+"M4.0":{en:"IT / AI implementation, solution architecture and, where relevant, Procurement / Vendor Management.",de:"IT- / KI-Implementierung, Lösungsarchitektur und – sofern relevant – Einkauf / Lieferantenmanagement."},
+"M4.1":{en:"Consult the specialist responsible for the minimum requirement concerned, e.g. IT, Data / Analytics, Information Security, Legal / Data Protection, or Human-AI Interaction.",de:"Beziehen Sie die für die betroffene Mindestanforderung zuständige Fachfunktion ein, z. B. IT, Daten / Analytik, Informationssicherheit, Recht / Datenschutz oder Mensch-KI-Interaktion."},
+"M4.2":{en:"Depending on the unclear requirement: Data / Analytics, IT Architecture / Integration, AI / Solution Owner, Procurement / Vendor Management, or the responsible business function.",de:"Je nach unklarer Anforderung: Daten / Analytik, IT-Architektur / Integration, KI- / Lösungsverantwortliche, Einkauf / Lieferantenmanagement oder die verantwortliche Fachfunktion."},
+"M4.3":{en:"Finance / Controlling, IT / AI implementation, Procurement / Vendor Management, and Project / Change Management as applicable.",de:"Je nach Bindung: Finanzen / Controlling, IT- / KI-Implementierung, Einkauf / Lieferantenmanagement sowie Projekt- / Veränderungsmanagement."},
+"M5.1":{en:"Use the requirement areas identified in Module 4 to involve the corresponding owners: Data / Analytics, IT / Integration, AI / Solution Owner, Vendor Management, or another responsible function.",de:"Nutzen Sie die in Modul 4 identifizierten Anforderungsbereiche und beziehen Sie die jeweiligen Verantwortlichen ein: Daten / Analytik, IT / Integration, KI- / Lösungsverantwortliche, Lieferantenmanagement oder eine andere zuständige Funktion."},
+"M5.2":{en:"Finance / Controlling and, where approvals or contracts are involved, Procurement / responsible budget owner.",de:"Finanzen / Controlling und – bei Freigaben oder Verträgen – Einkauf bzw. zuständige Budgetverantwortliche."},
+"M5.4":{en:"Data Governance, IT / Platform or Solution Owner, responsible business decision owner and, where applicable, Information Security and Legal / Data Protection.",de:"Daten-Governance, IT- / Plattform- bzw. Lösungsverantwortliche, verantwortliche geschäftliche Entscheidungsträger sowie – sofern relevant – Informationssicherheit und Recht / Datenschutz."},
+"M5.5":{en:"Change / Organizational Development, Project Management and, where relevant, HR / Learning & Development.",de:"Veränderungsmanagement / Organisationsentwicklung, Projektmanagement und – sofern relevant – Personal / Lernen & Entwicklung."},
+"M6.1":{en:"Process owner together with AI / Human-AI Interaction expertise; involve IT, Information Security or Legal / Data Protection where the use conditions require it.",de:"Prozessverantwortliche gemeinsam mit KI- / Mensch-KI-Interaktionsexpertise; bei entsprechenden Nutzungsbedingungen zusätzlich IT, Informationssicherheit oder Recht / Datenschutz."},
+"M6.2":{en:"Process owner, IT / Solution Owner and Change / Organizational Development.",de:"Prozessverantwortliche, IT / Lösungsverantwortliche sowie Veränderungsmanagement / Organisationsentwicklung."},
+"M6.3":{en:"Change / Organizational Development, UX / Human-AI Interaction and representatives of the affected user groups.",de:"Veränderungsmanagement / Organisationsentwicklung, Nutzererfahrung / Mensch-KI-Interaktion sowie Vertreter:innen der betroffenen Nutzergruppen."},
+"M6.4":{en:"Change / Organizational Development, HR / Learning & Development, UX / Human-AI Interaction and relevant user representatives.",de:"Veränderungsmanagement / Organisationsentwicklung, Personal / Lernen & Entwicklung, Nutzererfahrung / Mensch-KI-Interaktion sowie relevante Nutzervertreter:innen."},
+"M6.5":{en:"Pilot / project owner and the responsible IT, Data / Analytics or AI / Solution team.",de:"Pilot- / Projektverantwortliche sowie das zuständige IT-, Daten-/Analytik- oder KI-/Lösungsteam."},
+"M6.6":{en:"Process owner, Change / Organizational Development and Human-AI Interaction / UX.",de:"Prozessverantwortliche, Veränderungsmanagement / Organisationsentwicklung sowie Mensch-KI-Interaktion / Nutzererfahrung."},
+"M6.7":{en:"Human-AI Interaction / UX, Change / Organizational Development, HR and representatives of the relevant user roles.",de:"Mensch-KI-Interaktion / Nutzererfahrung, Veränderungsmanagement / Organisationsentwicklung, Personal sowie Vertreter:innen der relevanten Nutzerrollen."}
 }
 const questions=[
 q("M1.1",1,"", "Have the decision or process to be supported, the scope of the use case, and the intended business objective been defined?",
@@ -413,7 +413,7 @@ q("M3.1",3,"","Which additional business-value dimensions are expected from the 
 [],[],()=>true,true),
 q("M3.2",3,"","What is the strongest evidence basis currently available for the expected additional business value?",
 "Welche stärkste Evidenzbasis liegt derzeit für den erwarteten zusätzlichen geschäftlichen Nutzen vor?",
-[["observed","Observed use-case evidence","Beobachtete Evidenz aus dem Anwendungsfall"],["supporting","Unterstützunging evidence or testable assumption","Unterstützende Evidenz oder testbare Annahme"],["none","No evidence or testable assumption","Keine Evidenz oder testbare Annahme"],["cannot","Cannot assess","Kann ich nicht beurteilen"]],
+[["observed","Observed use-case evidence","Beobachtete Evidenz aus dem Anwendungsfall"],["supporting","Supporting evidence or testable assumption","Unterstützende Evidenz oder testbare Annahme"],["none","No evidence or testable assumption","Keine Evidenz oder testbare Annahme"],["cannot","Cannot assess","Kann ich nicht beurteilen"]],
 "A testable assumption is sufficient to continue to a later evidence-generation step, but an untestable value claim is not.",
 "Eine testbare Annahme reicht aus, um zu einem späteren Evidenzschritt weiterzugehen; eine nicht testbare Nutzenbehauptung reicht nicht aus.",
 [],[],()=>true),
@@ -452,7 +452,7 @@ q("M4.3",4,"","Which additional implementation, operating, financial, or interna
 q("M4.4",4,"","Considering the detailed lifecycle and capacity commitments in M4.3, does the advancement case remain economically justified?",
 "Bleibt das Weiterentwicklungsszenario unter Berücksichtigung der detaillierten Lebenszyklus- und Kapazitätsbindungen aus M4.3 wirtschaftlich gerechtfertigt?",O.yn,
 "Reassess incremental value after the more complete commitment profile is known. This may overturn the rough plausibility established in M3.3. A detailed ROI or TCO calculation is outside the scope of this toolkit.",
-"Bewerten Sie den Business Case erneut, nachdem das detailliertere Bindungsprofil bekannt ist. Dies ist getrennt von der Frage, ob die Organisation zur Finanzierung oder Umsetzung bereit ist.",
+"Bewerten Sie die wirtschaftliche Begründung erneut, nachdem das detailliertere Bindungsprofil bekannt ist. Dies ist getrennt von der Frage, ob die Organisation zur Finanzierung oder Umsetzung bereit ist.",
 ["Net incremental value after detailed cost / capacity profile"],["Netto-Zusatznutzen nach detailliertem Kosten- / Kapazitätsprofil"],
 ()=>true),
 
@@ -512,9 +512,9 @@ q("M6.4",6,"A","Where user roles differ, are differences in training, access, re
 "Werden bei unterschiedlichen Nutzerrollen Unterschiede bei Training, Zugriff, Prüfung oder Unterstützung in der geplanten Nutzung berücksichtigt?",
 [["yes","Yes","Ja"],["no","No","Nein"],["na","Not applicable","Nicht anwendbar"],["cannot","Cannot assess","Kann ich nicht beurteilen"]],
 "Use 'Not applicable' only when the identified user groups do not differ in training, access, review, support, or workflow requirements.",
-"Verwenden Sie „Nicht anwendbar“ nur, wenn sich die identifizierten Nutzergruppen nicht hinsichtlich Training, Zugriff, Prüfung, Unterstützung oder Workflow-Anforderungen unterscheiden.",
-["Training","Access","Review intensity","Unterstützung","Role-specific workflow"],
-["Training","Zugriff","Prüfintensität","Unterstützung","Rollenspezifischer Workflow"],()=>true),
+"Verwenden Sie „Nicht anwendbar“ nur, wenn sich die identifizierten Nutzergruppen nicht hinsichtlich Schulung, Zugriff, Prüfung, Unterstützung oder Anforderungen an den Arbeitsablauf unterscheiden.",
+["Training","Access","Review intensity","Support","Role-specific workflow"],
+["Schulung","Zugriff","Prüfintensität","Unterstützung","Rollenspezifischer Arbeitsablauf"],()=>true),
 q("M6.5",6,"B","Is pilot or actual-use evidence available for the selected scenario?",
 "Liegt für das ausgewählte Szenario Evidenz aus einem Pilot oder aus tatsächlicher Nutzung vor?",
 [["yes","Yes","Ja"],["no","No","Nein"],["cannot","Cannot assess","Kann ich nicht beurteilen"]],
@@ -534,7 +534,7 @@ q("M6.7",6,"B","During pilot or actual use, have problems been identified with r
 "Consider review / correction / override usability, escalation, required information / access, role-specific use patterns, and training / support differences.",
 "Bewerten Sie die praktische Nutzbarkeit von Prüf-/Interventionsmechanismen und rollenspezifischer Nutzung gemeinsam, da beide zeigen, ob die menschliche Nutzung in der Praxis wie vorgesehen funktioniert.",
 ["Review / correction / override usability","Escalation","Required information / access","Role-specific use patterns","Training / support differences"],
-["Nutzbarkeit von Prüfung / Korrektur / Übersteuerung","Eskalation","Erforderliche Informationen / Zugriffe","Rollenspezifische Nutzungsmuster","Training- / Unterstützungunterschiede"],()=>true)
+["Nutzbarkeit von Prüfung / Korrektur / Übersteuerung","Eskalation","Erforderliche Informationen / Zugriffe","Rollenspezifische Nutzungsmuster","Schulungs- / Unterstützungsunterschiede"],()=>true)
 ]
 
 
