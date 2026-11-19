@@ -222,6 +222,7 @@ h1{font-size:48px;line-height:1.07;margin:12px 0 18px;letter-spacing:-.04em}
       <div id="questions"></div>
       <div class="nav">
         <button class="secondary" id="backBtn" data-i18n="back"></button>
+        <button class="secondary hidden" id="finishBtn" data-i18n="finishCurrent"></button>
         <button class="primary" id="continueBtn" data-i18n="continue"></button>
       </div>
     </section>
@@ -277,7 +278,7 @@ validationResultText:"For the scientific validation, your individual answers and
 whatGetTitle:"What you will get",whatGetText:"A context-specific management recommendation and a concise explanation of the factors driving it.",
 howWorksTitle:"How it works",howWorksText:"Six modules, progressive disclosure and no aggregate score. You only see questions relevant to your decision path.",
 start:"Start assessment",privacy:"No login required. Your current responses are sent to the decision engine for calculation and are not persistently stored by the prototype.",
-back:"Back",continue:"Continue",moduleOf:"Module {n} of 6",examples:"Examples / guidance",hideExamples:"Hide guidance",multiSelect:"Multiple selections possible",
+back:"Back",continue:"Continue",finishCurrent:"Close assessment with current evidence",continueDiagnostic:"Continue diagnostically",moduleOf:"Module {n} of 6",examples:"Examples / guidance",hideExamples:"Hide guidance",multiSelect:"Multiple selections possible",
 cannotTitle:"Further clarification may be required",cannotText:"This condition cannot currently be assessed reliably. Obtain the indicated input before closing the decision. 'Cannot assess' is not treated as a negative score.",specialistLabel:"Suggested specialist checkpoint",
 yourRecommendation:"Your recommendation",why:"Why this recommendation?",next:"What to do next",attention:"What needs attention before the next step?",savePdf:"Save result as PDF",edit:"Review & edit answers",restart:"Start new assessment",
 resultNote:"The recommendation is generated from the frozen Toolkit V1 decision logic. Outcomes are non-hierarchical and do not represent maturity levels.",
@@ -303,7 +304,7 @@ validationResultText:"Für die wissenschaftliche Validierung stehen nicht Ihre e
 whatGetTitle:"Ihr Ergebnis",whatGetText:"Eine kontextspezifische Management-Empfehlung mit einer verständlichen Begründung der entscheidungsrelevanten Faktoren.",
 howWorksTitle:"So funktioniert es",howWorksText:"Sechs Module, Progressive Disclosure und kein Gesamtscore. Sie sehen nur Fragen, die für Ihren Entscheidungspfad relevant sind.",
 start:"Assessment starten",privacy:"Keine Anmeldung erforderlich. Ihre aktuellen Antworten werden zur Berechnung an die Decision Engine übermittelt und vom Prototyp nicht dauerhaft gespeichert.",
-back:"Zurück",continue:"Weiter",moduleOf:"Modul {n} von 6",examples:"Beispiele / Hinweise",hideExamples:"Hinweise ausblenden",multiSelect:"Mehrfachauswahl möglich",
+back:"Zurück",continue:"Weiter",finishCurrent:"Assessment mit aktueller Evidenz schließen",continueDiagnostic:"Diagnostisch fortsetzen",moduleOf:"Modul {n} von 6",examples:"Beispiele / Hinweise",hideExamples:"Hinweise ausblenden",multiSelect:"Mehrfachauswahl möglich",
 cannotTitle:"Weitere Klärung kann erforderlich sein",cannotText:"Diese Bedingung kann derzeit nicht verlässlich beurteilt werden. Holen Sie die angegebene Information ein, bevor Sie die Entscheidung abschließen. „Kann ich nicht beurteilen“ wird nicht als negativer Score gewertet.",specialistLabel:"Empfohlener Specialist Checkpoint",
 yourRecommendation:"Ihre Empfehlung",why:"Warum diese Empfehlung?",next:"Was ist als Nächstes zu tun?",attention:"Was ist vor dem nächsten Schritt konkret zu tun?",savePdf:"Ergebnis als PDF speichern",edit:"Antworten prüfen & korrigieren",restart:"Neues Assessment starten",
 resultNote:"Die Empfehlung wird aus der Entscheidungslogik des eingefrorenen Toolkit V1 erzeugt. Die Outcomes sind nicht hierarchisch und stellen keine Reifegrade dar.",
@@ -368,14 +369,14 @@ q("M2.1",2,"","Which reference state should be used to assess the additional val
 "The reference may be manual, judgement-based, spreadsheet-based, statistical, conventional, software-supported, AI-supported, or another credible resource-efficient alternative. Greenfield cases still require an explicit reference; no universal default baseline is prescribed.",
 "Die Referenz kann manuell, urteilsbasiert, tabellenbasiert, statistisch, konventionell, software- oder KI-gestützt oder eine andere belastbare ressourceneffiziente Alternative sein. Auch Greenfield-Fälle benötigen eine explizite Referenz; es gibt keine universelle Standard-Baseline.",
 ["Current process","Current capability level","Resource-efficient alternative"],["Aktueller Prozess","Aktuelles Fähigkeitsniveau","Ressourceneffiziente Alternative"],()=>true),
-q("M2.2",2,"","How does the current solution perform against the minimum requirements and its recurring resource burden?",
-"Wie schneidet die aktuelle Lösung im Hinblick auf die Mindestanforderungen und ihre wiederkehrende Ressourcenbelastung ab?",
+q("M2.2",2,"","How does the comparison reference state perform against the minimum requirements and its recurring resource burden?",
+"Wie schneidet der Vergleichsreferenzzustand im Hinblick auf die Mindestanforderungen und seine wiederkehrende Ressourcenbelastung ab?",
 [["meets_no_burden","Meets all minimum requirements; no decision-relevant recurring burden","Erfüllt alle Mindestanforderungen; keine entscheidungsrelevante wiederkehrende Belastung"],
 ["meets_burden","Meets all minimum requirements; decision-relevant recurring burden exists","Erfüllt alle Mindestanforderungen; entscheidungsrelevante wiederkehrende Belastung besteht"],
 ["not_meet","Does not meet all minimum requirements","Erfüllt nicht alle Mindestanforderungen"],
 ["cannot","Cannot assess","Kann ich nicht beurteilen"]],
-"Treat a recurring burden as decision-relevant only when it affects the decision whether to retain, improve, or replace the current solution.",
-"Eine wiederkehrende Belastung ist nur dann entscheidungsrelevant, wenn sie die Entscheidung beeinflusst, die aktuelle Lösung beizubehalten, zu verbessern oder zu ersetzen.",
+"Treat a recurring burden as decision-relevant only where it affects the choice to retain, improve, or replace the reference state.",
+"Eine wiederkehrende Belastung ist nur dann entscheidungsrelevant, wenn sie die Entscheidung beeinflusst, den Referenzzustand beizubehalten, zu verbessern oder zu ersetzen.",
 ["Requirement fulfilment","Manual workload","Cycle time","Recurring operating cost","Coordination effort","Recurring external support"],
 ["Erfüllung der Anforderungen","Manueller Aufwand","Durchlaufzeit","Wiederkehrende Betriebskosten","Koordinationsaufwand","Wiederkehrende externe Unterstützung"],()=>true),
 q("M2.3",2,"","Does the current process rely on business-relevant human judgement or contextual knowledge that is not represented in the available data or system?",
@@ -626,7 +627,11 @@ function renderModule(){
  const box=document.getElementById("questions");box.innerHTML="";
  questions.filter(x=>x.module===current && visibleIds.includes(x.id)).forEach(x=>box.appendChild(renderQuestion(x)));
  document.getElementById("backBtn").disabled=false;
- document.getElementById("continueBtn").disabled=!moduleCompleteState;
+ const finishBtn=document.getElementById("finishBtn");
+ finishBtn.classList.toggle("hidden",!diagnosticMode);
+ const continueBtn=document.getElementById("continueBtn");
+ continueBtn.textContent=diagnosticMode?T[lang].continueDiagnostic:T[lang].continue;
+ continueBtn.disabled=!moduleCompleteState;
 }
 function fillList(id,items,emptyText=""){
  const el=document.getElementById(id); if(!el)return; el.innerHTML="";
@@ -669,6 +674,12 @@ document.getElementById("framingContinueBtn").onclick=async()=>{
  document.getElementById("framingScreen").classList.add("hidden");document.getElementById("assessmentScreen").classList.remove("hidden");current=1;
  try{setApiError("");await evaluate("state")}catch(err){setApiError(err.message)}
  renderModule();window.scrollTo(0,0)
+};
+document.getElementById("finishBtn").onclick=async()=>{
+ try{
+   setApiError("");const data=await evaluate("finish");
+   if(data.result){showResult(data.result);return}
+ }catch(err){setApiError(err.message)}
 };
 document.getElementById("continueBtn").onclick=async()=>{
  if(!moduleCompleteState)return;
