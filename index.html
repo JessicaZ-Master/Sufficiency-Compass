@@ -140,6 +140,15 @@ h1{font-size:48px;line-height:1.07;margin:12px 0 18px;letter-spacing:-.04em}
 .assist-clarify textarea{flex:1;min-height:62px;border:1px solid var(--line);border-radius:8px;padding:8px;resize:vertical}
 .assist-output{margin-top:10px;padding:10px 12px;background:var(--soft);border-radius:8px;line-height:1.5;white-space:pre-wrap}
 .assist-output.loading{font-style:italic;color:var(--muted)}
+.print-details{display:none}
+.print-details h2{font-size:24px;margin:0 0 8px}
+.print-details-intro{color:var(--muted);font-size:13px;line-height:1.5;margin-bottom:20px}
+.print-module{margin:0 0 22px}
+.print-module h3{font-size:17px;margin:0 0 10px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+.print-response{padding:9px 0 10px;border-bottom:1px solid #E8ECEE;break-inside:avoid;page-break-inside:avoid}
+.print-question{font-size:12.5px;line-height:1.45;font-weight:700;color:var(--ink)}
+.print-answer{font-size:12.5px;line-height:1.45;color:var(--muted);margin-top:4px}
+.print-answer strong{color:var(--ink)}
 @media(max-width:720px){.framing-grid,.trace-grid{grid-template-columns:1fr}.field.full,.trace-card.full{grid-column:auto}}
 @media(max-width:720px){
   .brand-logo{width:168px;max-width:55vw;height:46px}
@@ -153,11 +162,13 @@ h1{font-size:48px;line-height:1.07;margin:12px 0 18px;letter-spacing:-.04em}
   .result-title{font-size:28px}
 }
 @media print{
-  .topbar,.result-actions,.privacy,.validation-notice{display:none!important}
+  .topbar,.result-actions,.privacy,.validation-notice,.stepper{display:none!important}
   body{background:#fff}
   main{max-width:none;padding:0}
   #resultScreen{display:block!important}
-  .result-card{box-shadow:none;border:1px solid #bbb}
+  .result-card{box-shadow:none;border:1px solid #bbb;break-after:page;page-break-after:always}
+  .print-details{display:block!important;break-before:page;page-break-before:always;padding-top:4px}
+  .question-jump{display:none!important}
 }
 </style>
 </head>
@@ -284,6 +295,11 @@ h1{font-size:48px;line-height:1.07;margin:12px 0 18px;letter-spacing:-.04em}
         </div>
       </div>
       <div class="privacy" data-i18n="resultNote"></div>
+      <section id="printDetails" class="print-details">
+        <h2 data-i18n="printAnswersTitle"></h2>
+        <div class="print-details-intro" data-i18n="printAnswersIntro"></div>
+        <div id="printAnswers"></div>
+      </section>
     </section>
   </main>
 </div>
@@ -315,7 +331,7 @@ df4Label:"DF.4 · Unit of assessment",df4Help:"Select one process, planning acti
 df5Label:"DF.5 · Affected users / activities",df5Help:"Which users, functions, or activities are affected and need to be considered?",
 df6Label:"DF.6 · Starting situation",df6Help:"Does the case concern an existing solution/process or a new capability / greenfield case?",df6Existing:"Existing solution / process",df6Greenfield:"New capability / greenfield",df6WhyTitle:"Why does this matter?",df6WhyGeneric:"The starting situation helps interpret the comparison reference in Module 2. It does not change the recommendation by itself.",df6WhyExisting:"With an existing solution or process, that current state will often be the most natural comparison reference in Module 2.",df6WhyGreenfield:"A greenfield case does not require an existing technical solution. In Module 2, use the current process, current capability level, or another resource-efficient alternative as the comparison reference. Greenfield does not mean lower maturity.",
 diagnosticTitle:"Further assessment for clarification",diagnosticText:"A decision-critical point is still open and currently prevents a positive advancement recommendation. You can close the assessment with the information available now. If you choose “Continue to clarify”, the assessment continues to make further prerequisites, evidence needs, alternatives and specialist questions visible. Continuing does not remove the open point automatically.",diagnosticReason:"Currently open",
-decisionContext:"Decision context",gateStatus:"Decision-gate status",economicSufficiency:"Economic sufficiency",unresolved:"Unresolved conditions",specialistTasks:"Specialist-verification tasks",alternativePaths:"Simpler / alternative paths",conditionsAnotherPath:"Conditions / actions for another path",assistOpen:"AI assistance",assistNote:"Optional explanation only. The assistance layer does not select answers, change rules, bypass specialist verification, or affect the recommendation. When used, the current question, answer categories, and limited Decision Framing context are sent to the external LLM service; selected answers and the generated recommendation are not sent.",assistExplain:"Explain simply",assistRephrase:"Rephrase",assistExample:"Example",assistOptions:"Explain options",assistAsk:"Clarify",assistPlaceholder:"What is unclear about this question?",assistLoading:"Generating explanation…",assistUnavailable:"Optional AI assistance is currently unavailable.",requiredAnswer:"Please answer this question before continuing.",goToQuestion:"Go to question",moduleLocked:"Complete earlier modules first."
+decisionContext:"Decision context",gateStatus:"Decision-gate status",economicSufficiency:"Economic sufficiency",unresolved:"Unresolved conditions",specialistTasks:"Specialist-verification tasks",alternativePaths:"Simpler / alternative paths",conditionsAnotherPath:"Conditions / actions for another path",assistOpen:"AI assistance",assistNote:"Optional explanation only. The assistance layer does not select answers, change rules, bypass specialist verification, or affect the recommendation. When used, the current question, answer categories, and limited Decision Framing context are sent to the external LLM service; selected answers and the generated recommendation are not sent.",assistExplain:"Explain simply",assistRephrase:"Rephrase",assistExample:"Example",assistOptions:"Explain options",assistAsk:"Clarify",assistPlaceholder:"What is unclear about this question?",assistLoading:"Generating explanation…",assistUnavailable:"Optional AI assistance is currently unavailable.",requiredAnswer:"Please answer this question before continuing.",goToQuestion:"Go to question",moduleLocked:"Complete earlier modules first.",printAnswersTitle:"Questions and selected answers",printAnswersIntro:"This section documents the assessment path and the answers used for the recommendation.",printAnswerLabel:"Selected answer"
 },
 de:{
 eyebrow:"Entscheidungstool für KI-gestützte Finanzplanung",
@@ -341,7 +357,7 @@ df4Label:"DF.4 · Gegenstand der Bewertung",df4Help:"Wählen Sie genau einen Pro
 df5Label:"DF.5 · Betroffene Nutzer / Aktivitäten",df5Help:"Welche Nutzer, Funktionen oder Aktivitäten sind betroffen und müssen berücksichtigt werden?",
 df6Label:"DF.6 · Ausgangssituation",df6Help:"Geht es um eine bestehende Lösung bzw. einen bestehenden Prozess oder um eine neue Fähigkeit ohne bestehende technische Lösung?",df6Existing:"Bestehende Lösung / bestehender Prozess",df6Greenfield:"Neue Fähigkeit / keine bestehende technische Lösung",df6WhyTitle:"Warum ist diese Angabe relevant?",df6WhyGeneric:"Die Ausgangssituation hilft dabei, in Modul 2 die passende Vergleichsreferenz zu wählen. Für sich allein verändert sie die Empfehlung nicht.",df6WhyExisting:"Bei einer bestehenden Lösung oder einem bestehenden Prozess ist dieser aktuelle Zustand häufig die naheliegende Vergleichsreferenz in Modul 2.",df6WhyGreenfield:"Bei einem neuen Vorhaben ohne bestehende technische Lösung brauchen Sie trotzdem eine Vergleichsreferenz. In Modul 2 kann das z. B. der heutige Prozess, das aktuelle Fähigkeitsniveau oder eine andere ressourcenschonende Alternative sein. Ein Greenfield-Fall bedeutet dabei nicht automatisch einen niedrigeren Reifegrad.",
 diagnosticTitle:"Weitere Prüfung zur Klärung",diagnosticText:"Ein entscheidungsrelevanter Punkt ist noch offen und verhindert derzeit eine positive Weiterentwicklungsempfehlung. Sie können die Bewertung mit dem aktuellen Informationsstand abschließen. Wenn Sie „Zur Klärung weiter prüfen“ wählen, wird die Bewertung fortgesetzt, um weitere Voraussetzungen, Informationsbedarfe, Alternativen und erforderliche fachliche Prüfungen sichtbar zu machen. Dadurch wird der offene Punkt nicht automatisch aufgehoben.",diagnosticReason:"Aktuell offen",
-decisionContext:"Entscheidungskontext",gateStatus:"Kritische Entscheidungspunkte",economicSufficiency:"Wirtschaftliche Tragfähigkeit",unresolved:"Offene Klärungspunkte",specialistTasks:"Erforderliche fachliche Prüfungen",alternativePaths:"Einfachere / alternative Lösungswege",conditionsAnotherPath:"Was müsste sich für einen anderen Weg ändern?",assistOpen:"KI-Hilfe",assistNote:"Optionale Erklärungshilfe. Die Assistenz wählt keine Antworten aus, verändert keine Regeln, umgeht keine fachliche Prüfung und beeinflusst die Empfehlung nicht. Bei Nutzung werden die aktuelle Frage, Antwortkategorien und ein begrenzter Teil des Entscheidungsrahmens an den externen Sprachmodell-Dienst übertragen; ausgewählte Antworten und die erzeugte Empfehlung werden nicht übertragen.",assistExplain:"Einfach erklären",assistRephrase:"Umformulieren",assistExample:"Beispiel",assistOptions:"Antwortoptionen erklären",assistAsk:"Klären",assistPlaceholder:"Was ist an dieser Frage unklar?",assistLoading:"Erklärung wird erzeugt…",assistUnavailable:"Die optionale KI-Hilfe ist derzeit nicht verfügbar.",verifyLabel:"Fachlich prüfen",evidenceLabel:"Benötigter Nachweis",requiredAnswer:"Bitte beantworten Sie diese Frage, bevor Sie fortfahren.",goToQuestion:"Zur Frage",moduleLocked:"Bitte bearbeiten Sie zuerst die vorherigen Module."
+decisionContext:"Entscheidungskontext",gateStatus:"Kritische Entscheidungspunkte",economicSufficiency:"Wirtschaftliche Tragfähigkeit",unresolved:"Offene Klärungspunkte",specialistTasks:"Erforderliche fachliche Prüfungen",alternativePaths:"Einfachere / alternative Lösungswege",conditionsAnotherPath:"Was müsste sich für einen anderen Weg ändern?",assistOpen:"KI-Hilfe",assistNote:"Optionale Erklärungshilfe. Die Assistenz wählt keine Antworten aus, verändert keine Regeln, umgeht keine fachliche Prüfung und beeinflusst die Empfehlung nicht. Bei Nutzung werden die aktuelle Frage, Antwortkategorien und ein begrenzter Teil des Entscheidungsrahmens an den externen Sprachmodell-Dienst übertragen; ausgewählte Antworten und die erzeugte Empfehlung werden nicht übertragen.",assistExplain:"Einfach erklären",assistRephrase:"Umformulieren",assistExample:"Beispiel",assistOptions:"Antwortoptionen erklären",assistAsk:"Klären",assistPlaceholder:"Was ist an dieser Frage unklar?",assistLoading:"Erklärung wird erzeugt…",assistUnavailable:"Die optionale KI-Hilfe ist derzeit nicht verfügbar.",verifyLabel:"Fachlich prüfen",evidenceLabel:"Benötigter Nachweis",requiredAnswer:"Bitte beantworten Sie diese Frage, bevor Sie fortfahren.",goToQuestion:"Zur Frage",moduleLocked:"Bitte bearbeiten Sie zuerst die vorherigen Module.",printAnswersTitle:"Fragen und ausgewählte Antworten",printAnswersIntro:"Dieser Abschnitt dokumentiert den durchlaufenen Bewertungsweg und die Antworten, die der Empfehlung zugrunde liegen.",printAnswerLabel:"Ausgewählte Antwort"
 }}
 const modules=[
 {id:1,title:{en:"Business Need & Minimum Requirements",de:"Geschäftsbedarf & Mindestanforderungen"},purpose:{en:"Define the use case and acceptance conditions.",de:"Anwendungsfall und Akzeptanzbedingungen definieren."}},
@@ -605,6 +621,32 @@ function renderStepper(targetId="stepper"){
  })
 }
 function optLabel(o){return lang==="en"?o[1]:o[2]}
+function answerLabelForQuestion(q,value){
+ const vals=Array.isArray(value)?value:[value];
+ return vals.map(v=>{
+   const opt=(q.opts||[]).find(o=>o[0]===v);
+   return opt?optLabel(opt):String(v)
+ }).join("; ")
+}
+function renderPrintDetails(){
+ const root=document.getElementById("printAnswers");if(!root)return;root.innerHTML="";
+ modules.forEach(m=>{
+   const answered=questions.filter(q=>q.module===m.id && Object.prototype.hasOwnProperty.call(A,q.id) && frontendAnswered(q));
+   if(!answered.length)return;
+   const section=document.createElement("section");section.className="print-module";
+   const h=document.createElement("h3");h.textContent=`${m.id}. ${m.title[lang]}`;section.appendChild(h);
+   answered.forEach(q=>{
+     const row=document.createElement("div");row.className="print-response";
+     const question=document.createElement("div");question.className="print-question";
+     question.textContent=`${q.id} · ${lang==="en"?q.en:q.de}`;
+     const answer=document.createElement("div");answer.className="print-answer";
+     const label=document.createElement("strong");label.textContent=T[lang].printAnswerLabel+": ";
+     answer.appendChild(label);answer.append(document.createTextNode(answerLabelForQuestion(q,A[q.id])));
+     row.appendChild(question);row.appendChild(answer);section.appendChild(row)
+   });
+   root.appendChild(section)
+ })
+}
 function assistBase(){return (window.SUFFICIENCY_COMPASS_ASSIST_API||"").replace(/\/+$/,"")}
 async function requestAssistance(x,mode,clarification=""){
  const base=assistBase(); if(!base) throw new Error(T[lang].assistUnavailable);
@@ -775,6 +817,7 @@ function fillList(id,items,emptyText=""){
 function renderResult(r){
  if(!r)return;
  renderStepper("resultStepper");
+ renderPrintDetails();
  const card=document.getElementById("resultCard");card.style.setProperty("--outcome",r.color||"var(--petrol)");
  document.getElementById("resultTitle").textContent=r.title;
  document.getElementById("resultDesc").textContent=r.description;
@@ -867,7 +910,8 @@ document.getElementById("backBtn").onclick=async()=>{
 };
 document.getElementById("langEN").onclick=async()=>{lang="en";i18n();renderDf6Context();if(!document.getElementById("assessmentScreen").classList.contains("hidden")){try{await evaluate("state");renderModule()}catch(e){setApiError(e.message)}}};
 document.getElementById("langDE").onclick=async()=>{lang="de";i18n();renderDf6Context();if(!document.getElementById("assessmentScreen").classList.contains("hidden")){try{await evaluate("state");renderModule()}catch(e){setApiError(e.message)}}};
-document.getElementById("pdfBtn").onclick=()=>window.print();
+document.getElementById("pdfBtn").onclick=()=>{renderPrintDetails();window.print()};
+window.addEventListener("beforeprint",renderPrintDetails);
 document.getElementById("editBtn").onclick=async()=>{document.getElementById("resultScreen").classList.add("hidden");document.getElementById("assessmentScreen").classList.remove("hidden");current=Math.min(current,furthestReached);try{setApiError("");await evaluate("state")}catch(e){setApiError(e.message)}renderModule();window.scrollTo(0,0)};
 document.getElementById("restartBtn").onclick=()=>{A={};F={};current=1;furthestReached=1;result=null;visibleIds=[];moduleCompleteState=false;diagnosticMode=false;gateStatus=null;showMissingValidation=false;document.getElementById("resultScreen").classList.add("hidden");document.getElementById("startScreen").classList.remove("hidden");i18n();window.scrollTo(0,0)};
 document.addEventListener("click",e=>{if(!e.target.closest(".help"))document.querySelectorAll(".help.open").forEach(x=>x.classList.remove("open"))});
