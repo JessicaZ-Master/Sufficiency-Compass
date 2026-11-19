@@ -217,7 +217,7 @@ h1{font-size:48px;line-height:1.07;margin:12px 0 18px;letter-spacing:-.04em}
       </div>
     </section>
 
-    <section id="assessmentScreen" class="hidden"><div id="apiErrorAssessment" class="api-error hidden"></div><div id="diagnosticBanner" class="diagnostic-banner hidden"></div>
+    <section id="assessmentScreen" class="hidden"><div id="apiErrorAssessment" class="api-error hidden"></div>
       <div class="stepper" id="stepper"></div>
       <div class="module-header">
         <div class="module-meta">
@@ -230,6 +230,7 @@ h1{font-size:48px;line-height:1.07;margin:12px 0 18px;letter-spacing:-.04em}
         <div class="progress"><div id="progressFill"></div></div>
       </div>
       <div id="questions"></div>
+      <div id="diagnosticAction" class="diagnostic-banner hidden"></div>
       <div class="nav">
         <button class="secondary" id="backBtn" data-i18n="back"></button>
         <button class="secondary hidden" id="finishBtn" data-i18n="finishCurrent"></button>
@@ -288,7 +289,7 @@ validationResultText:"For the scientific validation, your individual answers and
 whatGetTitle:"What you will get",whatGetText:"A context-specific management recommendation and a concise explanation of the factors driving it.",
 howWorksTitle:"How it works",howWorksText:"Six modules, progressive disclosure and no aggregate score. You only see questions relevant to your decision path.",
 start:"Start assessment",privacy:"No login required. Your current responses are sent to the decision engine for calculation and are not persistently stored by the prototype.",
-back:"Back",continue:"Continue",finishCurrent:"Close assessment with current evidence",continueDiagnostic:"Continue diagnostically",moduleOf:"Module {n} of 6",examples:"Examples / guidance",hideExamples:"Hide guidance",multiSelect:"Multiple selections possible",
+back:"Back",continue:"Continue",finishCurrent:"Close with current information",continueDiagnostic:"Continue to clarify",moduleOf:"Module {n} of 6",examples:"Examples / guidance",hideExamples:"Hide guidance",multiSelect:"Multiple selections possible",
 cannotTitle:"Further clarification may be required",cannotText:"This condition cannot currently be assessed reliably. Obtain the indicated input before closing the decision. 'Cannot assess' is not treated as a negative score.",specialistLabel:"Suggested specialist checkpoint",
 yourRecommendation:"Your recommendation",why:"Main decision drivers",next:"What to do next",attention:"What needs attention before the next step?",savePdf:"Save result as PDF",edit:"Review & edit answers",restart:"Start new assessment",
 resultNote:"The recommendation is generated from the frozen Toolkit V1 decision logic. Outcomes are non-hierarchical and do not represent maturity levels.",
@@ -296,73 +297,73 @@ noIssues:"No unresolved prerequisite or clarification area identified.",
 framingEyebrow:"Decision Framing",framingTitle:"Define the decision before assessing the solution",framingIntro:"Frame the management decision and assessment context. A technical solution does not need to be specified at this stage.",
 df1Label:"DF.1 · Problem / opportunity",df1Help:"What problem or opportunity has led to this assessment?",
 df2Label:"DF.2 · Intended business outcome",df2Help:"What business outcome should the solution support?",
-df3Label:"DF.3 · Current decision",df3Help:"What decision is currently being made?",
+df3Label:"DF.3 · Decision to be made",df3Help:"Which concrete management decision should this assessment inform—for example, retain the current approach, improve it, test an alternative, or advance to a more complex solution?",
 df4Label:"DF.4 · Unit of assessment",df4Help:"Select one process, planning activity, decision use case, or capability.",
 df5Label:"DF.5 · Affected users / activities",df5Help:"Which users, functions, or activities are affected and need to be considered?",
 df6Label:"DF.6 · Starting situation",df6Help:"Does the case concern an existing solution/process or a new capability / greenfield case?",df6Existing:"Existing solution / process",df6Greenfield:"New capability / greenfield",
-diagnosticTitle:"Diagnostic continuation",diagnosticText:"A decision-critical condition currently blocks a positive advancement recommendation. You may close the assessment with the current evidence or continue diagnostically to identify further dependencies, evidence needs, alternatives and specialist questions.",
+diagnosticTitle:"Further assessment for clarification",diagnosticText:"A decision-critical point is still open and currently prevents a positive advancement recommendation. You can close the assessment with the information available now. If you choose “Continue to clarify”, the assessment continues to make further prerequisites, evidence needs, alternatives and specialist questions visible. Continuing does not remove the open point automatically.",diagnosticReason:"Currently open",
 decisionContext:"Decision context",gateStatus:"Decision-gate status",economicSufficiency:"Economic sufficiency",unresolved:"Unresolved conditions",specialistTasks:"Specialist-verification tasks",alternativePaths:"Simpler / alternative paths",conditionsAnotherPath:"Conditions / actions for another path",assistOpen:"AI assistance",assistNote:"Optional explanation only. The assistance layer does not select answers, change rules, bypass specialist verification, or affect the recommendation. When used, the current question, answer categories, and limited Decision Framing context are sent to the external LLM service; selected answers and the generated recommendation are not sent.",assistExplain:"Explain simply",assistRephrase:"Rephrase",assistExample:"Example",assistOptions:"Explain options",assistAsk:"Clarify",assistPlaceholder:"What is unclear about this question?",assistLoading:"Generating explanation…",assistUnavailable:"Optional AI assistance is currently unavailable."
 },
 de:{
 eyebrow:"Entscheidungstool für KI-gestützte Finanzplanung",
-tagline:"Finden Sie das passende Maß an KI und Komplexität für Ihren Financial-Planning-Anwendungsfall.",
-intro:"Prüfen Sie, ob eine weitere technologische Weiterentwicklung gerechtfertigt ist, welche Voraussetzungen zuerst geschaffen werden müssen und wann ein begrenzter PoC oder Pilot entscheidungsrelevante Evidenz liefern sollte.",
+tagline:"Finden Sie das passende Maß an KI und Komplexität für Ihren Finanzplanungs-Anwendungsfall.",
+intro:"Prüfen Sie, ob eine weitere technologische Weiterentwicklung gerechtfertigt ist, welche Voraussetzungen zuerst geschaffen werden müssen und wann ein begrenzter Machbarkeitsnachweis (PoC) oder Pilot entscheidungsrelevante Evidenz liefern sollte.",
 validationStartTitle:"Sie testen hier ein Entscheidungswerkzeug – Sie nehmen nicht an einer Umfrage teil.",
 validationStartText:"Die Fragen im Sufficiency Compass dienen ausschließlich dazu, Ihre gewählte Entscheidungssituation zu beurteilen und eine Empfehlung für diesen Fall zu erzeugen. Ihre Antworten im Tool sind nicht das Feedback für die wissenschaftliche Validierung. Bitte geben Sie nach der Nutzung Feedback zum Werkzeug selbst – insbesondere zu Verständlichkeit, Relevanz, Ergebnislogik und praktischer Nutzbarkeit.",
 validationResultTitle:"Ihr Tool-Durchlauf ist abgeschlossen – die Validierung noch nicht.",
 validationResultText:"Für die wissenschaftliche Validierung stehen nicht Ihre einzelnen Antworten oder das erhaltene Ergebnis im Mittelpunkt, sondern Ihr Feedback zum Werkzeug selbst: Was war verständlich oder unklar? Ist die Empfehlung nachvollziehbar? Würde das Tool in der Praxis helfen? Bitte beantworten Sie dazu die Validierungsfragen, die Sie separat erhalten haben. Wenn der Sufficiency Compass bereits nach wenigen Fragen zu einer Empfehlung kommt, kann dies ein beabsichtigtes Ergebnis der Entscheidungslogik sein und bedeutet nicht, dass der Durchlauf unvollständig war.",
 whatGetTitle:"Ihr Ergebnis",whatGetText:"Eine kontextspezifische Management-Empfehlung mit einer verständlichen Begründung der entscheidungsrelevanten Faktoren.",
-howWorksTitle:"So funktioniert es",howWorksText:"Sechs Module, Progressive Disclosure und kein Gesamtscore. Sie sehen nur Fragen, die für Ihren Entscheidungspfad relevant sind.",
-start:"Assessment starten",privacy:"Keine Anmeldung erforderlich. Ihre aktuellen Antworten werden zur Berechnung an die Decision Engine übermittelt und vom Prototyp nicht dauerhaft gespeichert.",
-back:"Zurück",continue:"Weiter",finishCurrent:"Assessment mit aktueller Evidenz schließen",continueDiagnostic:"Diagnostisch fortsetzen",moduleOf:"Modul {n} von 6",examples:"Beispiele / Hinweise",hideExamples:"Hinweise ausblenden",multiSelect:"Mehrfachauswahl möglich",
-cannotTitle:"Weitere Klärung kann erforderlich sein",cannotText:"Diese Bedingung kann derzeit nicht verlässlich beurteilt werden. Holen Sie die angegebene Information ein, bevor Sie die Entscheidung abschließen. „Kann ich nicht beurteilen“ wird nicht als negativer Score gewertet.",specialistLabel:"Empfohlener Specialist Checkpoint",
-yourRecommendation:"Ihre Empfehlung",why:"Wesentliche Entscheidungstreiber",next:"Was ist als Nächstes zu tun?",attention:"Was ist vor dem nächsten Schritt konkret zu tun?",savePdf:"Ergebnis als PDF speichern",edit:"Antworten prüfen & korrigieren",restart:"Neues Assessment starten",
+howWorksTitle:"So funktioniert es",howWorksText:"Sechs Module, schrittweise Einblendung und keine Gesamtpunktzahl. Sie sehen nur Fragen, die für Ihren Entscheidungsweg relevant sind.",
+start:"Bewertung starten",privacy:"Keine Anmeldung erforderlich. Ihre aktuellen Antworten werden zur Berechnung an die Entscheidungslogik übermittelt und vom Prototyp nicht dauerhaft gespeichert.",
+back:"Zurück",continue:"Weiter",finishCurrent:"Mit aktuellem Informationsstand abschließen",continueDiagnostic:"Zur Klärung weiter prüfen",moduleOf:"Modul {n} von 6",examples:"Beispiele / Hinweise",hideExamples:"Hinweise ausblenden",multiSelect:"Mehrfachauswahl möglich",
+cannotTitle:"Weitere Klärung kann erforderlich sein",cannotText:"Diese Bedingung kann derzeit nicht verlässlich beurteilt werden. Holen Sie die angegebene Information ein, bevor Sie die Entscheidung abschließen. „Kann ich nicht beurteilen“ wird nicht automatisch negativ bewertet.",specialistLabel:"Empfohlene fachliche Prüfung",
+yourRecommendation:"Ihre Empfehlung",why:"Wesentliche Entscheidungstreiber",next:"Was ist als Nächstes zu tun?",attention:"Was ist vor dem nächsten Schritt konkret zu tun?",savePdf:"Ergebnis als PDF speichern",edit:"Antworten prüfen & korrigieren",restart:"Neue Bewertung starten",
 resultNote:"Die Empfehlung wird aus der Entscheidungslogik des eingefrorenen Toolkit V1 erzeugt. Die Outcomes sind nicht hierarchisch und stellen keine Reifegrade dar.",
 noIssues:"Keine offenen Voraussetzungen oder Klärungspunkte identifiziert.",
-framingEyebrow:"Decision Framing",framingTitle:"Entscheidung definieren, bevor die Lösung bewertet wird",framingIntro:"Rahmen Sie die Managemententscheidung und den Assessment-Kontext. Eine technische Lösung muss zu diesem Zeitpunkt noch nicht feststehen.",
-df1Label:"DF.1 · Problem / Chance",df1Help:"Welches Problem oder welche Chance hat zu diesem Assessment geführt?",
-df2Label:"DF.2 · Angestrebtes Business-Ergebnis",df2Help:"Welches Business-Ergebnis soll die Lösung unterstützen?",
-df3Label:"DF.3 · Aktuelle Entscheidung",df3Help:"Welche Entscheidung wird aktuell getroffen?",
-df4Label:"DF.4 · Assessment-Einheit",df4Help:"Wählen Sie einen Prozess, eine Planungsaktivität, einen Entscheidungsanwendungsfall oder eine Fähigkeit.",
+framingEyebrow:"Entscheidungsrahmen",framingTitle:"Entscheidung definieren, bevor die Lösung bewertet wird",framingIntro:"Legen Sie die Managemententscheidung und den Bewertungskontext fest. Eine technische Lösung muss zu diesem Zeitpunkt noch nicht feststehen.",
+df1Label:"DF.1 · Problem / Chance",df1Help:"Welches Problem oder welche Chance hat zu dieser Bewertung geführt?",
+df2Label:"DF.2 · Angestrebtes Geschäftsergebnis",df2Help:"Welches konkrete geschäftliche Ergebnis soll die Lösung unterstützen?",
+df3Label:"DF.3 · Zu treffende Entscheidung",df3Help:"Welche konkrete Entscheidung soll mit dieser Bewertung vorbereitet oder getroffen werden? Zum Beispiel: bestehende Lösung beibehalten, gezielt verbessern, eine Alternative testen oder eine weitergehende Lösung verfolgen.",
+df4Label:"DF.4 · Gegenstand der Bewertung",df4Help:"Wählen Sie genau einen Prozess, eine Planungsaktivität, einen Entscheidungsanwendungsfall oder eine Fähigkeit als Gegenstand der Bewertung.",
 df5Label:"DF.5 · Betroffene Nutzer / Aktivitäten",df5Help:"Welche Nutzer, Funktionen oder Aktivitäten sind betroffen und müssen berücksichtigt werden?",
-df6Label:"DF.6 · Ausgangssituation",df6Help:"Geht es um eine bestehende Lösung/einen Prozess oder um eine neue Fähigkeit / Greenfield?",df6Existing:"Bestehende Lösung / bestehender Prozess",df6Greenfield:"Neue Fähigkeit / Greenfield",
-diagnosticTitle:"Diagnostische Fortsetzung",diagnosticText:"Eine entscheidungskritische Bedingung blockiert derzeit eine positive Weiterentwicklungsempfehlung. Sie können das Assessment mit der aktuellen Evidenz schließen oder diagnostisch fortsetzen, um weitere Abhängigkeiten, Evidenzbedarfe, Alternativen und Fachfragen zu identifizieren.",
-decisionContext:"Entscheidungskontext",gateStatus:"Status des Decision Gates",economicSufficiency:"Wirtschaftliche Suffizienz",unresolved:"Offene Bedingungen",specialistTasks:"Specialist-Verification-Tasks",alternativePaths:"Einfachere / alternative Pfade",conditionsAnotherPath:"Bedingungen / Maßnahmen für einen anderen Pfad",assistOpen:"KI-Hilfe",assistNote:"Optionale Erklärungshilfe. Die Assistenz wählt keine Antworten aus, verändert keine Regeln, umgeht keine Specialist Verification und beeinflusst die Empfehlung nicht. Bei Nutzung werden die aktuelle Frage, Antwortkategorien und ein begrenzter Teil des Decision Framing an den externen LLM-Dienst übertragen; ausgewählte Antworten und die erzeugte Empfehlung werden nicht übertragen.",assistExplain:"Einfach erklären",assistRephrase:"Umformulieren",assistExample:"Beispiel",assistOptions:"Antwortoptionen erklären",assistAsk:"Klären",assistPlaceholder:"Was ist an dieser Frage unklar?",assistLoading:"Erklärung wird erzeugt…",assistUnavailable:"Die optionale KI-Hilfe ist derzeit nicht verfügbar."
+df6Label:"DF.6 · Ausgangssituation",df6Help:"Geht es um eine bestehende Lösung bzw. einen bestehenden Prozess oder um eine neue Fähigkeit ohne bestehende technische Lösung?",df6Existing:"Bestehende Lösung / bestehender Prozess",df6Greenfield:"Neue Fähigkeit / keine bestehende technische Lösung",
+diagnosticTitle:"Weitere Prüfung zur Klärung",diagnosticText:"Ein entscheidungsrelevanter Punkt ist noch offen und verhindert derzeit eine positive Weiterentwicklungsempfehlung. Sie können die Bewertung mit dem aktuellen Informationsstand abschließen. Wenn Sie „Zur Klärung weiter prüfen“ wählen, wird die Bewertung fortgesetzt, um weitere Voraussetzungen, Informationsbedarfe, Alternativen und erforderliche fachliche Prüfungen sichtbar zu machen. Dadurch wird der offene Punkt nicht automatisch aufgehoben.",diagnosticReason:"Aktuell offen",
+decisionContext:"Entscheidungskontext",gateStatus:"Kritische Entscheidungspunkte",economicSufficiency:"Wirtschaftliche Tragfähigkeit",unresolved:"Offene Klärungspunkte",specialistTasks:"Erforderliche fachliche Prüfungen",alternativePaths:"Einfachere / alternative Lösungswege",conditionsAnotherPath:"Was müsste sich für einen anderen Weg ändern?",assistOpen:"KI-Hilfe",assistNote:"Optionale Erklärungshilfe. Die Assistenz wählt keine Antworten aus, verändert keine Regeln, umgeht keine fachliche Prüfung und beeinflusst die Empfehlung nicht. Bei Nutzung werden die aktuelle Frage, Antwortkategorien und ein begrenzter Teil des Entscheidungsrahmens an den externen Sprachmodell-Dienst übertragen; ausgewählte Antworten und die erzeugte Empfehlung werden nicht übertragen.",assistExplain:"Einfach erklären",assistRephrase:"Umformulieren",assistExample:"Beispiel",assistOptions:"Antwortoptionen erklären",assistAsk:"Klären",assistPlaceholder:"Was ist an dieser Frage unklar?",assistLoading:"Erklärung wird erzeugt…",assistUnavailable:"Die optionale KI-Hilfe ist derzeit nicht verfügbar.",verifyLabel:"Fachlich prüfen",evidenceLabel:"Benötigter Nachweis"
 }}
 const modules=[
-{id:1,title:{en:"Business Need & Minimum Requirements",de:"Business Need & Mindestanforderungen"},purpose:{en:"Define the use case and acceptance conditions.",de:"Anwendungsfall und Akzeptanzbedingungen definieren."}},
-{id:2,title:{en:"Current Solution & Baseline Assessment",de:"Aktuelle Lösung & Baseline"},purpose:{en:"Establish the reference and lower-complexity alternatives.",de:"Referenz und mögliche weniger komplexe Verbesserungswege bestimmen."}},
-{id:3,title:{en:"Incremental Value of Advancement",de:"Inkrementeller Nutzen der Weiterentwicklung"},purpose:{en:"Assess additional business value and apply the advancement gate.",de:"Zusätzlichen Business Value bewerten und das Advancement Gate prüfen."}},
-{id:4,title:{en:"Additional Resource & Capability Requirements",de:"Zusätzliche Ressourcen- & Fähigkeitsanforderungen"},purpose:{en:"Define the advancement scenario, requirements and commitments.",de:"Weiterentwicklungsszenario, Anforderungen und Bindungen definieren."}},
-{id:5,title:{en:"Organizational Readiness & Feasibility",de:"Organisatorische Readiness & Machbarkeit"},purpose:{en:"Assess organizational readiness and prerequisites.",de:"Organisatorische Voraussetzungen und Readiness beurteilen."}},
-{id:6,title:{en:"Socio-Technical Feasibility & Use Validation",de:"Sozio-technische Machbarkeit & Nutzungsvalidierung"},purpose:{en:"Assess pre-use conditions and actual-use evidence.",de:"Bedingungen vor der Nutzung und Evidenz aus Pilot bzw. realer Nutzung beurteilen."}}
+{id:1,title:{en:"Business Need & Minimum Requirements",de:"Geschäftsbedarf & Mindestanforderungen"},purpose:{en:"Define the use case and acceptance conditions.",de:"Anwendungsfall und Akzeptanzbedingungen definieren."}},
+{id:2,title:{en:"Current Solution & Baseline Assessment",de:"Aktuelle Lösung & Vergleichsreferenz"},purpose:{en:"Establish the reference and lower-complexity alternatives.",de:"Referenz und mögliche weniger komplexe Verbesserungswege bestimmen."}},
+{id:3,title:{en:"Incremental Value of Advancement",de:"Zusatznutzen der Weiterentwicklung"},purpose:{en:"Assess additional business value and apply the advancement gate.",de:"Zusätzlichen geschäftlichen Nutzen bewerten und den Entscheidungspunkt zur Weiterentwicklung prüfen."}},
+{id:4,title:{en:"Additional Resource & Capability Requirements",de:"Zusätzliche Ressourcen & Fähigkeiten"},purpose:{en:"Define the advancement scenario, requirements and commitments.",de:"Weiterentwicklungsszenario, Anforderungen und Bindungen definieren."}},
+{id:5,title:{en:"Organizational Readiness & Feasibility",de:"Organisatorische Voraussetzungen & Machbarkeit"},purpose:{en:"Assess organizational readiness and prerequisites.",de:"Organisatorische Voraussetzungen und Umsetzbarkeit beurteilen."}},
+{id:6,title:{en:"Socio-Technical Feasibility & Use Validation",de:"Sozio-technische Machbarkeit & Nutzungserprobung"},purpose:{en:"Assess pre-use conditions and actual-use evidence.",de:"Bedingungen vor der Nutzung und Evidenz aus Pilot bzw. realer Nutzung beurteilen."}}
 ]
 const q=(id,module,stage,en,de,opts,helpEn,helpDe,examplesEn=[],examplesDe=[],show=()=>true,multi=false)=>({id,module,stage,en,de,opts,helpEn,helpDe,examplesEn,examplesDe,show,multi})
 const O={
 yn:[["yes","Yes","Ja"],["no","No","Nein"],["cannot","Cannot assess","Kann ich nicht beurteilen"]],
 }
 const specialistCheckpoints={
-"M2.4":{en:"Process owner / subject-matter expert; IT or solution owner where feasibility depends on the current architecture.",de:"Prozessverantwortliche / Fachexpertise; IT bzw. Solution Owner, wenn die Machbarkeit von der bestehenden Architektur abhängt."},
-"M3.2":{en:"Finance / Controlling and, where evidence depends on data or model performance, Data / Analytics.",de:"Finance / Controlling und – wenn die Evidenz von Daten- oder Modellperformance abhängt – Data / Analytics."},
-"M4.0":{en:"IT / AI implementation, solution architecture and, where relevant, Procurement / Vendor Management.",de:"IT / AI-Implementierung, Solution Architecture und – sofern relevant – Einkauf / Vendor Management."},
-"M4.1":{en:"Consult the specialist responsible for the minimum requirement concerned, e.g. IT, Data / Analytics, Information Security, Legal / Data Protection, or Human-AI Interaction.",de:"Beziehen Sie die für die betroffene Mindestanforderung zuständige Fachfunktion ein, z. B. IT, Data / Analytics, Information Security, Legal / Datenschutz oder Human-AI Interaction."},
-"M4.2":{en:"Depending on the unclear requirement: Data / Analytics, IT Architecture / Integration, AI / Solution Owner, Procurement / Vendor Management, or the responsible business function.",de:"Je nach unklarer Anforderung: Data / Analytics, IT-Architektur / Integration, AI / Solution Owner, Einkauf / Vendor Management oder die verantwortliche Fachfunktion."},
-"M4.3":{en:"Finance / Controlling, IT / AI implementation, Procurement / Vendor Management, and Project / Change Management as applicable.",de:"Je nach Bindung: Finance / Controlling, IT / AI-Implementierung, Einkauf / Vendor Management sowie Projekt- / Change-Management."},
-"M5.1":{en:"Use the requirement areas identified in Module 4 to involve the corresponding owners: Data / Analytics, IT / Integration, AI / Solution Owner, Vendor Management, or another responsible function.",de:"Nutzen Sie die in Modul 4 identifizierten Anforderungsbereiche und beziehen Sie die jeweiligen Verantwortlichen ein: Data / Analytics, IT / Integration, AI / Solution Owner, Vendor Management oder eine andere zuständige Funktion."},
+"M2.4":{en:"Process owner / subject-matter expert; IT or solution owner where feasibility depends on the current architecture.",de:"Prozessverantwortliche / Fachexpertise; IT bzw. Lösungsverantwortliche, wenn die Machbarkeit von der bestehenden Architektur abhängt."},
+"M3.2":{en:"Finance / Controlling and, where evidence depends on data or model performance, Daten / Analytik.",de:"Finance / Controlling und – wenn die Evidenz von Daten- oder Modellperformance abhängt – Daten / Analytik."},
+"M4.0":{en:"IT / AI implementation, solution architecture and, where relevant, Procurement / Lieferantenmanagement.",de:"IT- / KI-Implementierung, Lösungsarchitektur und – sofern relevant – Einkauf / Lieferantenmanagement."},
+"M4.1":{en:"Consult the specialist responsible for the minimum requirement concerned, e.g. IT, Daten / Analytik, Informationssicherheit, Legal / Data Protection, or Mensch-KI-Interaktion.",de:"Beziehen Sie die für die betroffene Mindestanforderung zuständige Fachfunktion ein, z. B. IT, Daten / Analytik, Informationssicherheit, Legal / Datenschutz oder Mensch-KI-Interaktion."},
+"M4.2":{en:"Depending on the unclear requirement: Daten / Analytik, IT Architecture / Integration, AI / Lösungsverantwortliche, Procurement / Lieferantenmanagement, or the responsible business function.",de:"Je nach unklarer Anforderung: Daten / Analytik, IT-Architektur / Integration, AI / Lösungsverantwortliche, Einkauf / Lieferantenmanagement oder die verantwortliche Fachfunktion."},
+"M4.3":{en:"Finance / Controlling, IT / AI implementation, Procurement / Lieferantenmanagement, and Project / Change Management as applicable.",de:"Je nach Bindung: Finance / Controlling, IT- / KI-Implementierung, Einkauf / Lieferantenmanagement sowie Projekt- / Change-Management."},
+"M5.1":{en:"Use the requirement areas identified in Module 4 to involve the corresponding owners: Daten / Analytik, IT / Integration, AI / Lösungsverantwortliche, Lieferantenmanagement, or another responsible function.",de:"Nutzen Sie die in Modul 4 identifizierten Anforderungsbereiche und beziehen Sie die jeweiligen Verantwortlichen ein: Daten / Analytik, IT / Integration, AI / Lösungsverantwortliche, Lieferantenmanagement oder eine andere zuständige Funktion."},
 "M5.2":{en:"Finance / Controlling and, where approvals or contracts are involved, Procurement / responsible budget owner.",de:"Finance / Controlling und – bei Freigaben oder Verträgen – Einkauf bzw. zuständige Budgetverantwortliche."},
-"M5.4":{en:"Data Governance, IT / Platform or Solution Owner, responsible business decision owner and, where applicable, Information Security and Legal / Data Protection.",de:"Data Governance, IT / Platform- bzw. Solution Owner, verantwortliche Business-Entscheidungsträger sowie – sofern relevant – Information Security und Legal / Datenschutz."},
-"M5.5":{en:"Change / Organizational Development, Project Management and, where relevant, HR / Learning & Development.",de:"Change / Organisationsentwicklung, Projektmanagement und – sofern relevant – HR / Learning & Development."},
-"M6.1":{en:"Process owner together with AI / Human-AI Interaction expertise; involve IT, Information Security or Legal / Data Protection where the use conditions require it.",de:"Prozessverantwortliche gemeinsam mit AI- / Human-AI-Interaction-Expertise; bei entsprechenden Nutzungsbedingungen zusätzlich IT, Information Security oder Legal / Datenschutz."},
-"M6.2":{en:"Process owner, IT / Solution Owner and Change / Organizational Development.",de:"Prozessverantwortliche, IT / Solution Owner sowie Change / Organisationsentwicklung."},
-"M6.3":{en:"Change / Organizational Development, UX / Human-AI Interaction and representatives of the affected user groups.",de:"Change / Organisationsentwicklung, UX / Human-AI Interaction sowie Vertreter:innen der betroffenen Nutzergruppen."},
-"M6.4":{en:"Change / Organizational Development, HR / Learning & Development, UX / Human-AI Interaction and relevant user representatives.",de:"Change / Organisationsentwicklung, HR / Learning & Development, UX / Human-AI Interaction sowie relevante Nutzervertreter:innen."},
-"M6.5":{en:"Pilot / project owner and the responsible IT, Data / Analytics or AI / Solution team.",de:"Pilot- / Projektverantwortliche sowie das zuständige IT-, Data-/Analytics- oder AI-/Solution-Team."},
-"M6.6":{en:"Process owner, Change / Organizational Development and Human-AI Interaction / UX.",de:"Prozessverantwortliche, Change / Organisationsentwicklung sowie Human-AI Interaction / UX."},
-"M6.7":{en:"Human-AI Interaction / UX, Change / Organizational Development, HR and representatives of the relevant user roles.",de:"Human-AI Interaction / UX, Change / Organisationsentwicklung, HR sowie Vertreter:innen der relevanten Nutzerrollen."}
+"M5.4":{en:"Daten-Governance, IT / Platform or Lösungsverantwortliche, responsible business decision owner and, where applicable, Informationssicherheit and Legal / Data Protection.",de:"Daten-Governance, IT / Plattform- bzw. Lösungsverantwortliche, verantwortliche Business-Entscheidungsträger sowie – sofern relevant – Informationssicherheit und Legal / Datenschutz."},
+"M5.5":{en:"Change / Organizational Development, Project Management and, where relevant, Personal / Lernen & Entwicklung.",de:"Veränderungsmanagement / Organisationsentwicklung, Projektmanagement und – sofern relevant – Personal / Lernen & Entwicklung."},
+"M6.1":{en:"Process owner together with AI / Mensch-KI-Interaktion expertise; involve IT, Informationssicherheit or Legal / Data Protection where the use conditions require it.",de:"Prozessverantwortliche gemeinsam mit AI- / Human-AI-Interaction-Expertise; bei entsprechenden Nutzungsbedingungen zusätzlich IT, Informationssicherheit oder Legal / Datenschutz."},
+"M6.2":{en:"Process owner, IT / Lösungsverantwortliche and Change / Organizational Development.",de:"Prozessverantwortliche, IT / Lösungsverantwortliche sowie Veränderungsmanagement / Organisationsentwicklung."},
+"M6.3":{en:"Change / Organizational Development, Nutzererfahrung / Mensch-KI-Interaktion and representatives of the affected user groups.",de:"Veränderungsmanagement / Organisationsentwicklung, Nutzererfahrung / Mensch-KI-Interaktion sowie Vertreter:innen der betroffenen Nutzergruppen."},
+"M6.4":{en:"Change / Organizational Development, Personal / Lernen & Entwicklung, Nutzererfahrung / Mensch-KI-Interaktion and relevant user representatives.",de:"Veränderungsmanagement / Organisationsentwicklung, Personal / Lernen & Entwicklung, Nutzererfahrung / Mensch-KI-Interaktion sowie relevante Nutzervertreter:innen."},
+"M6.5":{en:"Pilot / project owner and the responsible IT, Daten / Analytik or AI / Solution team.",de:"Pilot- / Projektverantwortliche sowie das zuständige IT-, Daten-/Analytik- oder KI-/Lösungs-Team."},
+"M6.6":{en:"Process owner, Change / Organizational Development and Mensch-KI-Interaktion / UX.",de:"Prozessverantwortliche, Veränderungsmanagement / Organisationsentwicklung sowie Mensch-KI-Interaktion / UX."},
+"M6.7":{en:"Mensch-KI-Interaktion / UX, Change / Organizational Development, HR and representatives of the relevant user roles.",de:"Mensch-KI-Interaktion / UX, Veränderungsmanagement / Organisationsentwicklung, HR sowie Vertreter:innen der relevanten Nutzerrollen."}
 }
 const questions=[
 q("M1.1",1,"", "Have the decision or process to be supported, the scope of the use case, and the intended business objective been defined?",
-"Wurden die zu unterstützende Entscheidung bzw. der Prozess, der Umfang des Anwendungsfalls und das angestrebte Business-Ziel definiert?",O.yn,
+"Wurden die zu unterstützende Entscheidung bzw. der Prozess, der Umfang des Anwendungsfalls und das angestrebte Geschäftsziel definiert?",O.yn,
 "Use one clearly delimited planning or decision use case. The intended business objective should state the effect the solution is expected to support, not a technical feature.",
 "Verwenden Sie einen klar abgegrenzten Planungs- oder Entscheidungsanwendungsfall. Das Business-Ziel sollte den angestrebten Effekt beschreiben, nicht ein technisches Merkmal.",
 ["Decision / process","Scope","Intended business effect"],["Entscheidung / Prozess","Umfang","Angestrebter Business-Effekt"]),
@@ -371,13 +372,13 @@ q("M1.2",1,"", "Have the minimum requirements that any solution must meet been d
 "Minimum requirements are non-negotiable acceptance conditions for this use case. They may be quantitative or qualitative, but the organization must be able to determine whether they are met.",
 "Mindestanforderungen sind nicht verhandelbare Akzeptanzbedingungen für diesen Anwendungsfall. Sie können quantitativ oder qualitativ sein, müssen aber überprüfbar sein.",
 ["Decision relevance","Output quality / reliability","Timeliness","Usability","Process integration","Other use-case-specific acceptance conditions"],
-["Entscheidungsrelevanz","Outputqualität / Zuverlässigkeit","Rechtzeitigkeit","Nutzbarkeit","Prozessintegration","Weitere anwendungsfallspezifische Akzeptanzbedingungen"],()=>true),
+["Entscheidungsrelevanz","Ergebnisqualität / Zuverlässigkeit","Rechtzeitigkeit","Nutzbarkeit","Prozessintegration","Weitere anwendungsfallspezifische Akzeptanzbedingungen"],()=>true),
 
 q("M2.1",2,"","Which reference state should be used to assess the additional value of a more advanced solution?",
 "Welcher Referenzzustand soll verwendet werden, um den zusätzlichen Nutzen einer fortgeschritteneren Lösung zu bewerten?",
 [["existing","Existing solution / process","Bestehende Lösung / bestehender Prozess"],["current_process","Current process or capability without a dedicated technical solution","Aktueller Prozess oder Fähigkeit ohne dedizierte technische Lösung"],["other_resource","Another resource-efficient reference","Andere ressourceneffiziente Referenz"],["not_identified","Not yet identified","Noch nicht identifiziert"],["cannot","Cannot assess","Kann ich nicht beurteilen"]],
 "The reference may be manual, judgement-based, spreadsheet-based, statistical, conventional, software-supported, AI-supported, or another credible resource-efficient alternative. Greenfield cases still require an explicit reference; no universal default baseline is prescribed.",
-"Die Referenz kann manuell, urteilsbasiert, tabellenbasiert, statistisch, konventionell, software- oder KI-gestützt oder eine andere belastbare ressourceneffiziente Alternative sein. Auch Greenfield-Fälle benötigen eine explizite Referenz; es gibt keine universelle Standard-Baseline.",
+"Die Referenz kann manuell, urteilsbasiert, tabellenbasiert, statistisch, konventionell, software- oder KI-gestützt oder eine andere belastbare ressourceneffiziente Alternative sein. Auch Fälle ohne bestehende technische Lösung benötigen eine explizite Referenz; es gibt keine universelle Standardreferenz.",
 ["Current process","Current capability level","Resource-efficient alternative"],["Aktueller Prozess","Aktuelles Fähigkeitsniveau","Ressourceneffiziente Alternative"],()=>true),
 q("M2.2",2,"","How does the comparison reference state perform against the minimum requirements and its recurring resource burden?",
 "Wie schneidet der Vergleichsreferenzzustand im Hinblick auf die Mindestanforderungen und seine wiederkehrende Ressourcenbelastung ab?",
@@ -405,21 +406,21 @@ q("M2.4",2,"","To what extent can the identified gaps or burdens be feasibly add
 ()=>true),
 
 q("M3.1",3,"","Which additional business-value dimensions are expected from the advancement scenario compared with the comparison reference?",
-"Welche zusätzlichen Business-Value-Dimensionen werden vom Weiterentwicklungsszenario gegenüber der Vergleichsreferenz erwartet?",
-[["decision","Decision quality / relevance","Entscheidungsqualität / -relevanz"],["quality","Forecast / output quality","Forecast- / Outputqualität"],["speed","Processing / decision speed","Verarbeitungs- / Entscheidungsgeschwindigkeit"],["workload","Manual workload","Manueller Aufwand"],["timeliness","Frequency / timeliness","Frequenz / Rechtzeitigkeit"],["granularity","Granularity","Granularität"],["reliability","Consistency / reliability","Konsistenz / Zuverlässigkeit"],["scalability","Scalability","Skalierbarkeit"],["transparency","Transparency / traceability","Transparenz / Nachvollziehbarkeit"],["risk","Risk reduction","Risikoreduktion"],["cost","Avoided cost / opportunity loss","Vermiedene Kosten / Opportunitätsverluste"],["other","Other / not represented","Sonstiges / nicht abgebildet"],["no_value","No additional value","Kein zusätzlicher Nutzen"],["cannot","Cannot assess","Kann ich nicht beurteilen"]],
+"Welche zusätzlichen Dimensionen des geschäftlichen Nutzens werden vom Weiterentwicklungsszenario gegenüber der Vergleichsreferenz erwartet?",
+[["decision","Decision quality / relevance","Entscheidungsqualität / -relevanz"],["quality","Forecast / output quality","Prognose- / Ergebnisqualität"],["speed","Processing / decision speed","Verarbeitungs- / Entscheidungsgeschwindigkeit"],["workload","Manual workload","Manueller Aufwand"],["timeliness","Frequency / timeliness","Frequenz / Rechtzeitigkeit"],["granularity","Granularity","Granularität"],["reliability","Consistency / reliability","Konsistenz / Zuverlässigkeit"],["scalability","Scalability","Skalierbarkeit"],["transparency","Transparency / traceability","Transparenz / Nachvollziehbarkeit"],["risk","Risk reduction","Risikoreduktion"],["cost","Avoided cost / opportunity loss","Vermiedene Kosten / Opportunitätsverluste"],["other","Other / not represented","Sonstiges / nicht abgebildet"],["no_value","No additional value","Kein zusätzlicher Nutzen"],["cannot","Cannot assess","Kann ich nicht beurteilen"]],
 "Use the comparison reference established in Module 2. If M2.4 identified a feasible lower-complexity improvement or alternative as Fully or Partly available, use that strongest feasible lower-complexity path as the comparison reference for Module 3. Select a dimension only where the expected improvement has a decision-relevant business consequence.",
 "Verwenden Sie die in Modul 2 festgelegte Vergleichsreferenz. Wenn M2.4 einen machbaren weniger komplexen Verbesserungs- oder Alternativpfad als vollständig oder teilweise verfügbar identifiziert hat, verwenden Sie diesen stärksten machbaren weniger komplexen Pfad als Vergleichsreferenz für Modul 3. Wählen Sie eine Dimension nur dann aus, wenn die erwartete Verbesserung eine entscheidungsrelevante geschäftliche Wirkung hat.",
 [],[],()=>true,true),
 q("M3.2",3,"","What is the strongest evidence basis currently available for the expected additional business value?",
-"Welche stärkste Evidenzbasis liegt derzeit für den erwarteten zusätzlichen Business Value vor?",
-[["observed","Observed use-case evidence","Beobachtete Evidenz aus dem Anwendungsfall"],["supporting","Supporting evidence or testable assumption","Unterstützende Evidenz oder testbare Annahme"],["none","No evidence or testable assumption","Keine Evidenz oder testbare Annahme"],["cannot","Cannot assess","Kann ich nicht beurteilen"]],
+"Welche stärkste Evidenzbasis liegt derzeit für den erwarteten zusätzlichen geschäftlichen Nutzen vor?",
+[["observed","Observed use-case evidence","Beobachtete Evidenz aus dem Anwendungsfall"],["supporting","Unterstützunging evidence or testable assumption","Unterstützende Evidenz oder testbare Annahme"],["none","No evidence or testable assumption","Keine Evidenz oder testbare Annahme"],["cannot","Cannot assess","Kann ich nicht beurteilen"]],
 "A testable assumption is sufficient to continue to a later evidence-generation step, but an untestable value claim is not.",
 "Eine testbare Annahme reicht aus, um zu einem späteren Evidenzschritt weiterzugehen; eine nicht testbare Nutzenbehauptung reicht nicht aus.",
 [],[],()=>true),
 q("M3.3",3,"","Considering the expected additional value, rough additional effort or cost, and known additional burdens, is further assessment of the advancement scenario justified?",
 "Ist eine weitere Prüfung des Weiterentwicklungsszenarios unter Berücksichtigung des erwarteten Zusatznutzens, des groben Zusatzaufwands bzw. der Kosten und bekannter zusätzlicher Belastungen gerechtfertigt?",O.yn,
 "This is the early advancement gate. Use a rough-order view of cost/effort and known value-eroding burdens; detailed commitments are assessed in Module 4.",
-"Dies ist das frühe Advancement Gate. Verwenden Sie eine grobe Einschätzung von Kosten/Aufwand und bekannten nutzenmindernden Belastungen; detaillierte Bindungen werden in Modul 4 geprüft.",
+"Dies ist der frühe Entscheidungspunkt zur Weiterentwicklung. Verwenden Sie eine grobe Einschätzung von Kosten/Aufwand und bekannten nutzenmindernden Belastungen; detaillierte Bindungen werden in Modul 4 geprüft.",
 ["Rough economic plausibility","Interpretation / validation burden","Transparency loss","Coordination / maintenance / user effort"],
 ["Grobe wirtschaftliche Plausibilität","Interpretations- / Validierungsaufwand","Verlust an Transparenz","Koordinations- / Wartungs- / Nutzeraufwand"],
 ()=>true),
@@ -434,7 +435,7 @@ q("M4.1",4,"","What is the current evidence status of the selected advancement s
 "Wie ist der aktuelle Evidenzstatus des gewählten Weiterentwicklungsszenarios im Hinblick auf die in Modul 1 definierten Mindestanforderungen?",
 [["met","All minimum requirements are evidenced as met","Alle Mindestanforderungen sind nachweislich erfüllt"],["expected","Expected to meet all minimum requirements; at least one requires pilot / use evidence","Voraussichtlich werden alle Mindestanforderungen erfüllt; mindestens eine erfordert Pilot- oder Nutzungsevidenz"],["not_met","At least one minimum requirement is not met","Mindestens eine Mindestanforderung wird nicht erfüllt"],["cannot","Cannot assess","Kann ich nicht beurteilen"]],
 "Apply the same minimum requirements defined in M1.2. Additional value cannot compensate for failure to meet a mandatory minimum requirement.",
-"Wenden Sie dieselben in Modul 1 definierten Mindestanforderungen auf das ausgewählte Szenario an. Zusätzlicher Nutzen kann das Verfehlen einer verpflichtenden Mindestanforderung nicht kompensieren. Ein begrenzter PoC kann ausreichen, wenn die offene Anforderung primär technische oder konzeptionelle Machbarkeit betrifft; Bedingungen der tatsächlichen Nutzung, Workflow-Integration oder menschlichen Nutzung können einen Pilot bzw. realitätsnahen Nutzungstest erfordern.",
+"Wenden Sie dieselben in Modul 1 definierten Mindestanforderungen auf das ausgewählte Szenario an. Zusätzlicher Nutzen kann das Verfehlen einer verpflichtenden Mindestanforderung nicht kompensieren. Ein begrenzter PoC kann ausreichen, wenn die offene Anforderung primär technische oder konzeptionelle Machbarkeit betrifft; Bedingungen der tatsächlichen Nutzung, Integration in den Arbeitsablauf oder menschlichen Nutzung können einen Pilot bzw. realitätsnahen Nutzungstest erfordern.",
 [],[],()=>true),
 q("M4.2",4,"","Compared with the comparison reference, what additional requirements or dependencies does the selected scenario create?",
 "Welche zusätzlichen Anforderungen oder Abhängigkeiten erzeugt das ausgewählte Szenario gegenüber der Vergleichsreferenz?",
@@ -444,22 +445,22 @@ q("M4.2",4,"","Compared with the comparison reference, what additional requireme
 [],[],()=>true,true),
 q("M4.3",4,"","Which additional implementation, operating, financial, or internal-capacity commitments does the selected scenario create?",
 "Welche zusätzlichen Implementierungs-, Betriebs-, Finanz- oder internen Kapazitätsbindungen erzeugt das ausgewählte Szenario?",
-[["impl","One-time implementation activities","Einmalige Implementierungsaktivitäten"],["lifecycle","Recurring operating / lifecycle activities","Wiederkehrende Betriebs- / Lifecycle-Aktivitäten"],["external_one","One-time external expenditure","Einmalige externe Ausgaben"],["internal_one","One-time internal transition capacity","Einmalige interne Übergangskapazität"],["external_rec","Recurring fixed external expenditure","Wiederkehrende fixe externe Ausgaben"],["internal_rec","Recurring internal operating capacity","Wiederkehrende interne Betriebskapazität"],["ai_cost","AI consumption / usage-based costs","KI-Verbrauchs- / nutzungsabhängige Kosten"],["none","None","Keine"],["cannot","Cannot assess","Kann ich nicht beurteilen"]],
+[["impl","One-time implementation activities","Einmalige Implementierungsaktivitäten"],["lifecycle","Recurring operating / lifecycle activities","Wiederkehrende Betriebs- / Lebenszyklusaktivitäten"],["external_one","One-time external expenditure","Einmalige externe Ausgaben"],["internal_one","One-time internal transition capacity","Einmalige interne Übergangskapazität"],["external_rec","Recurring fixed external expenditure","Wiederkehrende fixe externe Ausgaben"],["internal_rec","Recurring internal operating capacity","Wiederkehrende interne Betriebskapazität"],["ai_cost","AI consumption / usage-based costs","KI-Verbrauchs- / nutzungsabhängige Kosten"],["none","None","Keine"],["cannot","Cannot assess","Kann ich nicht beurteilen"]],
 "Distinguish one-time from recurring commitments. Consider integration, migration, testing, training / change and legal / data-protection effort; operation, maintenance, monitoring, updating and support; external expenditure; internal transition / operating capacity; and, where applicable, usage-based AI costs such as tokens, inference / API usage, or compute.",
-"Unterscheiden Sie einmalige und wiederkehrende Bindungen, da sie Wirtschaftlichkeit und Readiness unterschiedlich beeinflussen. Berücksichtigen Sie bei Bedarf Token-, Inference-/API- und Compute-Kosten.",
+"Unterscheiden Sie einmalige und wiederkehrende Bindungen, da sie Wirtschaftlichkeit und Readiness unterschiedlich beeinflussen. Berücksichtigen Sie bei Bedarf Token-, Inferenz-/API- und Rechenkosten.",
 [],[],()=>true,true),
 q("M4.4",4,"","Considering the detailed lifecycle and capacity commitments in M4.3, does the advancement case remain economically justified?",
-"Bleibt das Weiterentwicklungsszenario unter Berücksichtigung der detaillierten Lifecycle- und Kapazitätsbindungen aus M4.3 wirtschaftlich gerechtfertigt?",O.yn,
+"Bleibt das Weiterentwicklungsszenario unter Berücksichtigung der detaillierten Lebenszyklus- und Kapazitätsbindungen aus M4.3 wirtschaftlich gerechtfertigt?",O.yn,
 "Reassess incremental value after the more complete commitment profile is known. This may overturn the rough plausibility established in M3.3. A detailed ROI or TCO calculation is outside the scope of this toolkit.",
 "Bewerten Sie den Business Case erneut, nachdem das detailliertere Bindungsprofil bekannt ist. Dies ist getrennt von der Frage, ob die Organisation zur Finanzierung oder Umsetzung bereit ist.",
 ["Net incremental value after detailed cost / capacity profile"],["Netto-Zusatznutzen nach detailliertem Kosten- / Kapazitätsprofil"],
 ()=>true),
 
 q("M5.1",5,"","What is the readiness status of the additional requirement and dependency areas identified in M4.2?",
-"Wie ist der Readiness-Status der in Modul 4 identifizierten zusätzlichen Anforderungs- und Abhängigkeitsbereiche?",
+"Wie ist der Umsetzungsstatus der in Modul 4 identifizierten zusätzlichen Anforderungs- und Abhängigkeitsbereiche?",
 [["now","All available now","Alles ist bereits verfügbar"],["before","Can all be made available before they are required","Alles kann bereitgestellt werden, bevor es benötigt wird"],["not_in_time","At least one cannot be made available before it is required","Mindestens ein Bereich kann nicht bereitgestellt werden, bevor er benötigt wird"],["cannot","Cannot assess","Kann ich nicht beurteilen"]],
 "Consider the selected data, technical / integration, capability, retained-responsibility, and external-dependency areas. Missing prerequisites do not automatically reject the scenario but prevent advancement until appropriately resolved.",
-"Dies ist ein aggregierter Readiness-Status über die ausgewählten Anforderungsbereiche. Die einzelnen Bereiche bleiben im Ergebnis sichtbar.",
+"Dies ist ein zusammengefasster Umsetzungsstatus über die ausgewählten Anforderungsbereiche. Die einzelnen Bereiche bleiben im Ergebnis sichtbar.",
 [],[],()=>true),
 q("M5.2",5,"","Can the additional financial commitments identified in M4.3 be approved before they are required?",
 "Können die in Modul 4 identifizierten zusätzlichen finanziellen Bindungen genehmigt werden, bevor sie benötigt werden?",
@@ -470,39 +471,39 @@ q("M5.2",5,"","Can the additional financial commitments identified in M4.3 be ap
 ["Budget","Investitionsfreigabe","Betriebskostenfreigabe","Beschaffungsverpflichtung"],
 ()=>true),
 q("M5.3",5,"","Is the required management commitment in place for the selected scenario?",
-"Ist das erforderliche Management-Commitment für das ausgewählte Szenario vorhanden?",O.yn,
+"Ist die erforderliche Unterstützung und Verbindlichkeit des Managements für das ausgewählte Szenario vorhanden?",O.yn,
 "Use observable commitment: sponsorship where needed, prioritization, decision ownership, authorization, resource commitment, and cross-functional backing.",
-"Bewerten Sie beobachtbares Commitment wie Priorisierung, klare Entscheidungsverantwortung, Ressourcenfreigabe und bereichsübergreifende Unterstützung.",
+"Bewerten Sie konkrete Anzeichen wie Priorisierung, klare Entscheidungsverantwortung, Ressourcenfreigabe und bereichsübergreifende Unterstützung.",
 ["Named sponsor where needed","Priority decision","Decision owner","Resource authorization","Cross-functional backing"],
 ["Benannter Sponsor, falls erforderlich","Priorisierungsentscheidung","Entscheidungsverantwortung","Ressourcenfreigabe","Bereichsübergreifende Unterstützung"],()=>true),
 q("M5.4",5,"","Are all relevant responsibilities and decision rights clearly assigned for the applicable areas: data, solution, business decisions, and IT / platform use?",
-"Sind alle relevanten Verantwortlichkeiten und Entscheidungsrechte für die anwendbaren Bereiche Daten, Lösung, Business-Entscheidungen und IT-/Plattformnutzung klar zugeordnet?",O.yn,
+"Sind alle relevanten Verantwortlichkeiten und Entscheidungsrechte für die anwendbaren Bereiche Daten, Lösung, geschäftliche Entscheidungen und IT-/Plattformnutzung klar zugeordnet?",O.yn,
 "Data, solution, business-decision and IT / platform responsibilities remain analytically distinct. Informal arrangements may count where responsibility and decision rights are clear. Where usage-based AI costs apply, responsibility for monitoring consumption and budget exposure should also be clear.",
 "Die vier Governance-Domänen bleiben analytisch getrennt, auch wenn sie in einer Managementfrage zusammengeführt werden.",
 ["Data responsibilities","Solution responsibilities","Business-decision authority / accountability","IT / platform responsibilities"],
-["Datenverantwortung","Lösungsverantwortung","Business-Entscheidungsbefugnis / Accountability","IT- / Plattformverantwortung"],()=>true),
+["Datenverantwortung","Lösungsverantwortung","Befugnis / Verantwortlichkeit für geschäftliche Entscheidungen","IT- / Plattformverantwortung"],()=>true),
 q("M5.5",5,"","Can the organization implement and sustain the required process and role changes within the planned timeline and available capacity?",
 "Kann die Organisation die erforderlichen Prozess- und Rollenänderungen innerhalb des geplanten Zeitrahmens und der verfügbaren Kapazität umsetzen und dauerhaft tragen?",
 [["now","Ready now","Jetzt bereit"],["measures","Feasible after defined measures","Nach definierten Maßnahmen machbar"],["not_horizon","Not feasible in planned horizon","Im geplanten Zeithorizont nicht machbar"],["cannot","Cannot assess","Kann ich nicht beurteilen"]],
 "Consider project / change capacity, competing initiatives, training / adoption, process / role change, approval lead times, and ongoing operating capacity.",
-"Bewerten Sie sowohl die Umsetzung vor Pilot/Go-live als auch die dauerhafte Tragfähigkeit im Betrieb.",
+"Bewerten Sie sowohl die Umsetzung vor Pilot/Produktivstart als auch die dauerhafte Tragfähigkeit im Betrieb.",
 ["Project / change capacity","Competing initiatives","Training / adoption","Process / role change","Approval lead times","Ongoing operating capacity"],
-["Projekt- / Change-Kapazität","Konkurrierende Initiativen","Training / Adoption","Prozess- / Rollenänderung","Freigabezeiten","Laufende Betriebskapazität"],()=>true),
+["Projekt- / Veränderungskapazität","Konkurrierende Initiativen","Schulung / Einführung","Prozess- / Rollenänderung","Freigabezeiten","Laufende Betriebskapazität"],()=>true),
 
 q("M6.1",6,"A","Before use, is it clear how the solution should be used, interpreted, reviewed, corrected, and escalated where necessary?",
 "Ist vor der Nutzung klar, wie die Lösung eingesetzt, interpretiert, geprüft, korrigiert und erforderlichenfalls eskaliert werden soll?",O.yn,
 "Consider intended use, output interpretation, limitations, review triggers, intervention / correction, and escalation. M5.4 addresses responsibility and authority; M6.1 addresses how use and oversight should operate in practice.",
 "Governance definiert, wer Befugnis und Verantwortung trägt; diese Frage betrifft, wie die Lösung tatsächlich genutzt, geprüft und hinterfragt wird.",
 ["Intended use","Output interpretation","Limitations","Review triggers","Intervention / correction","Escalation"],
-["Vorgesehene Nutzung","Outputinterpretation","Grenzen","Prüfauslöser","Intervention / Korrektur","Eskalation"],()=>true),
+["Vorgesehene Nutzung","Ergebnisinterpretation","Grenzen","Prüfauslöser","Intervention / Korrektur","Eskalation"],()=>true),
 q("M6.2",6,"A","Is the planned workflow clear, including roles, handovers, exceptions, and—where relevant—how business-relevant human judgement will be retained, integrated, or replaced?",
-"Ist der geplante Workflow klar – einschließlich Rollen, Übergaben, Ausnahmen und gegebenenfalls der Frage, wie geschäftsrelevantes menschliches Urteil erhalten, integriert oder ersetzt wird?",O.yn,
+"Ist der geplante Arbeitsablauf klar – einschließlich Rollen, Übergaben, Ausnahmen und gegebenenfalls der Frage, wie geschäftsrelevantes menschliches Urteil erhalten, integriert oder ersetzt wird?",O.yn,
 "Consider inputs / outputs, handovers, exceptions, roles, parallel activities, and the human contribution identified in M2.3.",
 "Wenn Modul 2 einen relevanten menschlichen Beitrag identifiziert hat, setzt „Ja“ voraus, dass dieser Beitrag bewusst behandelt wird.",
 ["Inputs / outputs","Handovers","Exceptions","Roles","Parallel activities","Human contribution from M2.3"],
-["Inputs / Outputs","Übergaben","Ausnahmen","Rollen","Parallele Aktivitäten","Menschlicher Beitrag aus M2.3"],()=>true),
+["Eingaben / Ergebnisse","Übergaben","Ausnahmen","Rollen","Parallele Aktivitäten","Menschlicher Beitrag aus M2.3"],()=>true),
 q("M6.3",6,"A","Have the user groups identified in Decision Framing had an opportunity to review or test the intended use and provide feedback before go-live?",
-"Hatten die im Decision Framing identifizierten Nutzergruppen vor dem Go-live die Möglichkeit, die vorgesehene Nutzung zu prüfen oder zu testen und Feedback zu geben?",O.yn,
+"Hatten die im Entscheidungsrahmen identifizierten Nutzergruppen vor dem Produktivstart die Möglichkeit, die vorgesehene Nutzung zu prüfen oder zu testen und Feedback zu geben?",O.yn,
 "User involvement may include review of intended use, testing / evaluation, feedback, and raising concerns. It is not a direct measure of trust, confidence, or acceptance.",
 "Nutzerbeteiligung bedeutet die Möglichkeit zur Prüfung bzw. zum Test und zur Rückmeldung. Sie wird nicht mit Vertrauen oder Akzeptanz gleichgesetzt.",
 ["Review intended use","Test / evaluate solution","Feedback","Raise concerns"],
@@ -512,8 +513,8 @@ q("M6.4",6,"A","Where user roles differ, are differences in training, access, re
 [["yes","Yes","Ja"],["no","No","Nein"],["na","Not applicable","Nicht anwendbar"],["cannot","Cannot assess","Kann ich nicht beurteilen"]],
 "Use 'Not applicable' only when the identified user groups do not differ in training, access, review, support, or workflow requirements.",
 "Verwenden Sie „Nicht anwendbar“ nur, wenn sich die identifizierten Nutzergruppen nicht hinsichtlich Training, Zugriff, Prüfung, Unterstützung oder Workflow-Anforderungen unterscheiden.",
-["Training","Access","Review intensity","Support","Role-specific workflow"],
-["Training","Zugriff","Prüfintensität","Support","Rollenspezifischer Workflow"],()=>true),
+["Training","Access","Review intensity","Unterstützung","Role-specific workflow"],
+["Training","Zugriff","Prüfintensität","Unterstützung","Rollenspezifischer Workflow"],()=>true),
 q("M6.5",6,"B","Is pilot or actual-use evidence available for the selected scenario?",
 "Liegt für das ausgewählte Szenario Evidenz aus einem Pilot oder aus tatsächlicher Nutzung vor?",
 [["yes","Yes","Ja"],["no","No","Nein"],["cannot","Cannot assess","Kann ich nicht beurteilen"]],
@@ -521,10 +522,10 @@ q("M6.5",6,"B","Is pilot or actual-use evidence available for the selected scena
 "Wenn erforderliche Pilot- oder Nutzungsevidenz fehlt, werden M6.6–M6.7 nicht bewertet und O4 greift.",
 ["Evidence may come from a bounded pilot, controlled use, or actual operation."],["Evidenz aus Pilot, kontrollierter Nutzung oder realem Betrieb"],()=>true),
 q("M6.6",6,"B","During pilot or actual use, has interpretation / validation workload or workflow friction created an issue that affects value, cost, timing, or usability?",
-"Hat während Pilot oder tatsächlicher Nutzung Interpretations-/Validierungsaufwand oder Workflow-Reibung ein Problem verursacht, das Nutzen, Kosten, Timing oder Nutzbarkeit beeinflusst?",
+"Hat während Pilot oder tatsächlicher Nutzung Interpretations-/Validierungsaufwand oder Reibungen im Arbeitsablauf ein Problem verursacht, das Nutzen, Kosten, Timing oder Nutzbarkeit beeinflusst?",
 [["none","No issue identified","Kein Problem identifiziert"],["remedy","Issue – remedy defined","Problem – Abhilfe definiert"],["no_remedy","Issue – no remedy","Problem – keine Abhilfe"],["not_covered","Not covered by evidence","Nicht durch Evidenz abgedeckt"],["cannot","Cannot assess","Kann ich nicht beurteilen"]],
 "Consider interpretation / validation workload, duplicate work, additional handovers, waiting time, workarounds, and exception effort.",
-"Bewerten Sie tatsächlichen Interpretations-/Validierungsaufwand und Workflow-Reibung gemeinsam, da beide zeigen, ob die Lösung im geplanten Prozess tragfähig ist.",
+"Bewerten Sie tatsächlichen Interpretations-/Validierungsaufwand und Reibungen im Arbeitsablauf gemeinsam, da beide zeigen, ob die Lösung im geplanten Prozess tragfähig ist.",
 ["Interpretation / validation workload","Duplicate work","Additional handovers","Waiting time","Workarounds","Exception effort"],
 ["Interpretations- / Validierungsaufwand","Doppelarbeit","Zusätzliche Übergaben","Wartezeiten","Workarounds","Ausnahmeaufwand"],()=>true),
 q("M6.7",6,"B","During pilot or actual use, have problems been identified with review / intervention mechanisms or with differences between user roles?",
@@ -533,16 +534,16 @@ q("M6.7",6,"B","During pilot or actual use, have problems been identified with r
 "Consider review / correction / override usability, escalation, required information / access, role-specific use patterns, and training / support differences.",
 "Bewerten Sie die praktische Nutzbarkeit von Prüf-/Interventionsmechanismen und rollenspezifischer Nutzung gemeinsam, da beide zeigen, ob die menschliche Nutzung in der Praxis wie vorgesehen funktioniert.",
 ["Review / correction / override usability","Escalation","Required information / access","Role-specific use patterns","Training / support differences"],
-["Nutzbarkeit von Prüfung / Korrektur / Override","Eskalation","Erforderliche Informationen / Zugriffe","Rollenspezifische Nutzungsmuster","Training- / Supportunterschiede"],()=>true)
+["Nutzbarkeit von Prüfung / Korrektur / Übersteuerung","Eskalation","Erforderliche Informationen / Zugriffe","Rollenspezifische Nutzungsmuster","Training- / Unterstützungunterschiede"],()=>true)
 ]
 
 
 let lang="en", current=1, A={}, F={}, result=null, visibleIds=[], moduleCompleteState=false, diagnosticMode=false, gateStatus=null;
 
 T.en.privacy="No login required. Assessment responses are sent to the decision engine for calculation and are not persistently stored by this implementation.";
-T.de.privacy="Keine Anmeldung erforderlich. Die Assessment-Antworten werden zur Berechnung an die Decision Engine übertragen und von dieser Implementierung nicht dauerhaft gespeichert.";
+T.de.privacy="Keine Anmeldung erforderlich. Die Antworten werden zur Berechnung an die Entscheidungslogik übertragen und von dieser Implementierung nicht dauerhaft gespeichert.";
 T.en.resultNote="The recommendation is generated by the private deterministic decision engine implementing Toolkit V2. Outcomes are non-hierarchical and do not represent maturity levels.";
-T.de.resultNote="Die Empfehlung wird durch die private deterministische Decision Engine auf Basis von Toolkit V2 erzeugt. Die Outcomes sind nicht hierarchisch und stellen keine Reifegrade dar.";
+T.de.resultNote="Die Empfehlung wird durch die private deterministische Entscheidungslogik auf Basis von Toolkit V2 erzeugt. Die Ergebnisse sind nicht hierarchisch und stellen keine Reifegrade dar.";
 
 function apiBase(){return (window.SUFFICIENCY_COMPASS_API||"").replace(/\/+$/,"");}
 function setApiError(msg){
@@ -674,8 +675,18 @@ function renderModule(){
  document.getElementById("moduleTitle").textContent=m.title[lang];
  document.getElementById("modulePurpose").textContent=m.purpose[lang];
  document.getElementById("progressFill").style.width=`${(current/6)*100}%`;
- const db=document.getElementById("diagnosticBanner");
- if(diagnosticMode){db.innerHTML=`<strong>${T[lang].diagnosticTitle}</strong><br>${T[lang].diagnosticText}`;db.classList.remove("hidden")}else db.classList.add("hidden");
+ const db=document.getElementById("diagnosticAction");
+ if(diagnosticMode){
+   db.innerHTML="";
+   const strong=document.createElement("strong");strong.textContent=T[lang].diagnosticTitle;db.appendChild(strong);
+   const body=document.createElement("div");body.textContent=T[lang].diagnosticText;body.style.marginTop="5px";db.appendChild(body);
+   const currentBlockers=(gateStatus&&gateStatus.blockers||[]).map(x=>x.text).filter(Boolean);
+   if(currentBlockers.length){
+     const reason=document.createElement("div");reason.style.marginTop="8px";reason.style.fontWeight="650";
+     reason.textContent=T[lang].diagnosticReason+": "+currentBlockers.join(" · ");db.appendChild(reason);
+   }
+   db.classList.remove("hidden");
+ }else db.classList.add("hidden");
  const box=document.getElementById("questions");box.innerHTML="";
  questions.filter(x=>x.module===current && visibleIds.includes(x.id)).forEach(x=>box.appendChild(renderQuestion(x)));
  document.getElementById("backBtn").disabled=false;
@@ -697,13 +708,17 @@ function renderResult(r){
  document.getElementById("resultDesc").textContent=r.description;
  document.getElementById("decisionContextText").textContent=r.decision_context||"";
  const gs=r.decision_gate_status||{}; const blockers=(gs.blockers||[]).map(x=>x.text).join(" · ");
- document.getElementById("gateStatusText").textContent=(gs.status||"").toUpperCase()+(blockers?": "+blockers:"");
+ const rawGateStatus=gs.status||"";
+ const gateLabel=lang==="de"
+   ?({blocked:"Klärung erforderlich",open:"Keine offenen kritischen Punkte"}[rawGateStatus]||rawGateStatus)
+   :({blocked:"Clarification required",open:"No open critical conditions"}[rawGateStatus]||rawGateStatus);
+ document.getElementById("gateStatusText").textContent=gateLabel+(blockers?": "+blockers:"");
  document.getElementById("economicText").textContent=r.economic_sufficiency||"";
  const wl=document.getElementById("whyList");wl.innerHTML="";(r.why||[]).forEach(x=>{const li=document.createElement("li");li.textContent=x;wl.appendChild(li)});
  document.getElementById("nextText").textContent=r.next_step||"";
  fillList("unresolvedList",r.unresolved_conditions||[],T[lang].noIssues);
  const st=document.getElementById("specialistTaskList");st.innerHTML="";
- (r.specialist_tasks||[]).forEach(a=>{const d=document.createElement("div");d.className="specialist-task";d.innerHTML=`<b>${a.question_id} · ${a.who}</b><div>${a.why}</div><div><strong>Verify:</strong> ${a.verify}</div><div><strong>Evidence:</strong> ${a.evidence_required}</div>`;st.appendChild(d)});
+ (r.specialist_tasks||[]).forEach(a=>{const d=document.createElement("div");d.className="specialist-task";d.innerHTML=`<b>${a.question_id} · ${a.who}</b><div>${a.why}</div><div><strong>${T[lang].verifyLabel||"Verify"}:</strong> ${a.verify}</div><div><strong>${T[lang].evidenceLabel||"Evidence"}:</strong> ${a.evidence_required}</div>`;st.appendChild(d)});
  if(!(r.specialist_tasks||[]).length)st.textContent=T[lang].noIssues;
  fillList("alternativeList",r.alternative_paths||[]);
  const al=document.getElementById("actionList");al.innerHTML="";
@@ -722,7 +737,7 @@ document.getElementById("startBtn").onclick=()=>{
 document.getElementById("framingBackBtn").onclick=()=>{syncFramingFromUI();document.getElementById("framingScreen").classList.add("hidden");document.getElementById("startScreen").classList.remove("hidden");window.scrollTo(0,0)};
 document.getElementById("framingContinueBtn").onclick=async()=>{
  syncFramingFromUI();
- if(!F["DF.1"]||!F["DF.2"]||!F["DF.3"]||!F["DF.4"]||!F["DF.5"]||!F["DF.6"]){alert(lang==="en"?"Please complete all Decision Framing fields.":"Bitte füllen Sie alle Felder des Decision Framing aus.");return}
+ if(!F["DF.1"]||!F["DF.2"]||!F["DF.3"]||!F["DF.4"]||!F["DF.5"]||!F["DF.6"]){alert(lang==="en"?"Please complete all Decision Framing fields.":"Bitte füllen Sie alle Felder des Entscheidungsrahmens aus.");return}
  document.getElementById("framingScreen").classList.add("hidden");document.getElementById("assessmentScreen").classList.remove("hidden");current=1;
  try{setApiError("");await evaluate("state")}catch(err){setApiError(err.message)}
  renderModule();window.scrollTo(0,0)
@@ -734,7 +749,7 @@ document.getElementById("finishBtn").onclick=async()=>{
  }catch(err){setApiError(err.message)}
 };
 document.getElementById("continueBtn").onclick=async()=>{
- if(!moduleCompleteState)return;
+ if(!moduleCompleteState && !diagnosticMode)return;
  try{
    setApiError("");const data=await evaluate("continue");
    if(data.result){showResult(data.result);return}
