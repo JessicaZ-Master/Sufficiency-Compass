@@ -119,6 +119,16 @@ h1{font-size:48px;line-height:1.07;margin:12px 0 18px;letter-spacing:-.04em}
 .trace-card p,.trace-card li{color:var(--muted);line-height:1.55}
 .specialist-task{border-left:4px solid var(--petrol);background:#fff;border-radius:9px;padding:12px 14px;margin:9px 0}
 .specialist-task b{display:block;margin-bottom:4px}
+.assist-box{margin-top:14px;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:#fff}
+.assist-toggle{border:0;background:var(--petrol-soft);color:var(--petrol-dark);border-radius:8px;padding:8px 11px;font-weight:750;cursor:pointer}
+.assist-panel{margin-top:10px}
+.assist-note{font-size:12px;color:var(--muted);line-height:1.45;margin-bottom:9px}
+.assist-actions{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:9px}
+.assist-actions button{border:1px solid var(--line);background:white;border-radius:8px;padding:7px 9px;cursor:pointer}
+.assist-clarify{display:flex;gap:7px;align-items:flex-start}
+.assist-clarify textarea{flex:1;min-height:62px;border:1px solid var(--line);border-radius:8px;padding:8px;resize:vertical}
+.assist-output{margin-top:10px;padding:10px 12px;background:var(--soft);border-radius:8px;line-height:1.5;white-space:pre-wrap}
+.assist-output.loading{font-style:italic;color:var(--muted)}
 @media(max-width:720px){.framing-grid,.trace-grid{grid-template-columns:1fr}.field.full,.trace-card.full{grid-column:auto}}
 @media(max-width:720px){
   .brand-logo{width:168px;max-width:55vw;height:46px}
@@ -291,7 +301,7 @@ df4Label:"DF.4 · Unit of assessment",df4Help:"Select one process, planning acti
 df5Label:"DF.5 · Affected users / activities",df5Help:"Which users, functions, or activities are affected and need to be considered?",
 df6Label:"DF.6 · Starting situation",df6Help:"Does the case concern an existing solution/process or a new capability / greenfield case?",df6Existing:"Existing solution / process",df6Greenfield:"New capability / greenfield",
 diagnosticTitle:"Diagnostic continuation",diagnosticText:"A decision-critical condition currently blocks a positive advancement recommendation. You may close the assessment with the current evidence or continue diagnostically to identify further dependencies, evidence needs, alternatives and specialist questions.",
-decisionContext:"Decision context",gateStatus:"Decision-gate status",economicSufficiency:"Economic sufficiency",unresolved:"Unresolved conditions",specialistTasks:"Specialist-verification tasks",alternativePaths:"Simpler / alternative paths",conditionsAnotherPath:"Conditions / actions for another path"
+decisionContext:"Decision context",gateStatus:"Decision-gate status",economicSufficiency:"Economic sufficiency",unresolved:"Unresolved conditions",specialistTasks:"Specialist-verification tasks",alternativePaths:"Simpler / alternative paths",conditionsAnotherPath:"Conditions / actions for another path",assistOpen:"AI assistance",assistNote:"Optional explanation only. The assistance layer does not select answers, change rules, bypass specialist verification, or affect the recommendation.",assistExplain:"Explain simply",assistRephrase:"Rephrase",assistExample:"Example",assistOptions:"Explain options",assistAsk:"Clarify",assistPlaceholder:"What is unclear about this question?",assistLoading:"Generating explanation…",assistUnavailable:"Optional AI assistance is currently unavailable."
 },
 de:{
 eyebrow:"Entscheidungstool für KI-gestützte Finanzplanung",
@@ -317,7 +327,7 @@ df4Label:"DF.4 · Assessment-Einheit",df4Help:"Wählen Sie einen Prozess, eine P
 df5Label:"DF.5 · Betroffene Nutzer / Aktivitäten",df5Help:"Welche Nutzer, Funktionen oder Aktivitäten sind betroffen und müssen berücksichtigt werden?",
 df6Label:"DF.6 · Ausgangssituation",df6Help:"Geht es um eine bestehende Lösung/einen Prozess oder um eine neue Fähigkeit / Greenfield?",df6Existing:"Bestehende Lösung / bestehender Prozess",df6Greenfield:"Neue Fähigkeit / Greenfield",
 diagnosticTitle:"Diagnostische Fortsetzung",diagnosticText:"Eine entscheidungskritische Bedingung blockiert derzeit eine positive Weiterentwicklungsempfehlung. Sie können das Assessment mit der aktuellen Evidenz schließen oder diagnostisch fortsetzen, um weitere Abhängigkeiten, Evidenzbedarfe, Alternativen und Fachfragen zu identifizieren.",
-decisionContext:"Entscheidungskontext",gateStatus:"Status des Decision Gates",economicSufficiency:"Wirtschaftliche Suffizienz",unresolved:"Offene Bedingungen",specialistTasks:"Specialist-Verification-Tasks",alternativePaths:"Einfachere / alternative Pfade",conditionsAnotherPath:"Bedingungen / Maßnahmen für einen anderen Pfad"
+decisionContext:"Entscheidungskontext",gateStatus:"Status des Decision Gates",economicSufficiency:"Wirtschaftliche Suffizienz",unresolved:"Offene Bedingungen",specialistTasks:"Specialist-Verification-Tasks",alternativePaths:"Einfachere / alternative Pfade",conditionsAnotherPath:"Bedingungen / Maßnahmen für einen anderen Pfad",assistOpen:"KI-Hilfe",assistNote:"Optionale Erklärungshilfe. Die Assistenz wählt keine Antworten aus, verändert keine Regeln, umgeht keine Specialist Verification und beeinflusst die Empfehlung nicht.",assistExplain:"Einfach erklären",assistRephrase:"Umformulieren",assistExample:"Beispiel",assistOptions:"Antwortoptionen erklären",assistAsk:"Klären",assistPlaceholder:"Was ist an dieser Frage unklar?",assistLoading:"Erklärung wird erzeugt…",assistUnavailable:"Die optionale KI-Hilfe ist derzeit nicht verfügbar."
 }}
 const modules=[
 {id:1,title:{en:"Business Need & Minimum Requirements",de:"Business Need & Mindestanforderungen"},purpose:{en:"Define the use case and acceptance conditions.",de:"Anwendungsfall und Akzeptanzbedingungen definieren."}},
@@ -573,6 +583,26 @@ function renderStepper(){
  modules.forEach(m=>{const s=document.createElement("span");s.className="step-pill"+(m.id===current?" active":m.id<current?" done":"");s.textContent=`${m.id} ${m.title[lang].replace(/ &.*/,"")}`;e.appendChild(s)})
 }
 function optLabel(o){return lang==="en"?o[1]:o[2]}
+function assistBase(){return (window.SUFFICIENCY_COMPASS_ASSIST_API||"").replace(/\/+$/,"")}
+async function requestAssistance(x,mode,clarification=""){
+ const base=assistBase(); if(!base) throw new Error(T[lang].assistUnavailable);
+ const context=[F["DF.1"],F["DF.4"]].filter(Boolean).join(" · ").slice(0,500);
+ const res=await fetch(base+"/assist",{
+   method:"POST",headers:{"Content-Type":"application/json"},
+   body:JSON.stringify({
+     question_id:x.id,
+     question_text:lang==="en"?x.en:x.de,
+     answer_options:x.opts.map(optLabel),
+     guidance:lang==="en"?x.helpEn:x.helpDe,
+     mode,lang,clarification,decision_context:context
+   })
+ });
+ if(!res.ok){
+   let detail="";try{detail=(await res.json()).detail||""}catch(e){}
+   throw new Error(detail||T[lang].assistUnavailable);
+ }
+ return await res.json();
+}
 function renderQuestion(x){
  const card=document.createElement("div");card.className="q-card";
  const help=lang==="en"?x.helpEn:x.helpDe;
@@ -612,6 +642,28 @@ function renderQuestion(x){
    const sp=specialistCheckpoints[x.id];
    n.innerHTML=`<strong>${T[lang].cannotTitle}</strong><br>${T[lang].cannotText}`+(sp?`<div class="specialist-checkpoint"><strong>${T[lang].specialistLabel}:</strong><br>${sp[lang]}</div>`:"");
    card.appendChild(n)
+ }
+ if(assistBase()){
+   const box=document.createElement("div");box.className="assist-box";
+   const toggle=document.createElement("button");toggle.type="button";toggle.className="assist-toggle";toggle.textContent=T[lang].assistOpen;
+   const panel=document.createElement("div");panel.className="assist-panel hidden";
+   const note=document.createElement("div");note.className="assist-note";note.textContent=T[lang].assistNote;
+   const actions=document.createElement("div");actions.className="assist-actions";
+   const output=document.createElement("div");output.className="assist-output hidden";
+   const modes=[["explain",T[lang].assistExplain],["rephrase",T[lang].assistRephrase],["example",T[lang].assistExample],["options",T[lang].assistOptions]];
+   const run=async(mode,clarification="")=>{
+     output.classList.remove("hidden");output.classList.add("loading");output.textContent=T[lang].assistLoading;
+     try{const data=await requestAssistance(x,mode,clarification);output.classList.remove("loading");output.textContent=data.text||T[lang].assistUnavailable}
+     catch(err){output.classList.remove("loading");output.textContent=T[lang].assistUnavailable}
+   };
+   modes.forEach(([mode,label])=>{const b=document.createElement("button");b.type="button";b.textContent=label;b.onclick=()=>run(mode);actions.appendChild(b)});
+   const clarify=document.createElement("div");clarify.className="assist-clarify";
+   const ta=document.createElement("textarea");ta.maxLength=350;ta.placeholder=T[lang].assistPlaceholder;
+   const ask=document.createElement("button");ask.type="button";ask.className="assist-toggle";ask.textContent=T[lang].assistAsk;ask.onclick=()=>{if(ta.value.trim())run("clarify",ta.value.trim())};
+   clarify.appendChild(ta);clarify.appendChild(ask);
+   panel.appendChild(note);panel.appendChild(actions);panel.appendChild(clarify);panel.appendChild(output);
+   toggle.onclick=()=>panel.classList.toggle("hidden");
+   box.appendChild(toggle);box.appendChild(panel);card.appendChild(box)
  }
  return card
 }
