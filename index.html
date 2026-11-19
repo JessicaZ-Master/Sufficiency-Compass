@@ -290,7 +290,7 @@ df3Label:"DF.3 · Current decision",df3Help:"What decision is currently being ma
 df4Label:"DF.4 · Unit of assessment",df4Help:"Select one process, planning activity, decision use case, or capability.",
 df5Label:"DF.5 · Affected users / activities",df5Help:"Which users, functions, or activities are affected and need to be considered?",
 df6Label:"DF.6 · Starting situation",df6Help:"Does the case concern an existing solution/process or a new capability / greenfield case?",df6Existing:"Existing solution / process",df6Greenfield:"New capability / greenfield",
-diagnosticTitle:"Diagnostic continuation",diagnosticText:"A decision-critical condition currently blocks a positive advancement recommendation. You can continue the assessment diagnostically to identify further dependencies, evidence needs, alternatives and specialist questions.",
+diagnosticTitle:"Diagnostic continuation",diagnosticText:"A decision-critical condition currently blocks a positive advancement recommendation. You may close the assessment with the current evidence or continue diagnostically to identify further dependencies, evidence needs, alternatives and specialist questions.",
 decisionContext:"Decision context",gateStatus:"Decision-gate status",economicSufficiency:"Economic sufficiency",unresolved:"Unresolved conditions",specialistTasks:"Specialist-verification tasks",alternativePaths:"Simpler / alternative paths",conditionsAnotherPath:"Conditions / actions for another path"
 },
 de:{
@@ -316,7 +316,7 @@ df3Label:"DF.3 · Aktuelle Entscheidung",df3Help:"Welche Entscheidung wird aktue
 df4Label:"DF.4 · Assessment-Einheit",df4Help:"Wählen Sie einen Prozess, eine Planungsaktivität, einen Entscheidungsanwendungsfall oder eine Fähigkeit.",
 df5Label:"DF.5 · Betroffene Nutzer / Aktivitäten",df5Help:"Welche Nutzer, Funktionen oder Aktivitäten sind betroffen und müssen berücksichtigt werden?",
 df6Label:"DF.6 · Ausgangssituation",df6Help:"Geht es um eine bestehende Lösung/einen Prozess oder um eine neue Fähigkeit / Greenfield?",df6Existing:"Bestehende Lösung / bestehender Prozess",df6Greenfield:"Neue Fähigkeit / Greenfield",
-diagnosticTitle:"Diagnostische Fortsetzung",diagnosticText:"Eine entscheidungskritische Bedingung blockiert derzeit eine positive Weiterentwicklungsempfehlung. Sie können das Assessment diagnostisch fortsetzen, um weitere Abhängigkeiten, Evidenzbedarfe, Alternativen und Fachfragen zu identifizieren.",
+diagnosticTitle:"Diagnostische Fortsetzung",diagnosticText:"Eine entscheidungskritische Bedingung blockiert derzeit eine positive Weiterentwicklungsempfehlung. Sie können das Assessment mit der aktuellen Evidenz schließen oder diagnostisch fortsetzen, um weitere Abhängigkeiten, Evidenzbedarfe, Alternativen und Fachfragen zu identifizieren.",
 decisionContext:"Entscheidungskontext",gateStatus:"Status des Decision Gates",economicSufficiency:"Wirtschaftliche Suffizienz",unresolved:"Offene Bedingungen",specialistTasks:"Specialist-Verification-Tasks",alternativePaths:"Einfachere / alternative Pfade",conditionsAnotherPath:"Bedingungen / Maßnahmen für einen anderen Pfad"
 }}
 const modules=[
@@ -397,8 +397,8 @@ q("M2.4",2,"","To what extent can the identified gaps or burdens be feasibly add
 q("M3.1",3,"","Which additional business-value dimensions are expected from the advancement scenario compared with the comparison reference?",
 "Welche zusätzlichen Business-Value-Dimensionen werden vom Weiterentwicklungsszenario gegenüber der Vergleichsreferenz erwartet?",
 [["decision","Decision quality / relevance","Entscheidungsqualität / -relevanz"],["quality","Forecast / output quality","Forecast- / Outputqualität"],["speed","Processing / decision speed","Verarbeitungs- / Entscheidungsgeschwindigkeit"],["workload","Manual workload","Manueller Aufwand"],["timeliness","Frequency / timeliness","Frequenz / Rechtzeitigkeit"],["granularity","Granularity","Granularität"],["reliability","Consistency / reliability","Konsistenz / Zuverlässigkeit"],["scalability","Scalability","Skalierbarkeit"],["transparency","Transparency / traceability","Transparenz / Nachvollziehbarkeit"],["risk","Risk reduction","Risikoreduktion"],["cost","Avoided cost / opportunity loss","Vermiedene Kosten / Opportunitätsverluste"],["other","Other / not represented","Sonstiges / nicht abgebildet"],["no_value","No additional value","Kein zusätzlicher Nutzen"],["cannot","Cannot assess","Kann ich nicht beurteilen"]],
-"Use the relevant reference from Module 2. Select a dimension only where the expected improvement has a decision-relevant business consequence.",
-"Verwenden Sie die relevante Referenz aus Modul 2. Wählen Sie eine Dimension nur dann aus, wenn die erwartete Verbesserung eine entscheidungsrelevante geschäftliche Wirkung hat.",
+"Use the comparison reference established in Module 2. If M2.4 identified a feasible lower-complexity improvement or alternative as Fully or Partly available, use that strongest feasible lower-complexity path as the comparison reference for Module 3. Select a dimension only where the expected improvement has a decision-relevant business consequence.",
+"Verwenden Sie die in Modul 2 festgelegte Vergleichsreferenz. Wenn M2.4 einen machbaren weniger komplexen Verbesserungs- oder Alternativpfad als vollständig oder teilweise verfügbar identifiziert hat, verwenden Sie diesen stärksten machbaren weniger komplexen Pfad als Vergleichsreferenz für Modul 3. Wählen Sie eine Dimension nur dann aus, wenn die erwartete Verbesserung eine entscheidungsrelevante geschäftliche Wirkung hat.",
 [],[],()=>true,true),
 q("M3.2",3,"","What is the strongest evidence basis currently available for the expected additional business value?",
 "Welche stärkste Evidenzbasis liegt derzeit für den erwarteten zusätzlichen Business Value vor?",
@@ -631,7 +631,7 @@ function renderModule(){
  finishBtn.classList.toggle("hidden",!diagnosticMode);
  const continueBtn=document.getElementById("continueBtn");
  continueBtn.textContent=diagnosticMode?T[lang].continueDiagnostic:T[lang].continue;
- continueBtn.disabled=!moduleCompleteState;
+ continueBtn.disabled=!moduleCompleteState && !diagnosticMode;
 }
 function fillList(id,items,emptyText=""){
  const el=document.getElementById(id); if(!el)return; el.innerHTML="";
